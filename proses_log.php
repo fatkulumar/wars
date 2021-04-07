@@ -19,7 +19,7 @@
             $_SESSION["email"] = $email_user; 
             $_SESSION["password"] = $password_hash;
             $_SESSION["nama"] = $nama_user;
-            header("Location: admin/adminlte");
+            header("Location: admin");
             echo $_SESSION["email"];
         }else{
             echo "gagal daftar";
@@ -35,21 +35,21 @@
                     $_SESSION["email"] = $row_login["email_user"];
                     $_SESSION["password"] = $row_login["password_user"];
                     $_SESSION["nama"] = $row_login["nama_user"];
-                    header("Location: admin/adminlte");
+                    header("Location: admin");
                 }
             }elseif($row_login["level"] == 1 &&  $email_login == $row_login["email_user"]) {
                 if(password_verify($password_login, $row_login["password_user"])) {
                     $_SESSION["email"] = $row_login["email_user"];
                     $_SESSION["password"] = $row_login["password_user"];
                     $_SESSION["nama"] = $row_login["nama_user"];
-                    header("Location: user/adminlte");
+                    header("Location: user");
                 }
             }elseif($row_login["level"] == 2 &&  $email_login == $row_login["email_user"]) {
                 if(password_verify($password_login, $row_login["password_user"])) {
                     $_SESSION["email"] = $row_login["email_user"];
                     $_SESSION["password"] = $row_login["password_user"];
                     $_SESSION["nama"] = $row_login["nama_user"];
-                    header("Location: kepala/adminlte");
+                    header("Location: kepala");
                 }
             }
         }
