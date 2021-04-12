@@ -20,6 +20,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="../adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../adminlte/dist/css/adminlte.min.css">
+
+  <!-- sweetalert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+  <!-- jquery -->
+  <script src="../jquery/jquery.min.js"></script>
+
+  <script>
+    function alert(pesan) {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'success',
+        title: pesan
+        })
+    }
+</script>
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -111,13 +140,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?users" class="nav-link active">
+                <a href="index.php?table_users" class="nav-link <?php if(isset($_GET["table_users"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?table_pembayaran" class="nav-link">
+                <a href="index.php?table_pembayaran" class="nav-link <?php if(isset($_GET["table_pembayaran"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pembayaran</p>
                 </a>
@@ -135,19 +164,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?table_anak" class="nav-link active">
+                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Anak</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?table_wali" class="nav-link">
+                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Wali/Ayah</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?table_ibu" class="nav-link">
+                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ibu</p>
                 </a>
@@ -225,7 +254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
       <div class="container-fluid">
       <?php
-        if(isset($_GET["users"])) {
+        if(isset($_GET["table_users"])) {
           include "form/table_users.php";
         }elseif(isset($_GET["table_pembayaran"])){
           include "form/table_pembayaran.php";
@@ -237,12 +266,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/table_wali.php";
         }elseif(isset($_GET["table_ibu"])){
           include "form/table_ibu.php";
+        }elseif(isset($_GET["tambah_ibu"])){
+          include "form/tambah_ibu.php";
+        }elseif(isset($_GET["edit_ibu"])){
+          include "form/edit_ibu.php";
         }elseif(isset($_GET["edit_pembayaran"])){
           include "form/edit_pembayaran.php";
         }elseif(isset($_GET["edit_users"])){
           include "form/edit_users.php";
         }elseif(isset($_GET["tambah_pembayaran"])){
           include "form/tambah_pembayaran.php";
+        }elseif(isset($_GET["tambah_anak"])){
+          include "form/tambah_anak.php";
+        }elseif(isset($_GET["edit_anak"])){
+          include "form/edit_anak.php";
+        }elseif(isset($_GET["tambah_wali"])){
+          include "form/tambah_wali.php";
+        }elseif(isset($_GET["edit_wali"])){
+          include "form/edit_wali.php";
         }
       ?>
       </div>
@@ -286,6 +327,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <link rel="stylesheet" href="../datatables/jquery.dataTables.min.css">
 <script src="../datatables/jquery.dataTables.min.js"></script>
+
+
 
 <script>
     $(document).ready( function () {

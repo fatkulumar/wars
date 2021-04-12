@@ -11,6 +11,21 @@
 
     <?php endif; ?>
 
+    <?php if(isset($_SESSION["alert_edit"])): ?>
+        <script>alert("Berhasil Edit Wali")</script>
+        <?php unset($_SESSION["alert_edit"]) ?>
+    <?php endif; ?>
+
+    <?php if(isset($_SESSION["alert_tambah"])): ?>
+        <script>alert("Berhasil Tambah Wali")</script>
+        <?php unset($_SESSION["alert_tambah"]) ?>
+    <?php endif; ?>
+
+    <?php if(isset($_SESSION["alert_hapus"])): ?>
+        <script>alert("Berhasil Hapus Wali")</script>
+        <?php unset($_SESSION["alert_hapus"]) ?>
+    <?php endif; ?>
+
     <div class="card">
         
         <div class="card-header bg-primary">
@@ -21,7 +36,7 @@
                     </h1>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_user"><i class="fa fa-plus"></i></a>
+                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_wali"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>
@@ -32,9 +47,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Anak</th>
                             <th>Nama Ayah</th>
-                            <th>Nama Ibu</th>
                             <th>Tempat Lahir</th>
                             <th>Tanggal Lahir</th>
                             <th>Pendidikan</th>
@@ -54,14 +67,12 @@
                         <?php 
                             include "../koneksi.php";
                             $no = 1;
-                            $sql_wali = mysqli_query($koneksi, "SELECT * FROM tb_wali w JOIN tb_anak a ON w.id_anak_wali = a.id_wali_anak JOIN tb_ibu i ON i.id_wali_ibu = w.id_wali");
+                            $sql_wali = mysqli_query($koneksi, "SELECT * FROM tb_wali");
                             while($row = mysqli_fetch_array($sql_wali)):
                         ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $row["nama_anak"] ?></td>
                             <td><?= $row["nama_wali"] ?></td>
-                            <td><?= $row["nama_ibu"] ?></td>
                             <td><?= $row["tempat_lahir_wali"] ?></td>
                             <td><?= $row["tgl_lahir_wali"] ?></td>
                             <td><?= $row["pendidikan_wali"] ?></td>
@@ -75,7 +86,7 @@
                             <td><?= $row["golongan_darah_wali"] ?></td>
                             <td><?= $row["alamat_rumah_wali"] ?></td>
                             <td>
-                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> </a><a class="btn btn-sm btn-primary" href=""><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-sm btn-danger" href="proses/proses.php?hapus_wali=<?= $row["id_wali"] ?>"><i class="fa fa-trash"></i></a><a class="btn btn-sm btn-primary" href="index.php?edit_wali=<?= $row["id_wali"] ?>"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
 

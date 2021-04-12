@@ -1,8 +1,8 @@
 
 
 <!-- <script src="../sweetalert/sweetalert.min.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
+<!-- <script>
     function alert(pesan) {
         const Toast = Swal.mixin({
         toast: true,
@@ -21,7 +21,7 @@
         title: pesan
         })
     }
-</script>
+</script> -->
 
 <div class="container">
     <?php if(isset($_SESSION["alert"])): ?>
@@ -60,7 +60,7 @@
                     </h1>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_user">Tambah</a>
+                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_user"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>

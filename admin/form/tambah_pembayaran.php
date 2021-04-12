@@ -48,7 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="nama_pembayaran">Bukti TF</label>
-                            <input class="form-control" type="text" name="nama_pembayaran">
+                            <input class="form-control" type="file" name="nama_pembayaran">
                         </div>
                     </div>
 

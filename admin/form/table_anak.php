@@ -21,10 +21,25 @@
                     </h1>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_anak">Tambah</a>
+                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_anak"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>
+
+        <?php if(isset($_SESSION["alert_edit"])): ?>
+        <script>alert("Berhasil Edit Anak")</script>
+        <?php unset($_SESSION["alert_edit"]) ?>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["alert_tambah"])): ?>
+            <script>alert("Berhasil Tambah Anak")</script>
+            <?php unset($_SESSION["alert_tambah"]) ?>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["alert_hapus"])): ?>
+            <script>alert("Berhasil Hapus Anak")</script>
+            <?php unset($_SESSION["alert_hapus"]) ?>
+        <?php endif; ?>
 
         <div class="card-body">
             <div class="table table-responsive">
@@ -32,9 +47,9 @@
                     <thead>
                         <tr>
                             <td>No</td>
+                            <td>Nama Anak</td>
                             <td>Ayah Anak</td>
                             <td>Ibu Anak</td>
-                            <td>Nama Anak</td>
                             <td>Jenis Kelamin</td>
                             <td>Tempat Lahir</td>
                             <td>Tanggal Lahir</td>
@@ -55,14 +70,14 @@
                         <?php
                             include "../koneksi.php";
                             $no = 1;
-                            $sql_anak = mysqli_query($koneksi, "SELECT * FROM tb_anak a JOIN tb_wali w ON w.id_anak_wali = a.id_wali_anak JOIN tb_ibu i ON i.id_anak_ibu = a.id_anak");
+                            $sql_anak = mysqli_query($koneksi, "SELECT * FROM tb_anak a JOIN tb_wali w ON w.id_wali = a.id_wali_anak JOIN tb_ibu i ON i.id_ibu = a.id_ibu_anak");
                             while($row = mysqli_fetch_array($sql_anak)):
                         ?>
                         <tr>
                             <td><?= $no++ ?></td>
+                            <td><?= $row["nama_anak"] ?></td>
                             <td><?= $row["nama_wali"]?></td>
                             <td><?= $row["nama_ibu"]?></td>
-                            <td><?= $row["nama_anak"] ?></td>
                             <td><?= $row["jenis_kelamin_anak"] ?></td>
                             <td><?= $row["tempat_lahir_anak"] ?></td>
                             <td><?= $row["tgl_lahir_anak"] ?></td>
@@ -75,9 +90,9 @@
                             <td><?= $row["golongan_darah_anak"] ?></td>
                             <td><?= $row["riwayat_penyakit_anak"] ?></td>
                             <td><?= $row["alamat_rumah_anak"] ?></td>
-                            <td><?= $row["foto_anak"] ?></td>
+                            <td><img width="100px" src="../gambar/<?= $row["foto_anak"] ?>" alt=""></td>
                             <td>
-                                <a class="btn btn-danger" href="#">Hapus</a>
+                                <a onclick="return confirm('Hapus <?= $row['nama_anak'] ?>')" if class="btn btn-sm btn-danger" href="proses/proses.php?hapus_anak=<?= $row["id_anak"] ?>"><i class="fa fa-trash"></i></a><a class="btn btn-sm btn-primary" href="index.php?edit_anak=<?= $row["id_anak"] ?>"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
                             <?php endwhile ?>

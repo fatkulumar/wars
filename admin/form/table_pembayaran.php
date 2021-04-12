@@ -63,6 +63,8 @@
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Bukti TF</th>
+                            <th>Gelombang Ke</th>
+                            <th>Biaya</th>
                             <th style="text-align: center;">Status</th>
                             <th style="text-align: center;">Cetak</th>
                             <th style="text-align: center;">Aksi</th>
@@ -72,7 +74,7 @@
                         <?php 
                             include "../koneksi.php";
                             $no = 1;
-                            $sql_pembayaran = mysqli_query($koneksi, "SELECT nik, nama_user, email_user, id_user_pembayaran, status_pembayaran, tgl_registrasi, nama_pembayaran FROM tb_user u JOIN tb_pembayaran p ON u.id_user = p.id_user_pembayaran");
+                            $sql_pembayaran = mysqli_query($koneksi, "SELECT nik,gelombang_ke, biaya_gelombang, nama_user, email_user, id_user_pembayaran, status_pembayaran, tgl_registrasi, nama_pembayaran FROM tb_user u JOIN tb_pembayaran p ON u.id_user = p.id_user_pembayaran");
                             while($row = mysqli_fetch_array($sql_pembayaran)):
                         ?>
                         <tr>
@@ -80,10 +82,12 @@
                             <td><?= $row["nik"] ?></td>
                             <td><?= $row["nama_user"] ?></td>
                             <td><?= $row["email_user"] ?></td>
-                            <td><?= $row["nama_pembayaran"] ?></td>
+                            <td><img width="100px" src="../../gambar/<?= $row["nama_pembayaran"] ?>" alt=""></td>
+                            <td><?= $row["gelombang_ke"] ?></td>
+                            <td><?= $row["biaya_gelombang"] ?></td>
                             <td style="text-align: center;">
                                 <?php if($row["status_pembayaran"] == 0): ?>
-                                    <i class="fa fa-times-circle"></i>
+                                    <a onclick="return confirm('Lunas <?= $row['nama_user'] ?> ?')" class="btn btn-sm btn-danger" href="#"><i class="fa fa-times-circle"></i></a>
                                 <?php else: ?>
                                     <i class="fa fa-check-circle"></i>
                                 <?php endif ?>
