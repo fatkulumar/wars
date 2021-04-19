@@ -55,25 +55,66 @@
             header("Location: ../index.php?users");
         }
     }elseif(isset($_POST["tambah_pembayaran"])){
-        $id_user_pembayaran = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
-        $nama_user_pembayaran = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
-        $email_user_pembayaran = mysqli_real_escape_string($koneksi, $_POST["email_user"]);
-        $nama_user_pembayaran = mysqli_real_escape_string($koneksi, $_POST["nama_pembayaran"]);
+        $id_user_pembayaran = mysqli_real_escape_string($koneksi, $_POST["nik"]);
+        $jenis_pendidikan_pembayaran = mysqli_real_escape_string($koneksi, $_POST["jenis_pendidikan"]);
+        $gel_ke_pembayaran = mysqli_real_escape_string($koneksi, $_POST["gelombang_ke"]);
 
         $temp = $_FILES['nama_pembayaran']['tmp_name'];
         $name = rand(0,9999).$_FILES['nama_pembayaran']['name'];
         $size = $_FILES['nama_pembayaran']['size'];
         $type = $_FILES['nama_pembayaran']['type'];
         $folder = "../../gambar/";
+        // die();
         if ($size < 2048000 and ($type =='image/jpeg' or $type == 'image/png')) {
             move_uploaded_file($temp, $folder . $name);
-            $sql_insert_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `nama_pembayaran`) VALUES ('$id_user_pembayaran', '$name')");
+            $sql_insert_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `nama_pembayaran`, `gelombang_ke`, `jenis_pendidikan`) VALUES ('$id_user_pembayaran','$name','$gel_ke_pembayaran', '$jenis_pendidikan_pembayaran')");
             $_SESSION["alert_tambah"] = "";
             header("Location: ../index.php?table_pembayaran");
         }else{
             echo "<b>Gagal Upload File</b>";
         }
 
+    }elseif(isset($_POST["edit_pembayaran"])){
+         $id_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["id_pembayaran"]);
+         $id_user_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["nik"]);
+        //  $nama_user_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
+         $gel_ke_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["gelombang_ke"]); 
+         $biaya_gelombang_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_gelombang"]); 
+         echo $jenis_pendidikan_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["jenis_pendidikan"]);
+
+        // die();
+        $temp_pembayaran_edit = $_FILES['nama_pembayaran']['tmp_name'];
+        $name_pembayaran_edit = rand(0,9999).$_FILES['nama_pembayaran']['name'];
+        $size_pembayaran_edit = $_FILES['nama_pembayaran']['size'];
+        $type_pembayaran_edit = $_FILES['nama_pembayaran']['type'];
+        $folder_pembayaran_edit = "../../gambar/";
+
+        $sql_select_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM `tb_pembayaran` WHERE `id_pembayaran` = '$id_pembayaran_edit'");
+        $bukti = mysqli_fetch_array($sql_select_pembayaran);
+        
+        if($temp_pembayaran_edit == null){
+            $name_pembayaran_edit = $bukti["nama_pembayaran"];
+            mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `id_user_pembayaran`='$id_user_pembayaran_edit',`jenis_pendidikan`='$jenis_pendidikan_pembayaran_edit', `nama_pembayaran`='$name_pembayaran_edit',`gelombang_ke`='$gel_ke_pembayaran_edit',`biaya_gelombang`='$biaya_gelombang_pembayaran_edit' WHERE `id_pembayaran` = '$id_pembayaran_edit'");
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?table_pembayaran");
+        }
+        if ($size_pembayaran_edit < 2048000 and ($type_pembayaran_edit =='image/jpeg' or $type_pembayaran_edit == 'image/png')) {
+            move_uploaded_file($temp_pembayaran_edit, $folder_pembayaran_edit . $name_pembayaran_edit);
+            $sql_edit_pembayaran = mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `id_user_pembayaran`='$id_user_pembayaran_edit',`nama_pembayaran`='$name_pembayaran_edit',`gelombang_ke`='$gel_ke_pembayaran_edit',`gelombang_ke`='$gel_ke_pembayaran_edit', `biaya_gelombang`='$biaya_gelombang_pembayaran_edit' WHERE `id_pembayaran` = '$id_pembayaran_edit'");
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?table_pembayaran");
+        }else{
+            echo "<b>Gagal Upload File</b>";
+        }
+    }elseif(isset($_GET["hapus_pembayaran"])) {
+        $id_pembayaran_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_pembayaran"]);
+        $sql_pembayaran_hapus = mysqli_query($koneksi, "DELETE FROM `tb_pembayaran` WHERE `id_pembayaran` = '$id_pembayaran_hapus'");
+        if($sql_pembayaran_hapus){
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_pembayaran");
+        }else{
+            echo "gagal hapus pembayaran";
+        }
     }elseif(isset($_POST["tambah_anak"])){
         $id_wali_anak = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
         $id_ibu_anak = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
@@ -257,7 +298,7 @@
             echo "Gagal Tambah Wali";
         }
     }elseif(isset($_POST["edit_ibu"])){
-        echo $id_ibu_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
+        $id_ibu_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
         $id_wali_ibu_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali_ibu"]);
         $nama_ibu_edit = mysqli_real_escape_string($koneksi, $_POST["nama_ibu"]);
         $tempat_lahir_ibu_edit = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_ibu"]);
@@ -281,4 +322,126 @@
         }else{
             echo "Gagal Edit Ibu";
         }
-    }   
+    }elseif(isset($_POST["tambah_pendaftaran"])){
+        $gel_ke_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["gel_ke"]);
+        $pendidikan_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["pendidikan"]);
+        $tgl_gel1_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tgl_gel1"]);
+        $tgl_gel2_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tgl_gel2"]);
+        $biaya_formulir_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir"]);
+        $dpp_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["dpp"]);
+        $uang_kegiatan_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["uang_kegiatan"]);
+        $uang_buku_pertahun_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["uang_buku_pertahun"]);
+        $uang_seragam_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["uang_seragam"]);
+        $spp_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["spp"]);
+
+        $sql_insert_pendaftaran =  mysqli_query($koneksi, "INSERT INTO `tb_daftar_biaya_tk_kb`(`gel_ke`, `pendidikan`, `tgl_gel1`, `tgl_gel2`, `biaya_formulir`, `dpp`, `uang_kegiatan`, `uang_buku_pertahun`, `uang_seragam`, `spp`) VALUES ('$gel_ke_pendaftaran_tambah','$pendidikan_pendaftaran_tambah','$tgl_gel1_pendaftaran_tambah','$tgl_gel2_pendaftaran_tambah','$biaya_formulir_pendaftaran_tambah','$dpp_pendaftaran_tambah','$uang_kegiatan_pendaftaran_tambah','$uang_buku_pertahun_pendaftaran_tambah','$uang_seragam_pendaftaran_tambah','$spp_pendaftaran_tambah')");
+
+        if($sql_insert_pendaftaran) {
+            $_SESSION["alert_tambah"] = "";
+            header("Location: ../index.php?table_pendaftaran");
+        }else{
+            echo "Gagal Tambah Pendaftaran";
+        }
+    }elseif(isset($_POST["edit_pendaftaran"])){
+        $id_daftar_biaya_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["id_daftar_biaya"]);
+        $gel_ke_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["gel_ke"]);
+        $pendidikan_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["pendidikan"]);
+        $tgl_gel1_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["tgl_gel1"]);
+        $tgl_gel2_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["tgl_gel2"]);
+        $biaya_formulir_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir"]);
+        $dpp_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["dpp"]);
+        $uang_kegiatan_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["uang_kegiatan"]);
+        $uang_buku_pertahun_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["uang_buku_pertahun"]);
+        $uang_seragam_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["uang_seragam"]);
+        $spp_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["spp"]);
+
+        $sql_edit_biaya_pendaftaran = mysqli_query($koneksi, "UPDATE `tb_daftar_biaya_tk_kb` SET `gel_ke`= '$gel_ke_pendaftaran_edit',`pendidikan`='$pendidikan_pendaftaran_edit',`tgl_gel1`='$tgl_gel1_pendaftaran_edit',`tgl_gel2`='$tgl_gel2_pendaftaran_edit',`biaya_formulir`='$biaya_formulir_pendaftaran_edit',`dpp`='$dpp_pendaftaran_edit',`uang_kegiatan`='$uang_kegiatan_pendaftaran_edit',`uang_buku_pertahun`='$uang_buku_pertahun_pendaftaran_edit',`uang_seragam`='$uang_seragam_pendaftaran_edit',`spp`='$spp_pendaftaran_edit' WHERE `id_daftar_biaya` = '$id_daftar_biaya_pendaftaran_edit'");
+
+        if($sql_edit_biaya_pendaftaran) {
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?table_pendaftaran");
+        }else{
+            echo "gagal edit pendaftaran";
+        }
+    }elseif(isset($_GET["hapus_pendaftaran"])){
+        $id_daftar_biaya_pendaftaran_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_pendaftaran"]);
+        $sql_hapus_pendaftaran = mysqli_query($koneksi, "DELETE FROM `tb_daftar_biaya_tk_kb` WHERE `id_daftar_biaya` = '$id_daftar_biaya_pendaftaran_hapus'");
+
+        if($sql_hapus_pendaftaran){
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_pendaftaran");
+        }else{
+            echo "Gagal Hapus pendaftaran";
+        }
+    }elseif(isset($_POST["tambah_jadwal_wawancara"])){
+        $jadwal_wawancara_tambah = mysqli_real_escape_string($koneksi, $_POST["jadwal_wawancara"]);
+        $jam_wawancara_tambah = mysqli_real_escape_string($koneksi, $_POST["jam_wawancara"]);
+        $sql_insert_jadwal_wawancara = mysqli_query($koneksi, "INSERT INTO `tb_jadwal_wawancara`(`jadwal_wawancara`, `jam_wawancara`) VALUES ('$jadwal_wawancara_tambah','$jam_wawancara_tambah')");
+        
+        if($sql_insert_jadwal_wawancara){
+            $_SESSION["alert_tambah"] = "";
+            header("Location: ../index.php?table_jadwal_wawancara");
+        }else{
+            echo "Gagal Tambah Jadwal Wawancara";
+        }
+    }elseif(isset($_POST["edit_jadwal_wawancara"])){
+        $id_jadwal_wawancara_edit = mysqli_real_escape_string($koneksi, $_POST["id_jadwal_wawancara"]);
+        $jadwal_wawancara_edit = mysqli_real_escape_string($koneksi, $_POST["jadwal_wawancara"]);
+        $jam_wawancara_edit = mysqli_real_escape_string($koneksi, $_POST["jam_wawancara"]);
+
+        $sql_jadwal_wawancara_edit = mysqli_query($koneksi, "UPDATE `tb_jadwal_wawancara` SET `jadwal_wawancara`='$jadwal_wawancara_edit',`jam_wawancara`='$jam_wawancara_edit' WHERE `id_jadwal_wawancara`='$id_jadwal_wawancara_edit'");
+
+        if($sql_jadwal_wawancara_edit){
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?table_jadwal_wawancara");
+        }else{
+            echo "gagal edit jadwal wawancara";
+        }
+    }elseif(isset($_GET["hapus_jadwal_wawancara"])){
+        $id_jadwal_wawancara_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_jadwal_wawancara"]);
+        $sql_hapus_jadwal_wawancara = mysqli_query($koneksi, "DELETE FROM `tb_jadwal_wawancara` WHERE `id_jadwal_wawancara` = $id_jadwal_wawancara_hapus");
+
+        if($sql_hapus_jadwal_wawancara) {
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_jadwal_wawancara");
+        }else{
+            echo "gagal hapus jadwal wawancara";
+        }
+    }elseif(isset($_POST["edit_profil"])){
+        $id_profil = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
+        echo $nama_user_profil = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
+
+        $temp_user = $_FILES['foto_user']['tmp_name'];
+        echo $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
+        $size_user = $_FILES['foto_user']['size'];
+        $type_user = $_FILES['foto_user']['type'];
+        $folder_user = "../../gambar/";
+        
+        // die();
+        $sql_user = mysqli_query($koneksi, "SELECT foto_user FROM tb_user WHERE `id_user` = '$id_profil'");
+        $row_profil = mysqli_fetch_array($sql_user);
+        $foto_profil = $row_profil["foto_user"];
+        if($temp_user == null){
+            $sql_edit_profil = mysqli_query($koneksi, "UPDATE `tb_user` SET `nama_user`='$nama_user_profil',`foto_user`='$name_foto_user' WHERE `id_user` = '$id_profil'");
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?profil");
+        }
+
+        if ($size_user < 2048000 and ($type_user =='image/jpeg' or $type_user == 'image/png')) {
+            move_uploaded_file($temp_user, $folder_user . $name_foto_user);
+            
+            $sql_edit_profil = mysqli_query($koneksi, "UPDATE `tb_user` SET `nama_user`='$nama_user_profil',`foto_user`='$name_foto_user' WHERE `id_user` = '$id_profil'");
+            if($sql_edit_profil){
+                echo "berhasil";
+            }else{
+                echo "gagal";
+            }
+
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?profil");
+        }else{
+            echo "<b>Gagal Upload File</b>";
+        }
+    }
+
+    

@@ -1,6 +1,10 @@
 <?php 
   session_start();
   include "../koneksi.php";
+  $id = $_SESSION["id"];
+  $sql_select_user = mysqli_query($koneksi, "SELECT `nama_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id'");
+  $row_user = mysqli_fetch_array($sql_select_user);
+  
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
+  <title>AdminLTE 3 | Admin</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -74,10 +78,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="fas fa-cog"></i>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a style="padding-left: 17px;" href="../../logout.php"><i class="fas fa-envelope mr-2"></i> Logout </a>
-          
+        <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
+        <div class="dropdown-menu">
+          <div>
+            <a style="padding-left: 17px;" href="index.php?profil"><i class="fas fa-envelope mr-2"></i>Profil</a>
+          </div>
+          <div>
+            <a style="padding-left: 17px;" href="../logout.php"><i class="fas fa-envelope mr-2"></i>Logout</a>
+          </div>
         </div>
+        
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -96,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index.php" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -106,10 +116,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="../gambar/<?= $row_user["foto_user"]; ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="index.php?profil" class="d-block"><?= $row_user["nama_user"]; ?></a>
         </div>
       </div>
 
@@ -194,21 +204,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="index.php?table_pendaftaran" class="nav-link <?php if(isset($_GET["table_pendaftaran"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tgl Pendaftaran</p>
+                  <p>Pendaftaran</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="index.php?table_jadwal_wawancara" class="nav-link <?php if(isset($_GET["table_jadwal_wawancara"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Biaya</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Waktu Wawancara</p>
+                  <p>Jadwal Wawancara</p>
                 </a>
               </li>
             </ul>
@@ -284,6 +288,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/tambah_wali.php";
         }elseif(isset($_GET["edit_wali"])){
           include "form/edit_wali.php";
+        }elseif(isset($_GET["table_pendaftaran"])){
+          include "form/table_pendaftaran.php";
+        }elseif(isset($_GET["tambah_pendaftaran"])){
+          include "form/tambah_pendaftaran.php";
+        }elseif(isset($_GET["edit_pendaftaran"])){
+          include "form/edit_pendaftaran.php";
+        }elseif(isset($_GET["table_jadwal_wawancara"])){
+          include "form/table_jadwal_wawancara.php";
+        }elseif(isset($_GET["tambah_jadwal_wawancara"])){
+          include "form/tambah_jadwal_wawancara.php";
+        }elseif(isset($_GET["edit_jadwal_wawancara"])){
+          include "form/edit_jadwal_wawancara.php";
+        }elseif(isset($_GET["profil"])){
+          include "form/profil.php";
+        }elseif(isset($_GET["edit_profil"])){
+          include "form/edit_profil.php";
+        }else{
+          include "form/welcome.php";
         }
       ?>
       </div>
@@ -332,8 +354,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script>
     $(document).ready( function () {
-    $('#table_user').DataTable();
-} );
+      $('#table_user').DataTable();
+    });
+
+    function save_pembayaran(id)
+    {
+      var biaya = $("#biaya_gelombang"+id).val()
+      $('#modalPembayaran'+id).modal('hide')
+      $.ajax({
+        url: "proses/ajax_pembayaran.php",
+        data: {"id": id, "biaya_gelombang": biaya },
+        type: "POST",
+        dataType: "JSON",
+        success: function(data) {
+          $('#'+id).html(data)
+        }
+      })
+    }
+
+    
 
 </script>
 </body>

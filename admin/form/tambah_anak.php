@@ -147,7 +147,7 @@
                         <div class="form-group">
                             <label for="foto_anak">Foto Anak</label>
                             <input class="form-control" type="file" name="foto_anak" id="foto_anak">
-                            <img src="proses/gambar/<?= $row_anak["foto_anak"] ?>" id="gambar_nodin" width="400" alt="Preview Gambar" />
+                            <img src="../gambar/<?= $row_anak["foto_anak"] ?>" id="gambar_nodin" width="400" alt="Preview Gambar" />
                         </div>
                     </div>
 

@@ -1,5 +1,4 @@
 <?php
-    include "../koneksi.php";
     $id = $_GET["edit_users"];
     $sql_users = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id_user = '$id'");
     $row = mysqli_fetch_array($sql_users);

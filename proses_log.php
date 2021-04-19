@@ -10,7 +10,7 @@
 
         $password_hash = password_hash($password_user, PASSWORD_DEFAULT);
 
-        $sql_insert_users = mysqli_query($koneksi, "INSERT INTO `tb_user`(`nik`, `nama_user`, `email_user`, `password_user`, `tgl_registrasi`) VALUES ('$nik_user','$nama_user', '$email_user', '$password_hash', '$timestamp_user')");
+        $sql_insert_users = mysqli_query($koneksi, "INSERT INTO `tb_user`(`nik`, `nama_user`, `email_user`, `password_user`,`foto_user`, `tgl_registrasi`) VALUES ('$nik_user','$nama_user', '$email_user', '$password_hash', '$timestamp_user')");
 
         $sql_select_user = mysqli_query($koneksi, "SELECT level FROM `tb_user`");
         $row = mysqli_fetch_array($sql_select_user);
@@ -19,6 +19,7 @@
             $_SESSION["email"] = $email_user; 
             $_SESSION["password"] = $password_hash;
             $_SESSION["nama"] = $nama_user;
+            $_SESSION["foto"] = $row["foto_user"];
             header("Location: admin");
             echo $_SESSION["email"];
         }else{
@@ -35,20 +36,28 @@
                     $_SESSION["email"] = $row_login["email_user"];
                     $_SESSION["password"] = $row_login["password_user"];
                     $_SESSION["nama"] = $row_login["nama_user"];
+                    $_SESSION["foto"] = $row_login["foto_user"];
+                    $_SESSION["id"] = $row_login["id_user"];
                     header("Location: admin");
                 }
-            }elseif($row_login["level"] == 1 &&  $email_login == $row_login["email_user"]) {
+            }
+            if($row_login["level"] == 1 &&  $email_login == $row_login["email_user"]) {
                 if(password_verify($password_login, $row_login["password_user"])) {
                     $_SESSION["email"] = $row_login["email_user"];
                     $_SESSION["password"] = $row_login["password_user"];
                     $_SESSION["nama"] = $row_login["nama_user"];
+                    $_SESSION["foto"] = $row_login["foto_user"];
+                    $_SESSION["id"] = $row_login["id_user"];
                     header("Location: user");
                 }
-            }elseif($row_login["level"] == 2 &&  $email_login == $row_login["email_user"]) {
+            }
+            if($row_login["level"] == 2 &&  $email_login == $row_login["email_user"]) {
                 if(password_verify($password_login, $row_login["password_user"])) {
                     $_SESSION["email"] = $row_login["email_user"];
                     $_SESSION["password"] = $row_login["password_user"];
                     $_SESSION["nama"] = $row_login["nama_user"];
+                    $_SESSION["foto"] = $row_login["foto_user"];
+                    $_SESSION["id"] = $row_login["id_user"];
                     header("Location: kepala");
                 }
             }

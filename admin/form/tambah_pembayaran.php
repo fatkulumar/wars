@@ -13,7 +13,7 @@
         <div class="card-body">
 
             <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="id_user">
+            <!-- <input type="hidden" name="id_user"> -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -31,19 +31,39 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div class="form-group">
                             <label for="nama_user">Nama</label>
                             <input class="form-control" type="text" name="nama_user" required>
                         </div>
+                    </div> -->
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="gelombang_ke">Gelombang</label>
+                            <select class="form-control" name="gelombang_ke" id="">
+                                    <option value="">Pilih Gelombang</option>
+                                    <?php
+                                        $sql_daftar = mysqli_query($koneksi, "SELECT `id_daftar_biaya`, `gel_ke` FROM `tb_daftar_biaya_tk_kb`");
+                                        while($row_daftar = mysqli_fetch_array($sql_daftar)):
+                                    ?>
+                                    <option value="<?= $row_daftar['gel_ke'] ?>"><?= $row_daftar["gel_ke"] ?></option>
+                                    <?php endwhile ?>
+                            </select>
+                        </div>
                     </div>
 
-                    <!-- <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email_user">Email</label>
-                            <input class="form-control" type="text" name="email_user" required>
+                            <label for="jenis_pendidikan">Jenis Pendidikan</label>
+                            <select class="form-control" name="jenis_pendidikan">
+                                <option value="">Pilih</option>
+                                <option value="tk">TK</option>
+                                <option value="kb">KB</option>
+                                <option value="tpa">TPA</option>
+                            </select>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
