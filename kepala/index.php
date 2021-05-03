@@ -53,10 +53,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </script>
 
 
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+
+
+<!-- <script>
+  alert("umar")
+</script> -->
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -151,83 +155,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?table_users" class="nav-link <?php if(isset($_GET["table_users"])) {echo "active";} ?>">
+                <a href="index.php?table_grafik_tk" class="nav-link <?php if(isset($_GET["table_grafik_tk"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Users</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_pembayaran" class="nav-link <?php if(isset($_GET["table_pembayaran"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pembayaran</p>
+                  <p>Grafik TK</p>
                 </a>
               </li>
             </ul>
           </li>
-
-          <li class="nav-item menu-close">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Biodata
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Anak</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Wali/Ayah</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ibu</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item menu-close">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-wrench"></i>
-              <p>
-                Atur
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php?table_pendaftaran" class="nav-link <?php if(isset($_GET["table_pendaftaran"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pendaftaran</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_jadwal_wawancara" class="nav-link <?php if(isset($_GET["table_jadwal_wawancara"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Jadwal Wawancara</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li> -->
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -259,54 +193,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content">
       <div class="container-fluid">
       <?php
-        if(isset($_GET["table_users"])) {
-          include "form/table_users.php";
-        }elseif(isset($_GET["table_pembayaran"])){
-          include "form/table_pembayaran.php";
-        }elseif(isset($_GET["tambah_user"])){
-          include "form/tambah_user.php";
-        }elseif(isset($_GET["table_anak"])){
-          include "form/table_anak.php";
-        }elseif(isset($_GET["table_wali"])){
-          include "form/table_wali.php";
-        }elseif(isset($_GET["table_ibu"])){
-          include "form/table_ibu.php";
-        }elseif(isset($_GET["tambah_ibu"])){
-          include "form/tambah_ibu.php";
-        }elseif(isset($_GET["edit_ibu"])){
-          include "form/edit_ibu.php";
-        }elseif(isset($_GET["edit_pembayaran"])){
-          include "form/edit_pembayaran.php";
-        }elseif(isset($_GET["edit_users"])){
-          include "form/edit_users.php";
-        }elseif(isset($_GET["tambah_pembayaran"])){
-          include "form/tambah_pembayaran.php";
-        }elseif(isset($_GET["tambah_anak"])){
-          include "form/tambah_anak.php";
-        }elseif(isset($_GET["edit_anak"])){
-          include "form/edit_anak.php";
-        }elseif(isset($_GET["tambah_wali"])){
-          include "form/tambah_wali.php";
-        }elseif(isset($_GET["edit_wali"])){
-          include "form/edit_wali.php";
-        }elseif(isset($_GET["table_pendaftaran"])){
-          include "form/table_pendaftaran.php";
-        }elseif(isset($_GET["tambah_pendaftaran"])){
-          include "form/tambah_pendaftaran.php";
-        }elseif(isset($_GET["edit_pendaftaran"])){
-          include "form/edit_pendaftaran.php";
-        }elseif(isset($_GET["table_jadwal_wawancara"])){
-          include "form/table_jadwal_wawancara.php";
-        }elseif(isset($_GET["tambah_jadwal_wawancara"])){
-          include "form/tambah_jadwal_wawancara.php";
-        }elseif(isset($_GET["edit_jadwal_wawancara"])){
-          include "form/edit_jadwal_wawancara.php";
-        }elseif(isset($_GET["profil"])){
+        if(isset($_GET["profil"])){
           include "form/profil.php";
         }elseif(isset($_GET["edit_profil"])){
           include "form/edit_profil.php";
-        }else{
-          include "form/welcome.php";
+        }elseif(isset($_GET["table_grafik_tk"])){
+          include "form/table_grafik_tk.php";
         }
       ?>
       </div>
@@ -328,6 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Footer -->
   <footer class="main-footer">
+  <div id="result"></div>
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
       Anything you want
@@ -354,24 +247,64 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 <script>
-    $(document).ready( function () {
-      $('#table_user').DataTable();
-    });
+    // $(document).ready( function () {
+    //   $('#table_user').DataTable();
+    // });
 
-    function save_pembayaran(id)
-    {
-      var biaya = $("#biaya_gelombang"+id).val()
-      $('#modalPembayaran'+id).modal('hide')
-      $.ajax({
-        url: "proses/ajax_pembayaran.php",
-        data: {"id": id, "biaya_gelombang": biaya },
-        type: "POST",
-        dataType: "JSON",
-        success: function(data) {
-          $('#'+id).html(data)
-        }
-      })
-    }
+    // function save_pembayaran(id)
+    // {
+    //   var biaya = $("#biaya_gelombang"+id).val()
+    //   $('#modalPembayaran'+id).modal('hide')
+    //   $.ajax({
+    //     url: "proses/ajax_pembayaran.php",
+    //     data: {"id": id, "biaya_gelombang": biaya },
+    //     type: "POST",
+    //     dataType: "JSON",
+    //     success: function(data) {
+    //       $('#'+id).html(data)
+    //     }
+    //   })
+    // }
+
+    // function displayRadioValue() {
+    //         var ele = document.getElementsByName('id_jadwal_wawancara_wawancara');
+              
+    //         for(i = 0; i < ele.length; i++) {
+    //             if(ele[i].checked==true)
+    //             // document.getElementById("result").innerHTML
+    //             //         = "Gender: "+ele[i].value;
+    //                     // console.log(ele[i].value)
+    //                     var c = ele[i].value
+    //                     alert(c)
+    //         }
+    //     }
+
+    // function modalWawancara(id){
+    //   $('#exampleModalWawancara').modal('show')
+    // }
+
+    // function save_wawancara(id){
+
+    //   var ele = document.getElementsByName('id_jadwal_wawancara_wawancara');
+              
+    //         for(i = 0; i < ele.length; i++) {
+    //             if(ele[i].checked==true)
+    //               var id_jadwal_wawancara_wawancara = ele[i].value
+    //         }
+    //   $.ajax({
+    //     url: "proses/ajax_wawancara.php",
+    //     type: "POST",
+    //     data: {"id_wawancara_wawancara" : id_jadwal_wawancara_wawancara, "id_user_wawancara" : id},
+    //     dataType: "JSON",
+    //     success: function(data) {
+    //       var jadwal_wawancara = data[0].jadwal_wawancara
+    //       var jam_wawancara = data[0].jam_wawancara
+    //       alert(jadwal_wawancara)
+    //       $('#jadwal').html(jadwal_wawancara + " " + jam_wawancara )
+    //       $('#exampleModalWawancara').modal('hide')
+    //     }
+    //   })
+    // }
 
     
 

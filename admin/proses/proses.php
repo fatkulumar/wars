@@ -422,7 +422,7 @@
         $row_profil = mysqli_fetch_array($sql_user);
         $foto_profil = $row_profil["foto_user"];
         if($temp_user == null){
-            $sql_edit_profil = mysqli_query($koneksi, "UPDATE `tb_user` SET `nama_user`='$nama_user_profil',`foto_user`='$name_foto_user' WHERE `id_user` = '$id_profil'");
+            $sql_edit_profil = mysqli_query($koneksi, "UPDATE `tb_user` SET `nama_user`='$nama_user_profil',`foto_user`='$foto_profil' WHERE `id_user` = '$id_profil'");
             $_SESSION["alert_edit"] = "";
             header("Location: ../index.php?profil");
         }
