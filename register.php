@@ -8,21 +8,21 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="admin/adminlte/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="admin/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="admin/adminlte/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="admin/adminlte/index2.html"><b>Register</b>LTE</a>
+    <a href=""><b>Register</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Kartika Pradana</p>
 
       <form action="proses_log.php" method="POST">
         
@@ -88,13 +88,13 @@
     <!-- /.login-card-body -->
   </div>
 </div>
-<!-- /.login-box -->
+<!-- /.login-box --> 
 
 <!-- jQuery -->
-<script src="admin/adminlte/plugins/jquery/jquery.min.js"></script>
+<script src="adminlte/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="admin/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="admin/adminlte/dist/js/adminlte.min.js"></script>
+<script src="adminlte/dist/js/adminlte.min.js"></script>
 </body>
 </html>

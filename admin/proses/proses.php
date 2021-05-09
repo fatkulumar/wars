@@ -58,6 +58,7 @@
         $id_user_pembayaran = mysqli_real_escape_string($koneksi, $_POST["nik"]);
         $jenis_pendidikan_pembayaran = mysqli_real_escape_string($koneksi, $_POST["jenis_pendidikan"]);
         $gel_ke_pembayaran = mysqli_real_escape_string($koneksi, $_POST["gelombang_ke"]);
+        $tahun_pembayaran = date('Y');
 
         $temp = $_FILES['nama_pembayaran']['tmp_name'];
         $name = rand(0,9999).$_FILES['nama_pembayaran']['name'];
@@ -67,7 +68,7 @@
         // die();
         if ($size < 2048000 and ($type =='image/jpeg' or $type == 'image/png')) {
             move_uploaded_file($temp, $folder . $name);
-            $sql_insert_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `nama_pembayaran`, `gelombang_ke`, `jenis_pendidikan`) VALUES ('$id_user_pembayaran','$name','$gel_ke_pembayaran', '$jenis_pendidikan_pembayaran')");
+            $sql_insert_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `nama_pembayaran`, `gelombang_ke`, `jenis_pendidikan`, `tahun_pembayaran`) VALUES ('$id_user_pembayaran','$name','$gel_ke_pembayaran', '$jenis_pendidikan_pembayaran', '$tahun_pembayaran)");
             $_SESSION["alert_tambah"] = "";
             header("Location: ../index.php?table_pembayaran");
         }else{
@@ -81,6 +82,7 @@
          $gel_ke_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["gelombang_ke"]); 
          $biaya_gelombang_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_gelombang"]); 
          echo $jenis_pendidikan_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["jenis_pendidikan"]);
+         $tahun_pembayaran_edit = date('Y');
 
         // die();
         $temp_pembayaran_edit = $_FILES['nama_pembayaran']['tmp_name'];
@@ -94,7 +96,7 @@
         
         if($temp_pembayaran_edit == null){
             $name_pembayaran_edit = $bukti["nama_pembayaran"];
-            mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `id_user_pembayaran`='$id_user_pembayaran_edit',`jenis_pendidikan`='$jenis_pendidikan_pembayaran_edit', `nama_pembayaran`='$name_pembayaran_edit',`gelombang_ke`='$gel_ke_pembayaran_edit',`biaya_gelombang`='$biaya_gelombang_pembayaran_edit' WHERE `id_pembayaran` = '$id_pembayaran_edit'");
+            mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `id_user_pembayaran`='$id_user_pembayaran_edit',`jenis_pendidikan`='$jenis_pendidikan_pembayaran_edit', `nama_pembayaran`='$name_pembayaran_edit',`gelombang_ke`='$gel_ke_pembayaran_edit',`biaya_gelombang`='$biaya_gelombang_pembayaran_edit', `tahun_pembayaran` = '$tahun_pembayaran_edit' WHERE `id_pembayaran` = '$id_pembayaran_edit'");
             $_SESSION["alert_edit"] = "";
             header("Location: ../index.php?table_pembayaran");
         }
@@ -217,9 +219,10 @@
             echo "Gagal Hapus Anak";
         }
     }elseif(isset($_POST["tambah_wali"])){
+        $id_user_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
         $nama_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["nama_wali"]);
         $tempat_lahir_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_wali"]);
-        $tgl_lahir_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_wali"]);
+        $tgl_lahir_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["tgl_lahir_wali"]);
         $pendidikan_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["pendidikan_wali"]);
         $agama_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["agama_wali"]);
         $negara_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["negara_wali"]);
@@ -231,7 +234,7 @@
         $golongan_darah_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["golongan_darah_wali"]);
         $alamat_rumah_wali_tambah = mysqli_real_escape_string($koneksi, $_POST["alamat_rumah_wali"]);
 
-        $sql_insert_wali = mysqli_query($koneksi, "INSERT INTO `tb_wali`(`nama_wali`, `tempat_lahir_wali`, `tgl_lahir_wali`, `pendidikan_wali`, `agama_wali`, `negara_wali`, `bangsa_wali`, `pekerjaan_wali`, `penghasilan_wali`, `alamat_kantor_wali`, `hp_kantor_wali`, `golongan_darah_wali`, `alamat_rumah_wali`) VALUES ('$nama_wali_tambah', '$tempat_lahir_wali_tambah', '$tgl_lahir_wali_tambah', '$pendidikan_wali_tambah', '$agama_wali_tambah', '$negara_wali_tambah', '$bangsa_wali_tambah', '$pekerjaan_wali_tambah', '$pendidikan_wali_tambah', '$alamat_kantor_wali_tambah', '$hp_kantor_wali_tambah', '$golongan_darah_wali_tambah', '$alamat_kantor_wali_tambah')");
+        $sql_insert_wali = mysqli_query($koneksi, "INSERT INTO `tb_wali`(`id_user_wali`,`nama_wali`, `tempat_lahir_wali`, `tgl_lahir_wali`, `pendidikan_wali`, `agama_wali`, `negara_wali`, `bangsa_wali`, `pekerjaan_wali`, `penghasilan_wali`, `alamat_kantor_wali`, `hp_kantor_wali`, `golongan_darah_wali`, `alamat_rumah_wali`) VALUES ('$id_user_wali_tambah','$nama_wali_tambah', '$tempat_lahir_wali_tambah', '$tgl_lahir_wali_tambah', '$pendidikan_wali_tambah', '$agama_wali_tambah', '$negara_wali_tambah', '$bangsa_wali_tambah', '$pekerjaan_wali_tambah', '$pendidikan_wali_tambah', '$alamat_kantor_wali_tambah', '$hp_kantor_wali_tambah', '$golongan_darah_wali_tambah', '$alamat_kantor_wali_tambah')");
 
         if($sql_insert_wali){
             $_SESSION["alert_tambah"] = "";
@@ -240,10 +243,11 @@
             echo "Gagal Tambah Wali";
         }
     }elseif(isset($_POST["edit_wali"])){
+        $id_user_wali_edit = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
         $id_wali_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
         $nama_wali_edit = mysqli_real_escape_string($koneksi, $_POST["nama_wali"]);
         $tempat_lahir_wali_edit = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_wali"]);
-        $tgl_lahir_wali_edit = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_wali"]);
+        $tgl_lahir_wali_edit = mysqli_real_escape_string($koneksi, $_POST["tgl_lahir_wali"]);
         $pendidikan_wali_edit = mysqli_real_escape_string($koneksi, $_POST["pendidikan_wali"]);
         $agama_wali_edit = mysqli_real_escape_string($koneksi, $_POST["agama_wali"]);
         $negara_wali_edit = mysqli_real_escape_string($koneksi, $_POST["negara_wali"]);
@@ -255,7 +259,7 @@
         $golongan_darah_wali_edit = mysqli_real_escape_string($koneksi, $_POST["golongan_darah_wali"]);
         $alamat_rumah_wali_edit = mysqli_real_escape_string($koneksi, $_POST["alamat_rumah_wali"]);
 
-        $sql_edit_wali = mysqli_query($koneksi, "UPDATE `tb_wali` SET `nama_wali`='$nama_wali_edit',`tempat_lahir_wali`='$tempat_lahir_wali_edit',`tgl_lahir_wali`='$tgl_lahir_wali_edit',`pendidikan_wali`='$penghasilan_wali_edit',`agama_wali`='$agama_wali_edit',`negara_wali`='$negara_wali_edit',`bangsa_wali`='$bangsa_wali_edit',`pekerjaan_wali`='$pekerjaan_wali_edit',`penghasilan_wali`='$penghasilan_wali_edit',`alamat_kantor_wali`='$alamat_kantor_wali_edit',`hp_kantor_wali`='$hp_kantor_wali_edit',`golongan_darah_wali`='$golongan_darah_wali_edit',`alamat_rumah_wali`='$alamat_rumah_wali_edit' WHERE `id_wali` = '$id_wali_edit'");
+        $sql_edit_wali = mysqli_query($koneksi, "UPDATE `tb_wali` SET `id_user_wali` = '$id_user_wali_edit',`nama_wali`='$nama_wali_edit',`tempat_lahir_wali`='$tempat_lahir_wali_edit',`tgl_lahir_wali`='$tgl_lahir_wali_edit',`pendidikan_wali`='$penghasilan_wali_edit',`agama_wali`='$agama_wali_edit',`negara_wali`='$negara_wali_edit',`bangsa_wali`='$bangsa_wali_edit',`pekerjaan_wali`='$pekerjaan_wali_edit',`penghasilan_wali`='$penghasilan_wali_edit',`alamat_kantor_wali`='$alamat_kantor_wali_edit',`hp_kantor_wali`='$hp_kantor_wali_edit',`golongan_darah_wali`='$golongan_darah_wali_edit',`alamat_rumah_wali`='$alamat_rumah_wali_edit' WHERE `id_wali` = '$id_wali_edit'");
 
         if($sql_edit_wali){
             $_SESSION["alert_edit"] = "";
@@ -277,7 +281,7 @@
         $id_wali_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["id_wali_ibu"]);
         $nama_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["nama_ibu"]);
         $tempat_lahir_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_ibu"]);
-        $tgl_lahir_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_ibu"]);
+        $tgl_lahir_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["tgl_lahir_ibu"]);
         $pendidikan_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["pendidikan_ibu"]);
         $agama_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["agama_ibu"]);
         $negara_ibu_tambah = mysqli_real_escape_string($koneksi, $_POST["negara_ibu"]);

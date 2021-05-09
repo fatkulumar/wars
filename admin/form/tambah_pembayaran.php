@@ -13,6 +13,7 @@
         <div class="card-body">
 
             <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
+            
             <!-- <input type="hidden" name="id_user"> -->
                 <div class="row">
                     <div class="col-md-6">
@@ -31,12 +32,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="nama_user">Nama</label>
-                            <input class="form-control" type="text" name="nama_user" required>
-                        </div>
-                    </div> -->
+
 
                     <div class="col-md-6">
                         <div class="form-group">
@@ -58,9 +54,12 @@
                             <label for="jenis_pendidikan">Jenis Pendidikan</label>
                             <select class="form-control" name="jenis_pendidikan">
                                 <option value="">Pilih</option>
-                                <option value="tk">TK</option>
-                                <option value="kb">KB</option>
-                                <option value="tpa">TPA</option>
+                                <?php 
+                                    $sql_daftar_biaya_tk_kb = mysqli_query($koneksi, "SELECT `pendidikan` FROM `tb_daftar_biaya_tk_kb` GROUP BY `pendidikan`");
+                                    while($row_daftar = mysqli_fetch_array($sql_daftar_biaya_tk_kb)):
+                                ?>
+                                <option value="<?= $row_daftar["pendidikan"] ?>"><?= $row_daftar["pendidikan"] ?></option>
+                                <?php endwhile ?>
                             </select>
                         </div>
                     </div>

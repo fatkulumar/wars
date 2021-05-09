@@ -1,6 +1,6 @@
 <?php
     $id_user = $_SESSION["id"];
-    $sql_user = mysqli_query($koneksi, "SELECT id_user, nama_user, foto_user, nama_wali, nama_anak, id_anak FROM tb_user u JOIN tb_wali w ON u.id_user = w.id_user_wali JOIn tb_anak a ON a.id_wali_anak = w.id_wali");
+    $sql_user = mysqli_query($koneksi, "SELECT id_user, nama_user, foto_user FROM tb_user");
     $row = mysqli_fetch_array($sql_user);
     $row["id_user"];
 ?>
@@ -31,14 +31,6 @@
                 <div class="col-md-6"><table class="table table-bordered"> <tr>
                 <td><strong>Nama</strong></td>
                 <td><?= $row["nama_user"]?></td>
-            </tr>
-            <tr>
-                <td><strong>Nama Ayah</strong></td>
-                <td><?= $row["nama_wali"]?></td>
-            </tr>
-            <tr>
-                <td><strong>Nama Anak</strong></td>
-                <td><?= $row["nama_anak"]?></td>
             </tr>
 
         </table>

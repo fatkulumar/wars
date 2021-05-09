@@ -1,5 +1,10 @@
 <?php 
   session_start();
+
+  if(!isset($_SESSION["id"])){
+    header("Location: ../index.php");
+  }
+  
   include "../koneksi.php";
   $id = $_SESSION["id"];
   $sql_select_user = mysqli_query($koneksi, "SELECT `nama_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id'");
@@ -247,6 +252,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/table_pembayaran.php";
         }elseif(isset($_GET["edit_pembayaran"])){
           include "form/edit_pembayaran.php";
+        }elseif(isset($_GET["tambah_pembayaran"])){
+          include "form/tambah_pembayaran.php";
         }elseif(isset($_GET["tambah_jadwal"])){
           include "form/tambah_jadwal.php";
         }elseif(isset($_GET["table_anak"])){
@@ -265,6 +272,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/profil.php";
         }elseif(isset($_GET["edit_profil"])){
           include "form/edit_profil.php";
+        }else{
+          include "form/welcome.php";
         }
       ?>
       </div>
@@ -350,13 +359,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     }
 
     function save_wawancara(id){
-
+      
       var ele = document.getElementsByName('id_jadwal_wawancara_wawancara');
-              
-            for(i = 0; i < ele.length; i++) {
-                if(ele[i].checked==true)
-                  var id_jadwal_wawancara_wawancara = ele[i].value
-            }
+      
+      var id_jadwal_wawancara_wawancara = []
+      for(i = 0; i < ele.length; i++) {
+        if(ele[i].checked==true)
+        var id_jadwal_wawancara_wawancara = ele[i].value
+      }
       $.ajax({
         url: "proses/ajax_wawancara.php",
         type: "POST",
@@ -365,7 +375,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         success: function(data) {
           var jadwal_wawancara = data[0].jadwal_wawancara
           var jam_wawancara = data[0].jam_wawancara
-          alert(jadwal_wawancara)
+          alert("Berhasil")
+          console.log(data)
           $('#jadwal').html(jadwal_wawancara + " " + jam_wawancara )
           $('#exampleModalWawancara').modal('hide')
         }

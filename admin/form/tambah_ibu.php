@@ -24,7 +24,7 @@
                                     $sql_wali = mysqli_query($koneksi, "SELECT id_wali, nama_wali FROM tb_wali");
                                     while($row_wali = mysqli_fetch_array($sql_wali)):
                                 ?>
-                                    <option value="<?= $row_wali["id_wali"] ?>"><?= $row_wali["id_wali"] ?></option>
+                                    <option value="<?= $row_wali["id_wali"] ?>"><?= $row_wali["nama_wali"] ?></option>
                                 <?php endwhile ?>
                             </select>
                         </div>

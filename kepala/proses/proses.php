@@ -36,7 +36,5 @@
         }else{
             echo "<b>Gagal Upload File</b>";
         }
-    }elseif(isset($_GET["print_tk"])){
-        echo "print tk";
     }
 ?>

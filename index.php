@@ -17,12 +17,12 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="admin/adminlte/index2.html"><b>Login</b>LTE</a>
+    <a href=""><b>Login</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Kartika Pradana</p>
 
       <form action="proses_log.php" method="post">
         <div class="input-group mb-3">
@@ -61,7 +61,7 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <!-- <a href="forgot-password.html">I forgot my password</a> -->
       </p>
       <p class="mb-0">
         <a href="register.php" class="text-center">Register a new membership</a>

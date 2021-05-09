@@ -43,7 +43,7 @@
 
         <div class="card-body">
             <div class="table table-responsive">
-                <table id="table_buku" class="table table-striped">
+                <table id="table_ibu    " class="table table-striped">
                     <thead>
                         <tr>
                             <th>No</th>

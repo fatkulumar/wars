@@ -1,9 +1,16 @@
 <?php 
   session_start();
+
+
+  if(!isset($_SESSION["id"])){
+    header("Location: ../index.php");
+  }
+  
   include "../koneksi.php";
   $id = $_SESSION["id"];
   $sql_select_user = mysqli_query($koneksi, "SELECT `nama_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id'");
   $row_user = mysqli_fetch_array($sql_select_user);
+
   
 ?>
 
@@ -155,7 +162,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?table_grafik_tk" class="nav-link <?php if(isset($_GET["table_grafik_tk"])) {echo "active";} ?>">
+                <a href="index.php?table_grafik" class="nav-link <?php if(isset($_GET["table_grafik"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Grafik TK</p>
                 </a>
@@ -197,8 +204,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/profil.php";
         }elseif(isset($_GET["edit_profil"])){
           include "form/edit_profil.php";
-        }elseif(isset($_GET["table_grafik_tk"])){
-          include "form/table_grafik_tk.php";
+        }elseif(isset($_GET["table_grafik"])){
+          include "form/table_grafik.php";
+        }else{
+          include "form/welcome.php";
         }
       ?>
       </div>

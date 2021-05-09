@@ -1,7 +1,6 @@
 <?php
-    // $sql_wawancara = mysqli_query($koneksi, "SELECT * FROM tb_wawancara w JOIN tb_user u ON w.id_user_wawancara = u.id_user");
     $id = $_SESSION["id"];
-    $sql_wawancara = mysqli_query($koneksi, "SELECT * FROM tb_wawancara w LEFT JOIN tb_jadwal_wawancara j ON w.id_jadwal_wawancara_wawancara = j.id_jadwal_wawancara LEFT JOIN tb_user u ON u.id_user = w.id_user_wawancara");
+    $sql_wawancara = mysqli_query($koneksi, "SELECT * FROM tb_wawancara w RIGHT JOIN tb_jadwal_wawancara j ON w.id_jadwal_wawancara_wawancara = j.id_jadwal_wawancara left JOIN tb_user u ON u.id_user = w.id_user_wawancara");
     $row = mysqli_fetch_array($sql_wawancara);
 ?>
 
@@ -40,7 +39,7 @@
                                     </strong>
                                 </div>
                                 <div class="col-md-6">
-                                    <a target="_blank" class="float-right btn-sm" href="proses/proses.php?cetak_kartu_wawancara"><i style="color: white;" class="fa fa-print" aria-hidden="true"></i></a>
+                                    <a target="_blank" class="float-right btn-sm" href="proses/pdf_jadwal.php?print_jadwal=<?= $id ?>"><i style="color: white;" class="fa fa-print" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -81,6 +80,7 @@
   </div>
 </div>
 
+<!-- ajax ada di file ../index.php -->
 <script>
     // $('#save_wawancara').on('click', function(){
     //     var id = <?php echo $id ?>
@@ -93,3 +93,4 @@
     // }
 </script>
 
+ 

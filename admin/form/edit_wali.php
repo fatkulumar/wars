@@ -21,6 +21,21 @@
             <form action="proses/proses.php" method="POST">
                 <input type="hidden" name="id_wali" value="<?= $id ?>">
                 <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="id_user">NIK</label>
+                            <select class="form-control" name="id_user" required>
+                                <option value="">Pilih NIK</option>
+                                <?php 
+                                    $sql_user = mysqli_query($koneksi, "SELECT `nik`, `id_user` FROM `tb_user`");
+                                    while($row_user = mysqli_fetch_array($sql_user)):
+                                ?>
+                                    <option value="<?= $row_user["id_user"] ?>"><?= $row_user["nik"] ?></option>
+                                <?php endwhile ?>
+                            </select>
+                        </div>
+                    </div>
                     
                     <div class="col-md-6">
                         <div class="form-group">

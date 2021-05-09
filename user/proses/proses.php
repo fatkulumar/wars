@@ -4,9 +4,10 @@
     if(isset($_GET["cetak_kartu_wawancara"])){
         echo "cetak kartu";
     }elseif(isset($_POST["edit_pembayaran"])){
+        $tahun_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["tahun_pembayaran"]);
+        $tgl_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["tgl_pembayaran"]);
         $id_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["id_pembayaran"]);
         $id_user_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["nik"]);
-       //  $nama_user_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
         $gel_ke_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["gelombang_ke"]); 
         $biaya_gelombang_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_gelombang"]); 
         echo $jenis_pendidikan_pembayaran_edit = mysqli_real_escape_string($koneksi, $_POST["jenis_pendidikan"]);
@@ -23,7 +24,7 @@
        
        if($temp_pembayaran_edit == null){
            $name_pembayaran_edit = $bukti["nama_pembayaran"];
-           mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `id_user_pembayaran`='$id_user_pembayaran_edit',`jenis_pendidikan`='$jenis_pendidikan_pembayaran_edit', `nama_pembayaran`='$name_pembayaran_edit',`gelombang_ke`='$gel_ke_pembayaran_edit',`biaya_gelombang`='$biaya_gelombang_pembayaran_edit' WHERE `id_pembayaran` = '$id_pembayaran_edit'");
+           mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `tgl_pembayaran` = '$tgl_pembayaran_edit', `tahun_pembayaran` = '$tahun_pembayaran_edit',`id_user_pembayaran`='$id_user_pembayaran_edit',`jenis_pendidikan`='$jenis_pendidikan_pembayaran_edit', `nama_pembayaran`='$name_pembayaran_edit',`gelombang_ke`='$gel_ke_pembayaran_edit',`biaya_gelombang`='$biaya_gelombang_pembayaran_edit' WHERE `id_pembayaran` = '$id_pembayaran_edit'");
            $_SESSION["alert_edit"] = "";
            header("Location: ../index.php?table_pembayaran");
        }
@@ -35,6 +36,47 @@
        }else{
            echo "<b>Gagal Upload File</b>";
        }
+   }elseif(isset($_POST["tambah_pembayaran"])){
+        $tahun_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tahun_pembayaran"]);
+        $tgl_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tgl_pembayaran"]);
+        $id_user_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["nik"]);
+        $gel_ke_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["gelombang_ke"]); 
+        $biaya_gelombang_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_gelombang"]); 
+        $jenis_pendidikan_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["jenis_pendidikan"]);
+
+       // die();
+       $temp_pembayaran_tambah = $_FILES['nama_pembayaran']['tmp_name'];
+       $name_pembayaran_tambah = rand(0,9999).$_FILES['nama_pembayaran']['name'];
+       $size_pembayaran_tambah = $_FILES['nama_pembayaran']['size'];
+       $type_pembayaran_tambah = $_FILES['nama_pembayaran']['type'];
+       $folder_pembayaran_tambah = "../../gambar/";
+
+       $sql_select_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM `tb_pembayaran` WHERE `id_pembayaran` = '$id_pembayaran_tambah'");
+       $bukti = mysqli_fetch_array($sql_select_pembayaran);
+       
+       if($temp_pembayaran_tambah == null){
+           $name_pembayaran_tambah = $bukti["nama_pembayaran"];
+           mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `tgl_pembayaran` = '$tgl_pembayaran_tambah', `tahun_pembayaran` = '$tahun_pembayaran_tambah',`id_user_pembayaran`='$id_user_pembayaran_tambah',`jenis_pendidikan`='$jenis_pendidikan_pembayaran_tambah', `nama_pembayaran`='$name_pembayaran_tambah',`gelombang_ke`='$gel_ke_pembayaran_tambah',`biaya_gelombang`='$biaya_gelombang_pembayaran_tambah' WHERE `id_pembayaran` = '$id_pembayaran_tambah'");
+           $_SESSION["alert_tambah"] = "";
+           header("Location: ../index.php?table_pembayaran");
+       }
+       if ($size_pembayaran_tambah < 2048000 and ($type_pembayaran_tambah =='image/jpeg' or $type_pembayaran_tambah == 'image/png')) {
+           move_uploaded_file($temp_pembayaran_tambah, $folder_pembayaran_tambah . $name_pembayaran_tambah);
+           $sql_tambah_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `jenis_pendidikan`, `nama_pembayaran`, `gelombang_ke`, `biaya_gelombang`, `tahun_pembayaran`, `tgl_pembayaran`) VALUES ('$id_user_pembayaran_tambah', '$jenis_pendidikan_pembayaran_tambah', '$name_pembayaran_tambah', '$gel_ke_pembayaran_tambah', '$biaya_gelombang_pembayaran_tambah', '$tahun_pembayaran_tambah', $tgl_pembayaran_tambah)");
+           $_SESSION["alert_tambah"] = "";
+           header("Location: ../index.php?table_pembayaran");
+       }else{
+           echo "<b>Gagal Upload File</b>";
+       }
+   }elseif(isset($_GET["hapus_pembayaran"])){
+       $id_pembayaran_hapus = mysqli_real_escape_string($koneksi, $_POST["hapus_pembayaran"]);
+       $sql_hapus_pembayaran = mysqli_query($koneksi, "DELETE FROM tb_pembayaran WHERE id_pembayaran = '$id_pembayaran_hapus'");
+       if($sql_hapus_pembayaran){
+        $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_pembayaran");
+        }else{
+            echo "Gagal Hapus Pembayaran";
+        }
    }elseif(isset($_POST["edit_anak"])){
         $id_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_anak"]);
         $id_wali_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);

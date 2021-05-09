@@ -1,5 +1,10 @@
 <?php 
   session_start();
+
+  if(!isset($_SESSION["id"])){
+    header("Location: ../index.php");
+  }
+
   include "../koneksi.php";
   $id = $_SESSION["id"];
   $sql_select_user = mysqli_query($koneksi, "SELECT `nama_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id'");
@@ -175,12 +180,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Anak</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Wali/Ayah</p>
@@ -190,6 +189,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ibu</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Anak</p>
                 </a>
               </li>
             </ul>
@@ -356,6 +361,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
     $(document).ready( function () {
       $('#table_user').DataTable();
+    });
+
+    $(document).ready( function () {
+      $('#table_pembayaran').DataTable();
+    });
+
+    $(document).ready( function () {
+      $('#table_anak').DataTable();
+    });
+
+    $(document).ready( function () {
+      $('#table_wali').DataTable();
+    });
+
+    $(document).ready( function () {
+      $('#table_ibu').DataTable();
+    });
+
+    $(document).ready( function () {
+      $('#table_pendaftaran').DataTable();
+    });
+
+    $(document).ready( function () {
+      $('#table_jadwal_wawancara').DataTable();
     });
 
     function save_pembayaran(id)

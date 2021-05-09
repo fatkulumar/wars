@@ -19,7 +19,7 @@
         <div class="card-body">
 
             <form action="proses/proses.php" method="POST">
-                <input type="text" name="id_ibu" value="<?= $id ?>">
+                <input type="hidden" name="id_ibu" value="<?= $id ?>">
                 <div class="row">
 
                     <div class="col-md-6">

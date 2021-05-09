@@ -1,7 +1,10 @@
 <?php
     $id = $_GET["edit_pembayaran"];
-    $sql_pembayaran = mysqli_query($koneksi, "SELECT `id_pembayaran`, `id_user_pembayaran`, `jenis_pendidikan`,`nama_pembayaran`, `gelombang_ke`, `biaya_gelombang`, `status_pembayaran` FROM `tb_pembayaran` WHERE `id_pembayaran`= '$id'");
+    $sql_pembayaran = mysqli_query($koneksi, "SELECT `id_pembayaran`, `id_user_pembayaran`, `jenis_pendidikan`,`nama_pembayaran`, `gelombang_ke`, `biaya_gelombang`, `status_pembayaran`, `tahun_pembayaran`, `tgl_pembayaran` FROM `tb_pembayaran` WHERE `id_pembayaran`= '$id'");
     $row = mysqli_fetch_array($sql_pembayaran);
+    $id_user_nik = $_SESSION["id"];
+    $sql_user_nik = mysqli_query($koneksi, "SELECT nik FROM tb_user WHERE id_user = '$id_user_nik'");
+    $row_nik = mysqli_fetch_array($sql_user_nik);
 ?>
 
 <div class="card">
@@ -20,20 +23,23 @@
 
             <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id_pembayaran" value="<?= $id ?>">
+                <input type="hidden" name="tgl_pembayaran" value="<?= $row["tgl_pembayaran"] ?>">
+                <input type="hidden" name="tahun_pembayaran" value="<?= $row["tahun_pembayaran"] ?>">
                 <div class="row">
                 <div class="col-md-6">
                         <div class="form-group">
                             <label for="nik">NIK</label>
                             <select onchange="change_nik(this.value)" class="form-control" name="nik" required>
-                                <option value="">Pilih NIK</option>
+                                <!-- <option value="">Pilih NIK</option> -->
                                 <?php
                                     include "../koneksi.php";
-                                    $sql_user = mysqli_query($koneksi, "SELECT nik, id_user FROM tb_user");
+                                    $sql_user = mysqli_query($koneksi, "SELECT nik, id_user FROM tb_user WHERE id_user = '$id_user_nik'");
                                     while($row_user = mysqli_fetch_array($sql_user)):
                                 ?>
                                     <option value="<?= $row_user["id_user"] ?>" <?php if($row_user["id_user"] == $row["id_user_pembayaran"]){echo "selected";} ?>><?= $row_user["nik"] ?></option>
                                 <?php endwhile ?>
                             </select>
+                            <!-- <input class="form-control" type="text" name="nik" value="<?= $row_nik["nik"] ?>" readonly> -->
                         </div>
                     </div>
 

@@ -27,7 +27,7 @@
                                 <input class="form-check-input" type="radio" name="id_jadwal_wawancara_wawancara" value="<?= $row_jadwal_wawancara["id_jadwal_wawancara"] ?>">
 
                                 <label class="form-check-label" for="id_jadwal_wawancara_wawancara"><?php echo $row_jadwal_wawancara["jadwal_wawancara"]; echo " "; echo $row_jadwal_wawancara["jam_wawancara"]; ?></label>
-                                <br>
+                                id=""  <br>
                             <?php endwhile ?>
                         </div>
                     </div>
