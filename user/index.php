@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
 <div class="wrapper">
 
 
@@ -151,10 +151,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-close">
-            <a href="#" class="nav-link active">
+            <a href="index.php" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
+                <i></i>
+              </p>
+            </a>
+          </li>
+          <!-- <li class="nav-item menu-close">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard1
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -172,13 +181,103 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
 
           <li class="nav-item menu-close">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Biodata
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Anak</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Wali/Ayah</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ibu</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item menu-close">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Pilih Jalur Masuk
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Anak</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Wali/Ayah</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ibu</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item menu-close">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Pembayaran
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Anak</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Wali/Ayah</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ibu</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item menu-close">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Uanggah Berkas
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -243,39 +342,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-      <?php
-        if(isset($_GET["table_users"])) {
-          include "form/table_users.php";
-        }elseif(isset($_GET["table_jadwal"])){
-          include "form/table_jadwal.php";
-        }elseif(isset($_GET["table_pembayaran"])){
-          include "form/table_pembayaran.php";
-        }elseif(isset($_GET["edit_pembayaran"])){
-          include "form/edit_pembayaran.php";
-        }elseif(isset($_GET["tambah_pembayaran"])){
-          include "form/tambah_pembayaran.php";
-        }elseif(isset($_GET["tambah_jadwal"])){
-          include "form/tambah_jadwal.php";
-        }elseif(isset($_GET["table_anak"])){
-          include "form/table_anak.php";
-        }elseif(isset($_GET["edit_anak"])){
-          include "form/edit_anak.php";
-        }elseif(isset($_GET["edit_wali"])){
-          include "form/edit_wali.php";
-        }elseif(isset($_GET["table_wali"])){
-          include "form/table_wali.php";
-        }elseif(isset($_GET["table_ibu"])){
-          include "form/table_ibu.php";
-        }elseif(isset($_GET["edit_ibu"])){
-          include "form/edit_ibu.php";
-        }elseif(isset($_GET["profil"])){
-          include "form/profil.php";
-        }elseif(isset($_GET["edit_profil"])){
-          include "form/edit_profil.php";
-        }else{
-          include "form/welcome.php";
-        }
-      ?>
+        <?php
+          if(isset($_GET["table_users"])) {
+            include "form/table_users.php";
+          }elseif(isset($_GET["table_jadwal"])){
+            include "form/table_jadwal.php";
+          }elseif(isset($_GET["table_pembayaran"])){
+            include "form/table_pembayaran.php";
+          }elseif(isset($_GET["edit_pembayaran"])){
+            include "form/edit_pembayaran.php";
+          }elseif(isset($_GET["tambah_pembayaran"])){
+            include "form/tambah_pembayaran.php";
+          }elseif(isset($_GET["tambah_jadwal"])){
+            include "form/tambah_jadwal.php";
+          }elseif(isset($_GET["table_anak"])){
+            include "form/table_anak.php";
+          }elseif(isset($_GET["edit_anak"])){
+            include "form/edit_anak.php";
+          }elseif(isset($_GET["edit_wali"])){
+            include "form/edit_wali.php";
+          }elseif(isset($_GET["table_wali"])){
+            include "form/table_wali.php";
+          }elseif(isset($_GET["table_ibu"])){
+            include "form/table_ibu.php";
+          }elseif(isset($_GET["edit_ibu"])){
+            include "form/edit_ibu.php";
+          }elseif(isset($_GET["profil"])){
+            include "form/profil.php";
+          }elseif(isset($_GET["edit_profil"])){
+            include "form/edit_profil.php";
+          }else{
+            include "form/welcome.php";
+          }
+        ?>
       </div>
       <!-- /.container-fluid -->
     </div>

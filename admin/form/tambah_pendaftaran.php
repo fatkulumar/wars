@@ -17,7 +17,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="gel_ke">Gelombang Ke</label>
-                            <input class="form-control" type="text" name="gel_ke">
+                            <input class="form-control" type="number" name="gel_ke">
                         </div>
                     </div>
 

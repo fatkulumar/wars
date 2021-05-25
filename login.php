@@ -13,7 +13,7 @@ if(isset($_SESSION["id"])){
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Register</title>
+  <title>AdminLTE 3 | Log in</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -27,17 +27,16 @@ if(isset($_SESSION["id"])){
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href=""><b>Register</b></a>
+    <a href=""><b>Login</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Kartika Pradana</p>
 
-      <form action="proses_log.php" method="POST">
-        
+      <form action="proses_log.php" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="nik" placeholder="NIK">
+          <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -45,23 +44,7 @@ if(isset($_SESSION["id"])){
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="nama" placeholder="Nama">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -79,26 +62,25 @@ if(isset($_SESSION["id"])){
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" name="daftar" class="btn btn-primary btn-block">Daftar</button>
+            <button type="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
-     
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <!-- <a href="forgot-password.html">I forgot my password</a> -->
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="register.php" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.login-card-body -->
   </div>
 </div>
-<!-- /.login-box --> 
+<!-- /.login-box -->
 
 <!-- jQuery -->
 <script src="adminlte/plugins/jquery/jquery.min.js"></script>

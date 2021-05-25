@@ -28,18 +28,20 @@
             <div class="col-md-6"> 
                 <img class="card-img-top" src="../gambar/<?= $row['foto_user'] ?>" class="elevation-2" alt="User Image"></div>
             <tr>
-                <div class="col-md-6"><table class="table table-bordered"> <tr>
-                <td><strong>Nama</strong></td>
-                <td><?= $row["nama_user"]?></td>
-            </tr>
-            <tr>
-                <td><strong>Nama Suami</strong></td>
-                <td><?= $row["nama_wali"]?></td>
-            </tr>
-            <tr>
-                <td><strong>Nama Anak</strong></td>
-                <td><?= $row["nama_anak"]?></td>
-            </tr>
+                <div class="col-md-6">
+            <table class="table table-bordered"> 
+                <tr>
+                    <td><strong>Nama</strong></td>
+                    <td><?= $row["nama_user"]?></td>
+                </tr>
+                <tr>
+                    <td><strong>Nama Suami</strong></td>
+                    <td><?= $row["nama_wali"]?></td>
+                </tr>
+                <tr>
+                    <td><strong>Nama Anak</strong></td>
+                    <td><?= $row["nama_anak"]?></td>
+                </tr>
 
         </table>
     </div>

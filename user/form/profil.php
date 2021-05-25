@@ -7,12 +7,12 @@
 
         <div class="card-header bg-primary">
             <div style="position: absolute;">  
-                <h3 class="m-0 text-white">
+                <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Profil</strong>
                 </h3>
             </div>
             <div style="position: relative;">
-                <a class="btn btn-danger float-right btn-sm" href="index.php?edit_profil=<?= $row["id_user"] ?>">Edit</a>
+                <a class="btn btn-danger float-right btn-sm fa fa-pencil" href="index.php?edit_profil=<?= $row["id_user"] ?>">Edit</a>
             </div>
         </div>
 
