@@ -214,63 +214,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item menu-close">
-            <a href="#" class="nav-link active">
+            <a href="index.php?table_jalur_masuk" class="nav-link active">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Pilih Jalur Masuk
-                <i class="right fas fa-angle-left"></i>
+                <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Anak</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Wali/Ayah</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ibu</p>
-                </a>
-              </li>
-            </ul>
+            
           </li>
 
+          <?php
+            $sql_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = 15");
+            while($row_pemb = mysqli_fetch_array($sql_pembayaran)){
+              echo $row_pemb["nama_pembayaran"];
+              // echo $id;
+            }
+          ?>
           <li class="nav-item menu-close">
-            <a href="#" class="nav-link active">
+            <a href="<?php if($row_pemb != null ){echo 'javascript:void(0)';}else{echo 'index.php?table_pembayaran';}?>" class="nav-link active">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Pembayaran
-                <i class="right fas fa-angle-left"></i>
+                <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Anak</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Wali/Ayah</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ibu</p>
-                </a>
-              </li>
-            </ul>
           </li>
 
           <li class="nav-item menu-close">
@@ -371,6 +339,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             include "form/profil.php";
           }elseif(isset($_GET["edit_profil"])){
             include "form/edit_profil.php";
+          }elseif(isset($_GET["table_jalur_masuk"])){
+            include "form/table_jalur_masuk.php";
+          }elseif(isset($_GET["upload_bukti_pembayaran"])){
+            include "form/upload_bukti_pembayaran.php";
           }else{
             include "form/welcome.php";
           }
@@ -466,17 +438,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
         if(ele[i].checked==true)
         var id_jadwal_wawancara_wawancara = ele[i].value
       }
+      var jen = document.getElementById("jenis_wawancara");
+      var jenis_wawancara = jen.value
+
+      if(jenis_wawancara == null){
+        alert("Pilih Jenis Wawancara")
+      }
+
+      alert(jenis_wawancara)
       $.ajax({
         url: "proses/ajax_wawancara.php",
         type: "POST",
-        data: {"id_wawancara_wawancara" : id_jadwal_wawancara_wawancara, "id_user_wawancara" : id},
+        data: {"id_wawancara_wawancara" : id_jadwal_wawancara_wawancara, "id_user_wawancara" : id, "jenis_wawancara" : jenis_wawancara},
         dataType: "JSON",
         success: function(data) {
+          console.log(data)
           var jadwal_wawancara = data[0].jadwal_wawancara
           var jam_wawancara = data[0].jam_wawancara
-          alert("Berhasil")
+          var jenis_wawancara = data[0].jenis_wawancara
+          // alert("Berhasil")
           console.log(data)
-          $('#jadwal').html(jadwal_wawancara + " " + jam_wawancara )
+          $('#jadwal').html(jadwal_wawancara + " " + jam_wawancara + " " + jenis_wawancara )
           $('#exampleModalWawancara').modal('hide')
         }
       })

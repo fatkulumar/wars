@@ -17,6 +17,7 @@
 
         if($row["level"] == 0){
             $_SESSION["email"] = $email_user; 
+            $_SESSION["nik"] = $nik_user; 
             $_SESSION["password"] = $password_hash;
             $_SESSION["nama"] = $nama_user;
             $_SESSION["foto"] = $row["foto_user"];
@@ -38,6 +39,8 @@
                     $_SESSION["nama"] = $row_login["nama_user"];
                     $_SESSION["foto"] = $row_login["foto_user"];
                     $_SESSION["id"] = $row_login["id_user"];
+                    $_SESSION["nik"] = $row_login["nik"]; 
+
                     header("Location: admin");
                 }
             }
@@ -48,6 +51,8 @@
                     $_SESSION["nama"] = $row_login["nama_user"];
                     $_SESSION["foto"] = $row_login["foto_user"];
                     $_SESSION["id"] = $row_login["id_user"];
+                    $_SESSION["nik"] = $row_login["nik"]; 
+
                     header("Location: user");
                 }
             }
@@ -58,6 +63,8 @@
                     $_SESSION["nama"] = $row_login["nama_user"];
                     $_SESSION["foto"] = $row_login["foto_user"];
                     $_SESSION["id"] = $row_login["id_user"];
+                    $_SESSION["nik"] = $row_login["nik"]; 
+
                     header("Location: kepala");
                 }
             }

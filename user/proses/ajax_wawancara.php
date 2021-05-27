@@ -3,14 +3,15 @@
     // $data = "umar";
     $id_wawancara_wawancara = $_POST["id_wawancara_wawancara"];
     $id_user_wawancara = $_POST["id_user_wawancara"];
+    $jenis_wawancara = $_POST["jenis_wawancara"];
     //select tb_wawancara
     $sql_select_wawancara = mysqli_query($koneksi, "SELECT `id_wawancara`, `id_user_wawancara`, `id_jadwal_wawancara_wawancara` FROM `tb_wawancara` WHERE `id_user_wawancara` = '$id_user_wawancara'");
     $row_wawancara = mysqli_fetch_array($sql_select_wawancara);
     //cek apakah null
     if($row_wawancara == null){
-        $sql_insert_wawancara = mysqli_query($koneksi, "INSERT INTO `tb_wawancara`(`id_user_wawancara`, `id_jadwal_wawancara_wawancara`) VALUES ('$id_user_wawancara', '$id_wawancara_wawancara')");
+        $sql_insert_wawancara = mysqli_query($koneksi, "INSERT INTO `tb_wawancara`(`id_user_wawancara`, `id_jadwal_wawancara_wawancara`, `jenis_wawancara`) VALUES ('$id_user_wawancara', '$id_wawancara_wawancara', '$jenis_wawancara')");
     }else{
-        $sql_update_wawancara = mysqli_query($koneksi, "UPDATE `tb_wawancara` SET `id_jadwal_wawancara_wawancara`='$id_wawancara_wawancara' WHERE `id_user_wawancara`= '$id_user_wawancara'");
+        $sql_update_wawancara = mysqli_query($koneksi, "UPDATE `tb_wawancara` SET `id_jadwal_wawancara_wawancara`='$id_wawancara_wawancara', `jenis_wawancara`='$jenis_wawancara' WHERE `id_user_wawancara`= '$id_user_wawancara'");
     }
     //select tb_wawancara join tb_jadwal wawancara
     $sql_select_jadwal = mysqli_query($koneksi, "SELECT `id_wawancara`, `id_user_wawancara`, `id_jadwal_wawancara_wawancara`, `jadwal_wawancara`, `jam_wawancara` FROM tb_wawancara w JOIN tb_jadwal_wawancara j ON j.id_jadwal_wawancara=w.id_jadwal_wawancara_wawancara");
@@ -22,6 +23,7 @@
 
     $data[] = [
         'jadwal_wawancara' => $jadwal_wawancara,
-        'jam_wawancara' => $jam_wawancara
+        'jam_wawancara' => $jam_wawancara,
+        'jenis_wawancara' => $jenis_wawancara
     ];
     echo json_encode($data);

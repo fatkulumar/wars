@@ -9,22 +9,25 @@
     $sql_pemb = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran");
     while($row_pemb = mysqli_fetch_array($sql_pemb)){
         if($row_pemb["id_user_pembayaran"] != $id){
-            echo "<div class='alert alert-danger' role='alert'>
+            echo "<div class='alert alert-warning' role='alert'>
                     <i>Segera Lunasi Pembayaran Anda</i>
                 </div>";
         }
     }
 ?>
 
-        <div class="card-header bg-primary">
-            <div style="position: absolute;">  
-                <h3 class="m-0 text-white">
-                    <strong>Pembayaran</strong>
-                    
-                </h3>
-            </div>
-            <div style="position: relative;">
-                <a class="btn btn-danger float-right btn-sm" href="index.php?tambah_pembayaran"><i class="fa fa-plus"></i></a>
+        <div class="card-header bg-success">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="mt-2 text-white" style="font-size: 14px;">
+                        <strong>Pembayaran</strong>
+                    </h1>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="mt-0 text-white" style="font-size: 14px; float: right;">
+                        <a class="btn btn-sm btn-danger" href="index.php?upload_bukti_pembayaran"><i class="fa fa-camera"></i></a>
+                    </h1>
+                </div>
             </div>
         </div>
 
@@ -71,7 +74,7 @@
 
                     <?php
                         $no =1;
-                        $sql_pembayaran = mysqli_query($koneksi, "SELECT * FROM tb_user u LEFT JOIN tb_wali w ON u.id_user = w.id_user_wali LEFT JOIN tb_anak a ON w.id_wali = a.id_wali_anak LEFT JOIN tb_pembayaran p ON p.id_user_pembayaran = u.id_user WHERE u.id_user = '$id_user'");
+                        $sql_pembayaran = mysqli_query($koneksi, "SELECT * FROM tb_ibu i JOIN tb_wali w ON w.id_wali = i.id_wali_ibu JOIN tb_anak a ON a.id_ibu_anak = i.id_ibu JOIN tb_user u ON u.id_user = w.id_user_wali JOIN tb_pembayaran p ON p.id_user_pembayaran = u.id_user  WHERE u.id_user = '$id_user'");
                         while($row = mysqli_fetch_array($sql_pembayaran)):
                     ?>
                         
@@ -93,7 +96,8 @@
                             <td><?= $row["tgl_pembayaran"] ?></td>
 
                             <td style="text-align: center;">
-                                <a class="btn btn-sm btn-danger" href="proses/proses.php?hapus_pembayaran=<?= $row["id_pembayaran"] ?>"><i class="fa fa-trash"></i> </a><a class="btn btn-sm btn-primary" href="index.php?edit_pembayaran=<?= $row["id_pembayaran"] ?>"><i class="fa fa-edit"></i></a>
+                                <!-- <a class="btn btn-sm btn-danger" href="proses/proses.php?hapus_pembayaran=<?= $row["id_pembayaran"] ?>"><i class="fa fa-trash"></i>  -->
+                                </a><a class="btn btn-sm btn-primary" href="index.php?edit_pembayaran=<?= $row["id_pembayaran"] ?>"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
 

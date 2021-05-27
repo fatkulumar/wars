@@ -10,7 +10,7 @@
     $sql_bidata = mysqli_query($koneksi, "SELECT * FROM tb_ibu i JOIN tb_wali w ON w.id_wali = i.id_wali_ibu JOIN tb_anak a ON a.id_ibu_anak = i.id_ibu JOIN tb_user u ON u.id_user = w.id_user_wali WHERE u.id_user = '$id'");
     $row = mysqli_fetch_array($sql_bidata);
 
-    $sql_pembayaran = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE id_user_pembayaran = 16");
+    $sql_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = '$id'");
     $row_pembayaran = mysqli_fetch_array($sql_pembayaran);
 ?>
 <div class="row">
@@ -44,10 +44,10 @@
                     Status Pembayaran
                 <span class="info-box-number">
                 <span class="bg-success">
-                    <?php if($row_pembayaran == 0){echo "Belum Lunas";}else{echo "Lunas";}?>
+                    <?php if($row_pembayaran["nama_pembayaran"] == 0){echo "Belum Lunas";}else{echo "Lunas";}?>
                 </span>
                 <div>
-                    <small>Bayar <a href="<?php if($row_pembayaran == 0){echo 'index.php?table_pembayaran';}else{echo 'javascript:void(0)';}?>">Disini</a> apabila belum lunas</small>
+                    <small>Bayar <a href="<?php if($row_pembayaran["nama_pembayaran"] == 0){echo 'index.php?table_pembayaran';}else{echo 'javascript:void(0)';}?>">Disini</a> apabila belum lunas</small>
                 </div>
             <!-- /.info-box-content -->
         </div>
@@ -174,7 +174,7 @@
                                                 echo "jadwal wawancara anda pada: " . "<i><strong><span id='jadwal'>belum memilih jadwal</span></strong></i>";
 
                                             }else{
-                                                echo "jadwal wawancara anda pada " . "<span id='jadwal'>" . $row["jadwal_wawancara"]; echo " "; echo $row["jam_wawancara"]. "</span>";
+                                                echo "jadwal wawancara anda pada " . "<span id='jadwal'>" . $row["jadwal_wawancara"]; echo " "; echo $row["jam_wawancara"]; echo " "; echo $row["jenis_wawancara"]; "</span>";
                                             }
                                         ?>
                                     </strong>
@@ -207,11 +207,16 @@
                 $sql_jadwal_wawancara = mysqli_query($koneksi, "SELECT `id_jadwal_wawancara`, `jadwal_wawancara`, `jam_wawancara` FROM `tb_jadwal_wawancara`");
                 while($row_jadwal_wawancara = mysqli_fetch_array($sql_jadwal_wawancara)):
             ?>
-                <input class="form-check-input" type="radio" name="id_jadwal_wawancara_wawancara" value="<?= $row_jadwal_wawancara["id_jadwal_wawancara"] ?>">
-
+                <input class="form-check-input" type="radio" name="id_jadwal_wawancara_wawancara" value="<?= $row_jadwal_wawancara["id_jadwal_wawancara"] ?>"> 
+                
                 <label class="form-check-label" for="id_jadwal_wawancara_wawancara"><?php echo $row_jadwal_wawancara["jadwal_wawancara"]; echo " "; echo $row_jadwal_wawancara["jam_wawancara"]; ?></label>
                 <br>
             <?php endwhile ?>
+                <select name="jenis_wawancara" id="jenis_wawancara">
+                    <option value="">-Pilih-</option>
+                    <option value="offline">Offline</option>
+                    <option value="online">Online</option>
+                </select>
             </div>
         </div>
       <div class="modal-footer">
