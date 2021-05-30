@@ -3,7 +3,7 @@
         <div class="card-header bg-primary">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="m-0 text-white">
+                    <h1 class="m-0 text-white" style="font-size: 14px;">
                         <strong>Edit Anak</strong>
                     </h1>
                 </div>
@@ -19,7 +19,7 @@
         <div class="card-body">
 
             <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="id_anak" value="<?= $id ?>">
+            <input type="text" name="id_anak" value="<?= $id ?>">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

@@ -31,12 +31,12 @@
         <div class="card-header bg-primary">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="m-0 text-white">
+                    <h1 class="m-0 mt-2 text-white" style="font-size: 14px;">
                         <strong>Data Ibu</strong>
                     </h1>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_ibu"><i class="fa fa-plus"></i></a>
+                    <a class="btn btn-danger float-right btn-sm" href="index.php?tambah_ibu"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                         <?php 
                             include "../koneksi.php";
                             $no = 1;
-                            $sql_wali = mysqli_query($koneksi, "SELECT * FROM tb_ibu i JOIN tb_wali w ON w.id_wali = i.id_wali_ibu");
+                            $sql_wali = mysqli_query($koneksi, "SELECT `nama_wali`, `id_ibu`, `id_wali_ibu`, `id_anak_ibu`, `nama_ibu`, `tempat_lahir_ibu`, `tgl_lahir_ibu`, `pendidikan_ibu`, `agama_ibu`, `negara_ibu`, `bangsa_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `alamat_kantor_ibu`, `hp_kantor_ibu`, `golongan_darah_ibu`, `alamat_rumah_ibu` FROM tb_ibu i JOIN tb_wali w ON w.id_wali = i.id_wali_ibu");
                             while($row = mysqli_fetch_array($sql_wali)):
                         ?>
                         <tr>
@@ -90,7 +90,7 @@
                             <td><?= $row["golongan_darah_ibu"] ?></td>
                             <td><?= $row["alamat_rumah_ibu"] ?></td>
                             <td>
-                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> </a><a class="btn btn-sm btn-primary" href="index.php?edit_ibu=<?= $row["id_ibu"] ?>"><i class="fa fa-edit"></i></a>
+                                <a onclick="return confirm('Hapus <?= $row['nama_ibu'] ?> ?')" class="btn btn-sm btn-danger" href="proses/proses.php?hapus_ibu=<?= $row["id_ibu"] ?>"><i class="fa fa-trash"></i> </a><a class="btn btn-sm btn-primary" href="index.php?edit_ibu=<?= $row["id_ibu"] ?>"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
 

@@ -215,7 +215,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item menu-close">
             <a href="index.php?table_jalur_masuk" class="nav-link active">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-road"></i>
               <p>
                 Pilih Jalur Masuk
                 <!-- <i class="right fas fa-angle-left"></i> -->
@@ -225,15 +225,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <?php
-            $sql_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = 15");
-            while($row_pemb = mysqli_fetch_array($sql_pembayaran)){
-              echo $row_pemb["nama_pembayaran"];
-              // echo $id;
-            }
+            $sql_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = '$id'");
+            $row_pemb = mysqli_fetch_array($sql_pembayaran);
           ?>
           <li class="nav-item menu-close">
-            <a href="<?php if($row_pemb != null ){echo 'javascript:void(0)';}else{echo 'index.php?table_pembayaran';}?>" class="nav-link active">
-              <i class="nav-icon fas fa-user"></i>
+            <a href="<?php if($row_pemb["nama_pembayaran"] != null ){echo 'javascript:void(0)';}else{echo 'index.php?table_pembayaran';}?>" class="nav-link active">
+              <i class="nav-icon fas fa-dollar-sign"></i>
               <p>
                 Pembayaran
                 <!-- <i class="right fas fa-angle-left"></i> -->
@@ -242,33 +239,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item menu-close">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-user"></i>
+            <a href="index.php?table_unggah_berkas" class="nav-link active">
+              <i class="nav-icon fas fa-upload"></i>
               <p>
                 Uanggah Berkas
-                <i class="right fas fa-angle-left"></i>
+                <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php?table_anak" class="nav-link <?php if(isset($_GET["table_anak"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Anak</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_wali" class="nav-link <?php if(isset($_GET["table_wali"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Wali/Ayah</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?table_ibu" class="nav-link <?php if(isset($_GET["table_ibu"])) {echo "active";} ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ibu</p>
-                </a>
-              </li>
-            </ul>
           </li>
 
           <!-- <li class="nav-item">
@@ -343,6 +320,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             include "form/table_jalur_masuk.php";
           }elseif(isset($_GET["upload_bukti_pembayaran"])){
             include "form/upload_bukti_pembayaran.php";
+          }elseif(isset($_GET["unggah_berkas"])){
+            include "form/unggah_berkas.php";
+          }elseif(isset($_GET["table_unggah_berkas"])){
+            include "form/table_unggah_berkas.php";
           }else{
             include "form/welcome.php";
           }

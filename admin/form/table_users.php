@@ -55,12 +55,12 @@
         <div class="card-header bg-primary">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="m-0 text-white">
+                    <h1 class="m-0 mt-2 text-white" style="font-size: 14px;">
                         <strong>Data Users</strong>
                     </h1>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_user"><i class="fa fa-plus"></i></a>
+                    <a class="btn btn-danger float-right btn-sm" href="index.php?tambah_user"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
                             <td><?= $row["tgl_registrasi"] ?></td>
                             <td><?= $row["level"] ?></td>
                             <td style="text-align: center;">
-                                <a class="btn btn-sm btn-danger" href="proses/proses.php?hapus_user=<?= $row["id_user"] ?>"><i class="fa fa-trash"></i> </a><a class="btn btn-sm btn-primary" href="index.php?edit_users=<?= $row["id_user"] ?>"><i class="fa fa-edit"></i></a>
+                                <a onclick="return confirm('Hapus <?= $row['nama_user'] ?>')" class="btn btn-sm btn-danger" href="proses/proses.php?hapus_user=<?= $row["id_user"] ?>"><i class="fa fa-trash"></i> </a><a class="btn btn-sm btn-primary" href="index.php?edit_users=<?= $row["id_user"] ?>"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
 

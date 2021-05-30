@@ -1,4 +1,11 @@
+<?php
+    $id_user = $_SESSION["id"];
+    $sql_pembayaran = mysqli_query($koneksi, "SELECT id_pembayaran FROM `tb_pembayaran` WHERE `id_user_pembayaran` = '$id_user'");
+    $row_pembayaran = mysqli_fetch_array($sql_pembayaran);
+?>
+
 <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id_pembayaran" value="<?= $row_pembayaran["id_pembayaran"] ?>">
     <div class="row">
         <div class="col-12 col-sm-6 col-md-6" style="margin-left: 240px;">
             <div class="info-box">

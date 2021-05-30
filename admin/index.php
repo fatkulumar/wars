@@ -161,10 +161,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Users</p>
                 </a>
               </li>
+              <!-- pembayaran tk dan kb -->
               <li class="nav-item">
                 <a href="index.php?table_pembayaran" class="nav-link <?php if(isset($_GET["table_pembayaran"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Pembayaran</p>
+                  <p>Pembayaran TK & KB </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_pembayaran_tpa" class="nav-link <?php if(isset($_GET["table_pembayaran_tpa_"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pembayaran TPA</p>
                 </a>
               </li>
             </ul>
@@ -210,9 +217,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?table_pendaftaran" class="nav-link <?php if(isset($_GET["table_pendaftaran"])) {echo "active";} ?>">
+                <a href="index.php?table_pendaftaran_tk_kb" class="nav-link <?php if(isset($_GET["table_pendaftaran_tk_kb"])) {echo "active";} ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Pendaftaran</p>
+                  <p>Pendaftaran TK & KB</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?table_pendaftaran_tpa" class="nav-link <?php if(isset($_GET["table_pendaftaran_tpa"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pendaftaran TPA</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -294,12 +307,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/tambah_wali.php";
         }elseif(isset($_GET["edit_wali"])){
           include "form/edit_wali.php";
-        }elseif(isset($_GET["table_pendaftaran"])){
-          include "form/table_pendaftaran.php";
-        }elseif(isset($_GET["tambah_pendaftaran"])){
-          include "form/tambah_pendaftaran.php";
+        }elseif(isset($_GET["table_pendaftaran_tk_kb"])){
+          include "form/table_pendaftaran_tk_kb.php";
+        }elseif(isset($_GET["table_pendaftaran_tpa"])){
+          include "form/table_pendaftaran_tpa.php";
+        }elseif(isset($_GET["tambah_pendaftaran_tk_kb"])){
+          include "form/tambah_pendaftaran_tk_kb.php";
+        }elseif(isset($_GET["tambah_pendaftaran_tpa"])){
+          include "form/tambah_pendaftaran_tpa.php";
         }elseif(isset($_GET["edit_pendaftaran"])){
           include "form/edit_pendaftaran.php";
+        }elseif(isset($_GET["edit_pendaftaran_tpa"])){
+          include "form/edit_pendaftaran_tpa.php";
         }elseif(isset($_GET["table_jadwal_wawancara"])){
           include "form/table_jadwal_wawancara.php";
         }elseif(isset($_GET["tambah_jadwal_wawancara"])){
@@ -308,6 +327,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/edit_jadwal_wawancara.php";
         }elseif(isset($_GET["profil"])){
           include "form/profil.php";
+        }elseif(isset($_GET["table_pembayaran_tpa"])){
+          include "form/table_pembayaran_tpa.php";
+        }elseif(isset($_GET["tambah_pembayaran_tpa"])){
+          include "form/tambah_pembayaran_tpa.php";
+        }elseif(isset($_GET["edit_pembayaran_tpa"])){
+          include "form/edit_pembayaran_tpa.php";
         }elseif(isset($_GET["edit_profil"])){
           include "form/edit_profil.php";
         }else{
@@ -362,9 +387,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(document).ready( function () {
       $('#table_user').DataTable();
     });
-
+    //table pembayaran tk dan kb
     $(document).ready( function () {
       $('#table_pembayaran').DataTable();
+    });
+    //table pembayaran tpa
+    $(document).ready( function () {
+      $('#table_pembayaran_tpa').DataTable();
     });
 
     $(document).ready( function () {
@@ -382,7 +411,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $(document).ready( function () {
       $('#table_pendaftaran').DataTable();
     });
-
+    table_pembayaran_tpa
     $(document).ready( function () {
       $('#table_jadwal_wawancara').DataTable();
     });

@@ -6,14 +6,14 @@
     // $sql_pembayaran = mysqli_query($koneksi, "SELECT * FROM tb_user u LEFT JOIN tb_wali w ON u.id_user = w.id_user_wali LEFT JOIN tb_anak a ON w.id_wali = a.id_wali_anak LEFT JOIN tb_pembayaran p ON p.id_user_pembayaran = u.id_user WHERE u.id_user = '$id_user'");
     // $row = mysqli_fetch_array($sql_pembayaran);
     //sql pembayaran
-    $sql_pemb = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran");
-    while($row_pemb = mysqli_fetch_array($sql_pemb)){
-        if($row_pemb["id_user_pembayaran"] != $id){
+    $sql_pemb = mysqli_query($koneksi, "SELECT nama_pembayaran, id_user_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = '$id_user'");
+    $row_pemb = mysqli_fetch_array($sql_pemb);
+        if($row_pemb["nama_pembayaran"] == null){
             echo "<div class='alert alert-warning' role='alert'>
                     <i>Segera Lunasi Pembayaran Anda</i>
                 </div>";
         }
-    }
+    
 ?>
 
         <div class="card-header bg-success">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-6">
                     <h1 class="mt-0 text-white" style="font-size: 14px; float: right;">
-                        <a class="btn btn-sm btn-danger" href="index.php?upload_bukti_pembayaran"><i class="fa fa-camera"></i></a>
+                        <a class="btn btn-sm btn-danger" href="<?php if($row_pemb["nama_pembayaran"] == null){echo "index.php?upload_bukti_pembayaran";}else{echo "javascript:void(0)";}?>"><i class="fa fa-camera"></i></a>
                     </h1>
                 </div>
             </div>

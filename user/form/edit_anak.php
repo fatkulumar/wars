@@ -3,7 +3,7 @@
         <div class="card-header bg-primary">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="m-0 text-white">
+                    <h1 class="m-0 text-white" style="font-size: 14px;">
                         <strong>Edit Anak</strong>
                     </h1>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="id_wali">Ayah</label>
-                            <select class="form-control" name="id_wali">
+                            <select class="form-control" name="id_wali" required>
                                 <option value="">Pilih Ayah</option>
                             <?php 
                                 $sql_wali = mysqli_query($koneksi, "SELECT id_wali, nama_wali FROM tb_wali");
@@ -41,7 +41,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="id_ibu">Ibu</label>
-                            <select class="form-control" name="id_ibu">
+                            <select class="form-control" name="id_ibu" required>
                                 <option value="">Pilih Ibu</option>
                             <?php 
                                 $sql_ibu = mysqli_query($koneksi, "SELECT id_ibu, nama_ibu FROM tb_ibu");
@@ -65,7 +65,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="jenis_kelamin_anak">Jenis Kelamin</label>
-                            <select class="form-control" name="jenis_kelamin_anak">
+                            <select class="form-control" name="jenis_kelamin_anak" required>
                                 <option value="">Pilih Jenis Kelamin</option>
                                 <option value="L" <?php if($row_anak["jenis_kelamin_anak"] == "L"){echo "selected";}  ?>>Laki-laki</option>
                                 <option value="P" <?php if($row_anak["jenis_kelamin_anak"] == "P"){echo "selected";}  ?>>Perempuan</option>

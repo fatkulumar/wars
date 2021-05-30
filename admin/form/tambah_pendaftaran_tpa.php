@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="m-0 text-white" style="font-size: 14px;">
-                        <strong>Tambah User</strong>
+                        <strong>Tambah Pendaftaran TPA</strong>
                     </h1>
                 </div>
             </div>
@@ -12,50 +12,47 @@
 
         <div class="card-body">
 
-            <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
+            <form action="proses/proses.php" method="POST">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="nik">NIK</label>
-                            <input class="form-control" type="text" name="nik" required>
+                            <label for="nama_paket">Nama Paket</label>
+                            <input class="form-control" type="text" name="nama_paket" required>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="biaya_tpa">Biaya TPA</label>
+                            <input class="form-control" type="number" name="biaya_tpa" required>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="nama_user">Nama</label>
-                            <input class="form-control" type="text" name="nama_user" required>
+                            <label for="biaya_formulir">Biaya Formulir</label>
+                            <input class="form-control" type="number" name="biaya_formulir" required>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email_user">Email</label>
-                            <input class="form-control" type="text" name="email_user" required>
+                            <label for="isidental">Insidental</label>
+                            <input class="form-control" type="number" name="isidental" required>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password_user">Password</label>
-                            <input class="form-control" type="text" name="password_user" required>
+                            <label for="biaya_pendaftaran">Biaya Pendaftaran</label>
+                            <input class="form-control" type="number" name="biaya_pendaftaran" required>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="level">Level</label>
-                            <select class="form-control" name="level">
-                                <option value="1">User</option>
-                                <option value="2">Kepala Sekolah</option>
-                                <option value="0">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-
+                    
                     <div class="col-md-12">
                         <div class="form-group">
-                            <button class="btn btn-sm btn-danger" name="tambah_user">Tambah</button>
+                            <button class="btn btn-sm btn-danger" name="tambah_pendaftaran_tpa">Tambah</button>
                         </div>
                     </div>
 

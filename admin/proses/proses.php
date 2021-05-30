@@ -52,7 +52,7 @@
         $sql_hapus_user_admin = mysqli_query($koneksi, "DELETE FROM tb_user WHERE id_user = '$id_user_hapus_admin'");
         if($id_user_hapus_admin){
             $_SESSION["alert_hapus"] = "";
-            header("Location: ../index.php?users");
+            header("Location: ../index.php?table_users");
         }
     }elseif(isset($_POST["tambah_pembayaran"])){
         $id_user_pembayaran = mysqli_real_escape_string($koneksi, $_POST["nik"]);
@@ -116,6 +116,46 @@
             header("Location: ../index.php?table_pembayaran");
         }else{
             echo "gagal hapus pembayaran";
+        }
+    }elseif(isset($_POST["tambah_pembayaran_tpa"])){
+        $nama_paket_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["nama_paket"]);
+        $biaya_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_tpa"]);
+        $biaya_formulir_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir_tpa"]);
+        $insidental_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["insidental"]);
+        $biaya_pendaftaran_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_pendaftaran_tpa"]);
+
+        $sql_pembayaran_tpa = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran_tpa`(`nama_paket_pembayaran_tpa`, `biaya_formulir_pembayaran_tpa`, `insidental_pembayaran_tpa`, `biaya_pembayaran_tpa`) VALUES ('$nama_paket_tpa_tambah','$biaya_formulir_tpa_tambah','$insidental_tpa_tambah','$biaya_pendaftaran_tpa_tambah')");
+
+        if($sql_pembayaran_tpa){
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_pembayaran_tpa");
+        }else{
+            echo "gagal tambah pembayaran tpa";
+        }
+    }elseif(isset($_POST["edit_pembayaran_tpa"])){
+        $id_pembayaran_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["id_pembayaran_tpa"]);
+        $nama_paket_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["nama_paket_pembayaran_tpa"]);
+        $biaya_formulir_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir_pembayaran_tpa"]);
+        $insidental_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["insidental_pembayaran_tpa"]);
+        $biaya_pembayaran_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_pembayaran_tpa"]);
+
+        $sql_pembayaran_tpa_edit = mysqli_query($koneksi, "UPDATE `tb_pembayaran_tpa` SET `nama_paket_pembayaran_tpa`='$nama_paket_tpa_edit',`biaya_formulir_pembayaran_tpa`='$biaya_formulir_tpa_edit',`insidental_pembayaran_tpa`='$insidental_tpa_edit',`biaya_pembayaran_tpa`='$biaya_pembayaran_tpa_edit' WHERE `id_pembayaran_tpa` = '$id_pembayaran_tpa_edit'");
+
+        if($sql_pembayaran_tpa_edit){
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?table_pembayaran_tpa");
+        }else{
+            echo "gagal edit pembayaran tpa";
+        }
+    }elseif(isset($_GET["hapus_pembayaran_tpa"])){
+        $id_hapus_pembayaran_tpa = mysqli_real_escape_string($koneksi, $_GET["hapus_pembayaran_tpa"]);
+        $sql_hapus_pembayaran_tpa = mysqli_query($koneksi, "DELETE FROM `tb_pembayaran_tpa` WHERE `id_pembayaran_tpa`='$id_hapus_pembayaran_tpa'");
+        
+        if($sql_hapus_pembayaran_tpa){
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_pembayaran_tpa");
+        }else{
+            echo "gagal hapus pembayaran tpa";
         }
     }elseif(isset($_POST["tambah_anak"])){
         $id_wali_anak = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
@@ -326,7 +366,58 @@
         }else{
             echo "Gagal Edit Ibu";
         }
-    }elseif(isset($_POST["tambah_pendaftaran"])){
+    }elseif(isset($_GET["hapus_ibu"])){
+        $id_ibu_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_ibu"]);
+        $sql_hapus_ibu = mysqli_query($koneksi, "DELETE FROM `tb_ibu` WHERE `id_ibu` = '$id_ibu_hapus'");
+        if($sql_hapus_ibu){
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_ibu");
+        }else{
+            echo "Gagal Hapus Ibu";
+        }
+    }elseif(isset($_POST["tambah_pendaftaran_tpa"])){
+        $nama_paket_pendaftaran_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["nama_paket"]);
+        $biaya_tpa_pendaftaran_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_tpa"]);
+        $biaya_formulir_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir"]);
+        $isidental_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["isidental"]);
+        $biaya_pendaftaran_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_pendaftaran"]);
+
+        $sql_insert_biaya_tpa = mysqli_query($koneksi, "INSERT INTO `tb_daftar_biaya_tpa`(`biaya_tpa`, `nama_paket`, `biaya_formulir_tpa`, `insidental`, `biaya_pendaftaran_tpa`) VALUES ('$biaya_tpa_pendaftaran_tpa_tambah','$nama_paket_pendaftaran_tpa_tambah','$biaya_formulir_tpa_tambah','$isidental_tpa_tambah','$biaya_pendaftaran_tpa_tambah')");
+
+        if($sql_insert_biaya_tpa){
+            $_SESSION["alert_tambah"] = "";
+            header("Location: ../index.php?table_pendaftaran_tpa");
+        }else{
+            echo "gagal tambah biaya tpa";
+        }
+    }elseif(isset($_POST["edit_pendaftaran_tpa"])){
+        $id_biaya_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["id_biaya_tpa"]);
+        $nama_paket_pendaftaran_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["nama_paket"]);
+        $biaya_tpa_pendaftaran_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_tpa"]);
+        $biaya_formulir_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir"]);
+        $isidental_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["isidental"]);
+        $biaya_pendaftaran_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_pendaftaran"]);
+
+        $sql_update_biaya_tpa = mysqli_query($koneksi, "UPDATE `tb_daftar_biaya_tpa` SET `biaya_tpa`='$biaya_tpa_pendaftaran_tpa_edit',`nama_paket`='$nama_paket_pendaftaran_tpa_edit',`biaya_formulir_tpa`='$biaya_formulir_tpa_edit',`insidental`='$isidental_tpa_edit',`biaya_pendaftaran_tpa`='$biaya_pendaftaran_tpa_edit' WHERE `id_biaya_tpa` = '$id_biaya_tpa_edit'");
+
+        if($sql_update_biaya_tpa){
+            $_SESSION["alert_edit"] = "";
+            header("Location: ../index.php?table_pendaftaran_tpa");
+        }else{
+            echo "gagal tambah biaya tpa";
+        }
+    }elseif(isset($_GET["hapus_pendaftaran_tpa"])){
+        $id_biaya_tpa_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_pendaftaran_tpa"]);
+
+        $sql_hapus_biaya_tpa = mysqli_query($koneksi, "DELETE FROM `tb_daftar_biaya_tpa` WHERE `id_biaya_tpa` = '$id_biaya_tpa_hapus'");
+
+        if($sql_hapus_biaya_tpa){
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_pendaftaran_tpa");
+        }else{
+            echo "gagal tambah biaya tpa";
+        }
+    }elseif(isset($_POST["tambah_pendaftaran_tk_kb"])){
         $gel_ke_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["gel_ke"]);
         $pendidikan_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["pendidikan"]);
         $tgl_gel1_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tgl_gel1"]);
@@ -337,16 +428,17 @@
         $uang_buku_pertahun_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["uang_buku_pertahun"]);
         $uang_seragam_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["uang_seragam"]);
         $spp_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["spp"]);
+        $tahun_ajaran_pendaftaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tahun_ajaran"]);
 
-        $sql_insert_pendaftaran =  mysqli_query($koneksi, "INSERT INTO `tb_daftar_biaya_tk_kb`(`gel_ke`, `pendidikan`, `tgl_gel1`, `tgl_gel2`, `biaya_formulir`, `dpp`, `uang_kegiatan`, `uang_buku_pertahun`, `uang_seragam`, `spp`) VALUES ('$gel_ke_pendaftaran_tambah','$pendidikan_pendaftaran_tambah','$tgl_gel1_pendaftaran_tambah','$tgl_gel2_pendaftaran_tambah','$biaya_formulir_pendaftaran_tambah','$dpp_pendaftaran_tambah','$uang_kegiatan_pendaftaran_tambah','$uang_buku_pertahun_pendaftaran_tambah','$uang_seragam_pendaftaran_tambah','$spp_pendaftaran_tambah')");
+        $sql_insert_pendaftaran =  mysqli_query($koneksi, "INSERT INTO `tb_daftar_biaya_tk_kb`(`gel_ke`, `pendidikan`, `tgl_gel1`, `tgl_gel2`, `biaya_formulir`, `dpp`, `uang_kegiatan`, `uang_buku_pertahun`, `uang_seragam`, `spp`, `tahun_ajaran_biaya`) VALUES ('$gel_ke_pendaftaran_tambah','$pendidikan_pendaftaran_tambah','$tgl_gel1_pendaftaran_tambah','$tgl_gel2_pendaftaran_tambah','$sql_edit_biaya_pendaftaran','$dpp_pendaftaran_tambah','$uang_kegiatan_pendaftaran_tambah','$uang_buku_pertahun_pendaftaran_tambah','$uang_seragam_pendaftaran_tambah','$spp_pendaftaran_tambah','$tahun_ajaran_pendaftaran_tambah')");
 
         if($sql_insert_pendaftaran) {
             $_SESSION["alert_tambah"] = "";
-            header("Location: ../index.php?table_pendaftaran");
+            header("Location: ../index.php?table_pendaftaran_tk_kb");
         }else{
-            echo "Gagal Tambah Pendaftaran";
+            echo "Gagal Tambah Pendaftaran _tk_kb ";
         }
-    }elseif(isset($_POST["edit_pendaftaran"])){
+    }elseif(isset($_POST["edit_pendaftaran_tk_kb"])){
         $id_daftar_biaya_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["id_daftar_biaya"]);
         $gel_ke_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["gel_ke"]);
         $pendidikan_pendaftaran_edit = mysqli_real_escape_string($koneksi, $_POST["pendidikan"]);
@@ -363,17 +455,17 @@
 
         if($sql_edit_biaya_pendaftaran) {
             $_SESSION["alert_edit"] = "";
-            header("Location: ../index.php?table_pendaftaran");
+            header("Location: ../index.php?table_pendaftaran_tk_kb");
         }else{
             echo "gagal edit pendaftaran";
         }
-    }elseif(isset($_GET["hapus_pendaftaran"])){
-        $id_daftar_biaya_pendaftaran_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_pendaftaran"]);
+    }elseif(isset($_GET["hapus_pendaftaran_tk_kb"])){
+        $id_daftar_biaya_pendaftaran_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_pendaftaran_tk_kb"]);
         $sql_hapus_pendaftaran = mysqli_query($koneksi, "DELETE FROM `tb_daftar_biaya_tk_kb` WHERE `id_daftar_biaya` = '$id_daftar_biaya_pendaftaran_hapus'");
 
         if($sql_hapus_pendaftaran){
             $_SESSION["alert_hapus"] = "";
-            header("Location: ../index.php?table_pendaftaran");
+            header("Location: ../index.php?table_pendaftaran_tk_kb");
         }else{
             echo "Gagal Hapus pendaftaran";
         }

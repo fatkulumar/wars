@@ -6,7 +6,7 @@
 
         <div class="card-header bg-primary">
             <div style="position: absolute;">  
-                <h3 class="m-0 text-white">
+                <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Data Ibu</strong>
                 </h3>
             </div>

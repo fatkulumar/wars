@@ -9,7 +9,7 @@
         <div class="card-header bg-primary">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="m-0 text-white">
+                    <h1 class="m-0 text-white" style="font-size: 14px;">
                         <strong>Edit Ibu</strong>
                     </h1>
                 </div>

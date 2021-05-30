@@ -293,20 +293,25 @@
             echo "<b>Gagal Upload File</b>";
         }
     }elseif(isset($_POST["upload_pembayaran"])){
-        echo $temp_pembayaran = $_FILES['nama_pembayaran']['tmp_name'];
+        $id_pembayaran = mysqli_real_escape_string($koneksi, $_POST["id_pembayaran"]);
+        $temp_pembayaran = $_FILES['nama_pembayaran']['tmp_name']; 
         $name_pembayaran = rand(0,9999).$_FILES['nama_pembayaran']['name'];
         $size_pembayaran = $_FILES['nama_pembayaran']['size'];
         $type_pembayaran = $_FILES['nama_pembayaran']['type'];
         $folder_pembayaran = "../../gambar/";
 
         if ($size_pembayaran < 2048000 and ($type_pembayaran =='image/jpeg' or $type_pembayaran == 'image/png')) {
-                   move_uploaded_file($temp_pembayaran, $folder_pembayaran . $name_pembayaran);
-                   $sql_pembayaran = mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `nama_pembayaran`='$name_pembayaran' WHERE `id_pembayaran` = '$id_pembayaran'");
-                   $_SESSION["alert_tambah"] = "";
-                   header("Location: ../index.php?table_pembayaran");
-               }else{
-                   echo "<b>Gagal Upload File</b>";
-               }
+            move_uploaded_file($temp_pembayaran, $folder_pembayaran . $name_pembayaran);
+            $sql_pembayaran = mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `nama_pembayaran`='$name_pembayaran' WHERE `id_pembayaran` = 20");
+            if($sql_pembayaran){
+                $_SESSION["alert_tambah"] = "";
+                header("Location: ../index.php?table_pembayaran");
+            }else{
+                echo "gagal pembayaran";
+            }
+        }else{
+            echo "<b>Gagal Upload File</b>";
+        }
         
 
     //    $sql_select_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM `tb_pembayaran` WHERE `id_pembayaran` = '$id_pembayaran_edit'");
@@ -326,5 +331,38 @@
     //    }else{
     //        echo "<b>Gagal Upload File</b>";
     //    }
+    }elseif(isset($_POST["unggah_berkas"])){
+        $id_user_unggah = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
+        $temp_kartu_keluarga = $_FILES['kartu_keluarga']['tmp_name'];
+        $name_foto_kartu_keluarga = rand(0,9999).$_FILES['kartu_keluarga']['name'];
+        $size_kartu_keluarga = $_FILES['kartu_keluarga']['size'];
+        $type_kartu_keluarga = $_FILES['kartu_keluarga']['type'];
+
+        $temp_kartu_tanda_penduduk = $_FILES['kartu_tanda_penduduk']['tmp_name'];
+        $name_foto_kartu_tanda_penduduk = rand(0,9999).$_FILES['kartu_tanda_penduduk']['name'];
+        $size_kartu_tanda_penduduk = $_FILES['kartu_tanda_penduduk']['size'];
+        $type_kartu_tanda_penduduk = $_FILES['kartu_tanda_penduduk']['type'];
+
+        $temp_akte = $_FILES['akte']['tmp_name'];
+        $name_foto_akte = rand(0,9999).$_FILES['akte']['name'];
+        $size_akte = $_FILES['akte']['size'];
+        $type_akte = $_FILES['akte']['type'];
+        $folder_unggah = "../../gambar/";
+
+        if ($size_kartu_keluarga < 2048000 and $size_kartu_tanda_penduduk < 2048000 and $size_akte < 2048000 and ($type_kartu_keluarga =='image/jpeg' or $type_kartu_keluarga == 'image/png') and ($type_kartu_tanda_penduduk =='image/jpeg' or $type_kartu_tanda_penduduk == 'image/png') and ($type_akte =='image/jpeg' or $type_akte == 'image/png')  ) {
+            // echo "yes"; die();
+            move_uploaded_file($temp_kartu_keluarga, $folder_unggah . $name_foto_kartu_keluarga);
+            move_uploaded_file($temp_kartu_tanda_penduduk, $folder_unggah . $name_foto_kartu_tanda_penduduk);
+            move_uploaded_file($temp_akte, $folder_unggah . $name_foto_akte);
+            $sql_unggah_berkas = mysqli_query($koneksi, "INSERT INTO `tb_unggah_berkas`(`id_user_unggah_berkas`, `nama_kartu_keluarga`, `nama_kartu_tanda_penduduk`, `nama_akte`) VALUES ('$id_user_unggah','$name_foto_kartu_keluarga','$name_foto_kartu_tanda_penduduk','$name_foto_akte')");
+            if($sql_unggah_berkas){
+                $_SESSION["alert_tambah"] = "";
+                header("Location: ../index.php?table_unggah berkas");
+            }else{
+                echo "gagal unggah berkas";
+            }
+        }else{
+            echo "<b>Gagal Upload File</b>";
+        }
     }
 ?>

@@ -37,7 +37,7 @@ if(isset($_SESSION["id"])){
       <form action="proses_log.php" method="POST">
         
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="nik" placeholder="NIK">
+          <input type="text" class="form-control" name="nik" placeholder="NIK" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -45,7 +45,7 @@ if(isset($_SESSION["id"])){
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="nama" placeholder="Nama">
+          <input type="text" class="form-control" name="nama" placeholder="Nama" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -53,7 +53,7 @@ if(isset($_SESSION["id"])){
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" placeholder="Email">
+          <input type="email" class="form-control" name="email" placeholder="Email" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -61,7 +61,7 @@ if(isset($_SESSION["id"])){
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Password" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

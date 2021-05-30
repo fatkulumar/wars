@@ -6,7 +6,7 @@
 
         <div class="card-header bg-primary">
             <div style="position: absolute;">  
-                <h3 class="m-0 text-white">
+                <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Data Anak</strong>
                 </h3>
             </div>
@@ -24,7 +24,7 @@
             <div class="card-body">
 
             <div style="float: right;" class="col-md-3"> 
-                <img class="card-img-top" src="../gambar/<?= $row['foto_anak'] ?>" class="elevation-2" alt="User Image">
+                <img class="card-img-top" src="../gambar/<?= $row['foto_anak'] ?>" class="elevation-2" alt="Anak Image">
             </div>
                
         <div class="row">

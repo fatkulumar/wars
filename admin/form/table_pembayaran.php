@@ -1,4 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     function alert(pesan) {
         const Toast = Swal.mixin({
@@ -18,7 +18,13 @@
         title: pesan
         })
     }
-</script>
+</script> -->
+
+<?php
+    $id_user = $_SESSION["id"];
+    $sql_pembayaran = mysqli_query($koneksi, "SELECT id_pembayaran FROM `tb_pembayaran` WHERE `id_user_pembayaran` = '$id_user'");
+    $row_pembayaran = mysqli_fetch_array($sql_pembayaran);
+?>
 
 
 <div class="container">
@@ -28,12 +34,12 @@
         <div class="card-header bg-primary">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="m-0 text-white">
+                    <h1 class="m-0 mt-2 text-white" style="font-size: 14px;">
                         <strong>Data Pembayaran</strong>
                     </h1>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-danger float-right btn-sm mt-2" href="index.php?tambah_pembayaran"><i class="fa fa-plus"></i></a>
+                    <a class="btn btn-danger float-right btn-sm" href="index.php?tambah_pembayaran"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>
