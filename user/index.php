@@ -226,10 +226,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <?php
             $sql_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = '$id'");
+            $sql_pembayaran_tpa = mysqli_query($koneksi, "SELECT bukti_pembayaran_tpa FROM tb_pembayaran_tpa WHERE id_user_pembayaran_tpa = '$id'");
             $row_pemb = mysqli_fetch_array($sql_pembayaran);
+            $row_pemb_tpa = mysqli_fetch_array($sql_pembayaran_tpa);
           ?>
           <li class="nav-item menu-close">
-            <a href="<?php if($row_pemb["nama_pembayaran"] != null ){echo 'javascript:void(0)';}else{echo 'index.php?table_pembayaran';}?>" class="nav-link active">
+            <a href="<?php if($row_pemb != null && $row_pemb_tpa != null ){echo 'javascript:void(0)';}else{echo 'index.php?table_pembayaran';}?>" class="nav-link active">
               <i class="nav-icon fas fa-dollar-sign"></i>
               <p>
                 Pembayaran
@@ -287,7 +289,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <?php
+      <?php
           if(isset($_GET["table_users"])) {
             include "form/table_users.php";
           }elseif(isset($_GET["table_jadwal"])){
@@ -322,6 +324,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             include "form/upload_bukti_pembayaran.php";
           }elseif(isset($_GET["unggah_berkas"])){
             include "form/unggah_berkas.php";
+          }elseif(isset($_GET["upload_bukti_pembayaran_tpa"])){
+            include "form/upload_pembayaran_tpa.php";
           }elseif(isset($_GET["table_unggah_berkas"])){
             include "form/table_unggah_berkas.php";
           }else{

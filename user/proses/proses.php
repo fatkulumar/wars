@@ -51,13 +51,18 @@
     //        echo "<b>Gagal Upload File</b>";
     //    }
    }elseif(isset($_POST["tambah_pembayaran"])){
+    //    echo $_POST; die();
+        echo $p_paket_tambah = mysqli_real_escape_string($koneksi, $_POST["p_paket"]); 
+        // echo $daftar_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["daftar_tpa"]);
+
         $tahun_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tahun_pembayaran"]);
         $tgl_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["tgl_pembayaran"]);
         $id_user_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
         $gel_ke_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["gelombang_ke"]); 
         $biaya_gelombang_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_gelombang"]); 
         $jenis_pendidikan_pembayaran_tambah = mysqli_real_escape_string($koneksi, $_POST["jenis_pendidikan"]);
-
+        $id_pembayaran_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["p_paket"]);
+        
        // die();
     //    $temp_pembayaran_tambah = $_FILES['nama_pembayaran']['tmp_name'];
     //    $name_pembayaran_tambah = rand(0,9999).$_FILES['nama_pembayaran']['name'];
@@ -67,10 +72,23 @@
 
     //    $sql_select_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM `tb_pembayaran` WHERE `id_pembayaran` = '$id_pembayaran_tambah'");
     //    $bukti = mysqli_fetch_array($sql_select_pembayaran);
+        //jika pembayaran dan pembayaran tpa tidak kosong
+        if($p_paket_tambah != 0 && $gel_ke_pembayaran_tambah != 0){
+            $sql_tambah_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `jenis_pendidikan`, `nama_pembayaran`, `gelombang_ke`, `biaya_gelombang`, `tahun_pembayaran`, `tgl_pembayaran`) VALUES ('$id_user_pembayaran_tambah', '$jenis_pendidikan_pembayaran_tambah', '$name_pembayaran_tambah', '$gel_ke_pembayaran_tambah', '$biaya_gelombang_pembayaran_tambah', '$tahun_pembayaran_tambah', '$tgl_pembayaran_tambah')");
 
-       $sql_tambah_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `jenis_pendidikan`, `nama_pembayaran`, `gelombang_ke`, `biaya_gelombang`, `tahun_pembayaran`, `tgl_pembayaran`) VALUES ('$id_user_pembayaran_tambah', '$jenis_pendidikan_pembayaran_tambah', '$name_pembayaran_tambah', '$gel_ke_pembayaran_tambah', '$biaya_gelombang_pembayaran_tambah', '$tahun_pembayaran_tambah', '$tgl_pembayaran_tambah')");
+            $sql_pembayaran_tpa = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran_tpa`(`id_daftar_biaya_tpa`, `id_user_pembayaran_tpa`, `tgl_pembayaran_tpa`, `tahun_pembayaran_tpa`) VALUES ('$id_pembayaran_tpa_tambah','$id_user_pembayaran_tambah','$tgl_pembayaran_tambah','$tahun_pembayaran_tambah')");
+            //jika pembayaran tpa tidak kosong dan pembayaran kososng
+        }elseif($p_paket_tambah != 0 && $gel_ke_pembayaran_tambah == 0 ){
+            $sql_pembayaran_tpa = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran_tpa`(`id_daftar_biaya_tpa`, `id_user_pembayaran_tpa`, `tgl_pembayaran_tpa`, `tahun_pembayaran_tpa`) VALUES ('$id_pembayaran_tpa_tambah','$id_user_pembayaran_tambah','$tgl_pembayaran_tambah','$tahun_pembayaran_tambah')");
 
-       if($sql_tambah_pembayaran){
+            //jika pembayaran tpa kosong dan pembayaran tidak kososng 
+        }elseif($p_paket_tambah == 0 && $gel_ke_pembayaran_tambah != 0){
+            $sql_tambah_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `jenis_pendidikan`, `nama_pembayaran`, `gelombang_ke`, `biaya_gelombang`, `tahun_pembayaran`, `tgl_pembayaran`) VALUES ('$id_user_pembayaran_tambah', '$jenis_pendidikan_pembayaran_tambah', '$name_pembayaran_tambah', '$gel_ke_pembayaran_tambah', '$biaya_gelombang_pembayaran_tambah', '$tahun_pembayaran_tambah', '$tgl_pembayaran_tambah')");
+        }
+    //     die();
+    //    $sql_tambah_pembayaran = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran`(`id_user_pembayaran`, `jenis_pendidikan`, `nama_pembayaran`, `gelombang_ke`, `biaya_gelombang`, `tahun_pembayaran`, `tgl_pembayaran`) VALUES ('$id_user_pembayaran_tambah', '$jenis_pendidikan_pembayaran_tambah', '$name_pembayaran_tambah', '$gel_ke_pembayaran_tambah', '$biaya_gelombang_pembayaran_tambah', '$tahun_pembayaran_tambah', '$tgl_pembayaran_tambah')");
+
+       if($sql_tambah_pembayaran || $sql_pembayaran_tpa){
             $_SESSION["alert_tambah"] = "";
             header("Location: ../index.php?table_pembayaran");
        }
@@ -293,16 +311,17 @@
             echo "<b>Gagal Upload File</b>";
         }
     }elseif(isset($_POST["upload_pembayaran"])){
+        // echo "ya"; 
         $id_pembayaran = mysqli_real_escape_string($koneksi, $_POST["id_pembayaran"]);
         $temp_pembayaran = $_FILES['nama_pembayaran']['tmp_name']; 
         $name_pembayaran = rand(0,9999).$_FILES['nama_pembayaran']['name'];
         $size_pembayaran = $_FILES['nama_pembayaran']['size'];
         $type_pembayaran = $_FILES['nama_pembayaran']['type'];
-        $folder_pembayaran = "../../gambar/";
-
+        $folder_pembayaran_up = "../../gambar/";
+        // die();
         if ($size_pembayaran < 2048000 and ($type_pembayaran =='image/jpeg' or $type_pembayaran == 'image/png')) {
-            move_uploaded_file($temp_pembayaran, $folder_pembayaran . $name_pembayaran);
-            $sql_pembayaran = mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `nama_pembayaran`='$name_pembayaran' WHERE `id_pembayaran` = 20");
+            move_uploaded_file($temp_pembayaran, $folder_pembayaran_up . $name_pembayaran);
+            $sql_pembayaran = mysqli_query($koneksi, "UPDATE `tb_pembayaran` SET `nama_pembayaran`='$name_pembayaran' WHERE `id_pembayaran` = '$id_pembayaran'");
             if($sql_pembayaran){
                 $_SESSION["alert_tambah"] = "";
                 header("Location: ../index.php?table_pembayaran");
@@ -331,6 +350,26 @@
     //    }else{
     //        echo "<b>Gagal Upload File</b>";
     //    }
+    }elseif(isset($_POST["upload_pembayaran_tpa"])){
+        $id_pembayaran_tpa = mysqli_real_escape_string($koneksi, $_POST["id_pembayaran"]);
+        $temp_pembayaran_tpa = $_FILES['nama_pembayaran_tpa']['tmp_name']; 
+        $name_pembayaran_tpa = rand(0,9999).$_FILES['nama_pembayaran_tpa']['name'];
+        $size_pembayaran_tpa = $_FILES['nama_pembayaran_tpa']['size'];
+        $type_pembayaran_tpa = $_FILES['nama_pembayaran_tpa']['type'];
+        $folder_pembayaran_tpa = "../../gambar/";
+        // die();
+        if ($size_pembayaran_tpa < 2048000 and ($type_pembayaran_tpa =='image/jpeg' or $type_pembayaran_tpa == 'image/png')) {
+            move_uploaded_file($temp_pembayaran_tpa, $folder_pembayaran_tpa . $name_pembayaran_tpa);
+            $sql_pembayaran_tpa = mysqli_query($koneksi, "UPDATE `tb_pembayaran_tpa` SET `bukti_pembayaran_tpa`='$name_pembayaran_tpa' WHERE `id_pembayaran_tpa` = '$id_pembayaran_tpa'");
+            if($sql_pembayaran_tpa){
+                $_SESSION["alert_tambah"] = "";
+                header("Location: ../index.php?table_pembayaran");
+            }else{
+                echo "gagal pembayaran tpa";
+            }
+        }else{
+            echo "<b>Gagal Upload File</b>";
+        }
     }elseif(isset($_POST["unggah_berkas"])){
         $id_user_unggah = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
         $temp_kartu_keluarga = $_FILES['kartu_keluarga']['tmp_name'];

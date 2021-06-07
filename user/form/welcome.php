@@ -46,10 +46,10 @@
                     Status Pembayaran
                 <span class="info-box-number">
                 <span class="bg-success">
-                    <?php if($row_pembayaran["nama_pembayaran"] == 0){echo "Belum Lunas";}else{echo "Lunas";}?>
+                    <?php if($row_pembayaran == 0){echo "Belum Lunas";}else{echo "Lunas";}?>
                 </span>
                 <div>
-                    <small>Bayar <a href="<?php if($row_pembayaran["nama_pembayaran"] == 0){echo 'index.php?table_pembayaran';}else{echo 'javascript:void(0)';}?>">Disini</a> apabila belum lunas</small>
+                    <small>Bayar <a href="<?php if($row_pembayaran == 0){echo 'index.php?table_pembayaran';}else{echo 'javascript:void(0)';}?>">Disini</a> apabila belum lunas</small>
                 </div>
             <!-- /.info-box-content -->
         </div>

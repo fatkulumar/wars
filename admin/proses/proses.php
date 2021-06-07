@@ -118,34 +118,52 @@
             echo "gagal hapus pembayaran";
         }
     }elseif(isset($_POST["tambah_pembayaran_tpa"])){
+        $nik_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["nik"]);
         $nama_paket_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["nama_paket"]);
-        $biaya_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_tpa"]);
-        $biaya_formulir_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir_tpa"]);
-        $insidental_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["insidental"]);
-        $biaya_pendaftaran_tpa_tambah = mysqli_real_escape_string($koneksi, $_POST["biaya_pendaftaran_tpa"]);
 
-        $sql_pembayaran_tpa = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran_tpa`(`nama_paket_pembayaran_tpa`, `biaya_formulir_pembayaran_tpa`, `insidental_pembayaran_tpa`, `biaya_pembayaran_tpa`) VALUES ('$nama_paket_tpa_tambah','$biaya_formulir_tpa_tambah','$insidental_tpa_tambah','$biaya_pendaftaran_tpa_tambah')");
+        $temp_bukti_pendaftaran_tpa = $_FILES['bukti_pendaftaran_tpa']['tmp_name'];
+        $name_foto_bukti_pendaftaran_tpa_tambah = rand(0,9999).$_FILES['bukti_pendaftaran_tpa']['name'];
+        $size_bukti_pendaftaran_tpa = $_FILES['bukti_pendaftaran_tpa']['size'];
+        $type_bukti_pendaftaran_tpa = $_FILES['bukti_pendaftaran_tpa']['type'];
+        $folder_unggah = "../../gambar/";
+        // die();
 
-        if($sql_pembayaran_tpa){
-            $_SESSION["alert_hapus"] = "";
-            header("Location: ../index.php?table_pembayaran_tpa");
+        if ($size_bukti_pendaftaran_tpa < 2048000 and ($type_bukti_pendaftaran_tpa =='image/jpeg' or $type_bukti_pendaftaran_tpa == 'image/png')) {
+            move_uploaded_file($temp_bukti_pendaftaran_tpa, $folder_unggah . $name_foto_bukti_pendaftaran_tpa_tambah);
+            $sql_pembayaran_tpa_tambah = mysqli_query($koneksi, "INSERT INTO `tb_pembayaran_tpa`(`id_daftar_biaya_tpa`, `id_user_pembayaran_tpa`, `bukti_pembayaran_tpa`) VALUES ('$nama_paket_tpa_tambah','$nik_tpa_tambah','$name_foto_bukti_pendaftaran_tpa_tambah')");
+            if($sql_pembayaran_tpa_tambah){
+                $_SESSION["alert_tambah"] = "";
+                header("Location: ../index.php?table_pembayaran_tpa");
+            }else{
+                echo "gagal unggah pendaftaran tpa tambah";
+            }
         }else{
-            echo "gagal tambah pembayaran tpa";
+            echo "<b>Gagal Upload File edit</b>";
         }
     }elseif(isset($_POST["edit_pembayaran_tpa"])){
+        // echo "bener"; die();
         $id_pembayaran_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["id_pembayaran_tpa"]);
-        $nama_paket_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["nama_paket_pembayaran_tpa"]);
-        $biaya_formulir_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_formulir_pembayaran_tpa"]);
-        $insidental_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["insidental_pembayaran_tpa"]);
-        $biaya_pembayaran_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["biaya_pembayaran_tpa"]);
+        $nik_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["nik"]);
+        $nama_paket_tpa_edit = mysqli_real_escape_string($koneksi, $_POST["nama_paket"]);
 
-        $sql_pembayaran_tpa_edit = mysqli_query($koneksi, "UPDATE `tb_pembayaran_tpa` SET `nama_paket_pembayaran_tpa`='$nama_paket_tpa_edit',`biaya_formulir_pembayaran_tpa`='$biaya_formulir_tpa_edit',`insidental_pembayaran_tpa`='$insidental_tpa_edit',`biaya_pembayaran_tpa`='$biaya_pembayaran_tpa_edit' WHERE `id_pembayaran_tpa` = '$id_pembayaran_tpa_edit'");
+        $temp_bukti_pendaftaran_tpa = $_FILES['bukti_pendaftaran_tpa']['tmp_name'];
+        $name_foto_bukti_pendaftaran_tpa_edit = rand(0,9999).$_FILES['bukti_pendaftaran_tpa']['name'];
+        $size_bukti_pendaftaran_tpa = $_FILES['bukti_pendaftaran_tpa']['size'];
+        $type_bukti_pendaftaran_tpa = $_FILES['bukti_pendaftaran_tpa']['type'];
+        $folder_unggah = "../../gambar/";
+        // die();
 
-        if($sql_pembayaran_tpa_edit){
-            $_SESSION["alert_edit"] = "";
-            header("Location: ../index.php?table_pembayaran_tpa");
+        if ($size_bukti_pendaftaran_tpa < 2048000 and ($type_bukti_pendaftaran_tpa =='image/jpeg' or $type_bukti_pendaftaran_tpa == 'image/png')) {
+            move_uploaded_file($temp_bukti_pendaftaran_tpa, $folder_unggah . $name_foto_bukti_pendaftaran_tpa_edit);
+            $sql_pembayaran_tpa_edit = mysqli_query($koneksi, "UPDATE `tb_pembayaran_tpa` SET `id_daftar_biaya_tpa`='$nama_paket_tpa_edit',`id_user_pembayaran_tpa`='$nik_tpa_edit',`bukti_pembayaran_tpa`='$name_foto_bukti_pendaftaran_tpa_edit' WHERE `id_pembayaran_tpa` = '$id_pembayaran_tpa_edit'");
+            if($sql_pembayaran_tpa_edit){
+                $_SESSION["alert_edit"] = "";
+                header("Location: ../index.php?table_pembayaran_tpa");
+            }else{
+                echo "gagal unggah pendaftaran tpa edit";
+            }
         }else{
-            echo "gagal edit pembayaran tpa";
+            echo "<b>Gagal Upload File edit</b>";
         }
     }elseif(isset($_GET["hapus_pembayaran_tpa"])){
         $id_hapus_pembayaran_tpa = mysqli_real_escape_string($koneksi, $_GET["hapus_pembayaran_tpa"]);

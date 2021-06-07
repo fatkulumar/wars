@@ -135,11 +135,9 @@
                         <tr>
                            <?php
                                 $nomor = 0;
-                                $sql_pemb_tpa = mysqli_query($koneksi, "SELECT `id_pembayaran_tpa`, `id_daftar_biaya_tpa`, `id_user_pembayaran_tpa`, `bukti_pembayaran_tpa`, `status_pembayaran_tpa`, `tgl_pembayaran_tpa`, `tahun_pembayaran_tpa`, `nama_paket` FROM tb_daftar_biaya_tpa tpa JOIN tb_pembayaran_tpa t ON tpa.id_biaya_tpa = t.id_daftar_biaya_tpa WHERE id_user_pembayaran_tpa = '$id_user'");
+                                $sql_pemb_tpa = mysqli_query($koneksi, "SELECT `id_pembayaran_tpa`, `id_daftar_biaya_tpa`, `id_user_pembayaran_tpa`, `bukti_pembayaran_tpa`, `status_pembayaran_tpa`, `tgl_pembayaran_tpa`, `tahun_pembayaran_tpa`, `nama_paket` FROM tb_pembayaran_tpa t JOIN tb_daftar_biaya_tpa tpa ON tpa.id_biaya_tpa = t.id_daftar_biaya_tpa WHERE `id_user_pembayaran_tpa` = '$id_user'");
                                 $row_pemb_tpa = mysqli_fetch_array($sql_pemb_tpa);
-                                $nomor++;
-                                //jika isi database ada isinya
-                                if($sql_pemb_tpa->num_rows >0){
+                                $nomor++
                             ?>
                            <td><?= $nomor ?></td>
                            <td><?= $row_pemb_tpa["nama_paket"] ?></td>
@@ -147,7 +145,7 @@
                                 <?php 
                                     if($row_pemb_tpa["bukti_pembayaran_tpa"] == null):
                                 ?>
-                                    <a class="btn btn-sm btn-danger" href="index.php?upload_bukti_pembayaran_tpa"><i class="fa fa-camera"></i></a>
+                                    <a class="btn btn-sm btn-danger" href="<?php if($row_pemb["nama_pembayaran"] == null){echo "index.php?upload_bukti_pembayaran";}else{echo "javascript:void(0)";}?>"><i class="fa fa-camera"></i></a>
                                 <?php else:?>
                                     <img width="100px" src="../gambar/<?= $row_pemb_tpa["bukti_pembayaran_tpa"] ?>" alt="">
                                 <?php endif?>
@@ -156,7 +154,6 @@
                                 <!-- <a onclick="return confirm('Hapus <?= $row_pemb_tpa['nama_paket'] ?>')" class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i></a> -->
                                 <a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i></a>
                            </td>
-                           <?php }?>
                         </tr>
                     </tbody>               
                 </table>

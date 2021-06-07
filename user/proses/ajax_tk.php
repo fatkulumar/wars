@@ -9,7 +9,7 @@
     while($row = mysqli_fetch_array($sql_gelombang)){
         // $gelombang[] = $row_gel["gel_ke"];
         $dpp = $row["dpp"];
-        $dpp50 = number_format($dpp,2,',','.');
+        $dpp50 = number_format($dpp,2,',','.'); 
         $akhir_gel = $row["tgl_gel2"];
         $akr_gelombang = date('d F Y', strtotime($akhir_gel));
         $akhir_gelombang = substr($akr_gelombang, 3);

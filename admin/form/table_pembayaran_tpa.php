@@ -21,7 +21,7 @@
                     </h1>
                 </div>
                 <div class="col-md-6">
-                    <a class="btn btn-danger float-right btn-sm" href="index.php?tambah_pendaftaran_tpa"><i class="fa fa-plus"></i></a>
+                    <a class="btn btn-danger float-right btn-sm" href="index.php?tambah_pembayaran_tpa"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>
@@ -47,11 +47,9 @@
                     <thead>
                         <tr>
                             <td>No</td>
-                            <td>Nama Paket</td>
-                            <td>Biaya TPA</td>
-                            <td>Biaya Formulir</td>
-                            <td>Insiden</td>
-                            <td>Biaya Pendaftaran</td>
+                            <td>Nama</td>
+                            <td>Paket</td>
+                            <td>Bukti TF</td>
                             <td>Aksi</td>
                         </tr>
                     </thead>
@@ -59,17 +57,17 @@
                         <?php
                             include "../koneksi.php";
                             $no = 1;
-                            $sql_pembayaran_tpa = mysqli_query($koneksi, "SELECT `id_pembayaran_tpa`, `nama_paket_pembayaran_tpa`, `biaya_formulir_pembayaran_tpa`, `insidental_pembayaran_tpa`, `biaya_pembayaran_tpa` FROM `tb_pembayaran_tpa`");
+                            $sql_pembayaran_tpa = mysqli_query($koneksi, "SELECT `id_pembayaran_tpa`, `id_daftar_biaya_tpa`, `id_user_pembayaran_tpa`, `bukti_pembayaran_tpa`, `nama_user` FROM tb_pembayaran_tpa t JOIN tb_user u ON t.id_user_pembayaran_tpa = u.id_user");
                             while($row = mysqli_fetch_array($sql_pembayaran_tpa)):
                         ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= $row["nama_paket_pembayaran_tpa"] ?></td>
-                            <td><?= $row["biaya_pembayaran_tpa"]?></td>
-                            <td><?= $row["biaya_formulir_pembayaran_tpa"]?></td>
-                            <td><?= $row["insidental_pembayaran_tpa"] ?></td>
-                            <td><?= $row["biaya_formulir_pembayaran_tpa"] ?></td><td>
-                                <a onclick="return confirm('Hapus <?= $row['nama_paket_pembayaran_tpa'] ?>')" if class="btn btn-sm btn-danger" href="proses/proses.php?hapus_pembayaran_tpa=<?= $row["id_biaya_tpa"] ?>"><i class="fa fa-trash"></i></a><a class="btn btn-sm btn-primary" href="index.php?edit_pembayaran_tpa=<?= $row["id_pembayaran_tpa"] ?>"><i class="fa fa-edit"></i></a>
+                            <td><?= $row["nama_user"] ?></td>
+                            <td><?= $row["id_daftar_biaya_tpa"] ?></td>
+                            <td><img width="100px" src="../gambar/<?= $row["bukti_pembayaran_tpa"] ?>" alt=""></td>
+                            <td>
+                                <a onclick="return confirm('Hapus <?= $row['nama_user'] ?>')" class="btn btn-sm btn-danger" href="proses/proses.php?hapus_pembayaran_tpa="><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-sm btn-primary" href="index.php?edit_pembayaran_tpa=<?= $row["id_pembayaran_tpa"] ?>"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
                             <?php endwhile ?>
