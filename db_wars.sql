@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 07, 2021 at 11:56 PM
+-- Generation Time: Jun 13, 2021 at 10:05 PM
 -- Server version: 10.3.29-MariaDB-0ubuntu0.20.04.1
 -- PHP Version: 7.4.18
 
@@ -256,9 +256,9 @@ CREATE TABLE `tb_transfer_gelombang` (
 CREATE TABLE `tb_unggah_berkas` (
   `id_unggah_berkas` int(11) NOT NULL,
   `id_user_unggah_berkas` int(11) NOT NULL,
-  `nama_kartu_keluarga` varchar(255) NOT NULL,
-  `nama_kartu_tanda_penduduk` varchar(255) NOT NULL,
-  `nama_akte` varchar(255) NOT NULL
+  `nama_kartu_keluarga` varchar(255) DEFAULT NULL,
+  `nama_kartu_tanda_penduduk` varchar(255) DEFAULT NULL,
+  `nama_akte` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -266,7 +266,7 @@ CREATE TABLE `tb_unggah_berkas` (
 --
 
 INSERT INTO `tb_unggah_berkas` (`id_unggah_berkas`, `id_user_unggah_berkas`, `nama_kartu_keluarga`, `nama_kartu_tanda_penduduk`, `nama_akte`) VALUES
-(1, 15, '4294Screenshot from 2021-02-04 17-42-07.png', '3184Screenshot from 2021-02-13 17-09-07.png', '910Screenshot from 2021-02-07 21-01-22.png');
+(9, 15, '323Screenshot from 2021-02-13 17-07-46.png', '3503Screenshot from 2021-02-13 17-07-46.png', '611Screenshot from 2021-02-13 17-47-49.png');
 
 -- --------------------------------------------------------
 
@@ -291,9 +291,9 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `nik`, `nama_user`, `email_user`, `password_user`, `foto_user`, `tgl_registrasi`, `update_set`, `level`) VALUES
-(14, 4, 'kepala', 'kepala@gmail.com', '$2y$10$..2z7WfHgmDUe6mfRaRJde89pZQce2jyZe78DXZoKrGrIF9iMclKW', '2091Screenshot from 2021-02-04 17-42-07.png', '05-04-2021 18:22:08', '08-04-2021 01:28:49', 2),
-(15, 211121112, 'users database', 'user@gmail.com', '$2y$10$KrmEcrhnlZx0RAE0tFgN9e2LBCpQ7Zhnw5lejVsdA0QttQAMbFhbe', '8348Screenshot from 2021-02-13 17-08-55.png', '05-04-2021 18:25:16', '08-04-2021 01:16:07', 1),
-(16, 32541610001, 'admin umar', 'fatkulumar@gmail.com', '$2y$10$NUjlCnCPa7vm.os1xDYBJeNg7bRf9K4gN5DQKvQdkmbUR5S9AV3wS', '8066Screenshot from 2021-02-12 21-33-44.png', '05-04-2021 18:25:22', '08-04-2021 00:53:17', 0),
+(14, 4, 'kepala', 'kepala@gmail.com', '$2y$10$..2z7WfHgmDUe6mfRaRJde89pZQce2jyZe78DXZoKrGrIF9iMclKW', '5684Screenshot from 2021-02-16 19-53-21.png', '05-04-2021 18:22:08', '08-04-2021 01:28:49', 2),
+(15, 211121112, 'users database', 'user@gmail.com', '$2y$10$KrmEcrhnlZx0RAE0tFgN9e2LBCpQ7Zhnw5lejVsdA0QttQAMbFhbe', '6976Screenshot from 2021-02-04 17-42-07.png', '05-04-2021 18:25:16', '08-04-2021 01:16:07', 1),
+(16, 32541610001, 'admin umar', 'fatkulumar@gmail.com', '$2y$10$NUjlCnCPa7vm.os1xDYBJeNg7bRf9K4gN5DQKvQdkmbUR5S9AV3wS', '4859Screenshot from 2021-02-07 21-01-22.png', '05-04-2021 18:25:22', '08-04-2021 00:53:17', 0),
 (23, 5, 'Fatkul Umar', 'fatkulumar@gmail.com', 'sdadsd', NULL, '06-04-2021 21:41:13', '0', 1),
 (24, 1, 'Fatkul U', 'mar@gmail.com', 'sdadsd', NULL, '06-04-2021 21:41:40', '0', 1),
 (25, 0, 'Fatkul Umar', 'fatkulumar@gmail.com', 'sdadsd', NULL, '06-04-2021 21:56:42', '0', 1),
@@ -500,7 +500,7 @@ ALTER TABLE `tb_pendidikan`
 -- AUTO_INCREMENT for table `tb_unggah_berkas`
 --
 ALTER TABLE `tb_unggah_berkas`
-  MODIFY `id_unggah_berkas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_unggah_berkas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
