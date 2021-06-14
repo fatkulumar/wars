@@ -1,12 +1,12 @@
 <?php
     $id = $_GET["edit_wali"];
-    $sql_wali = mysqli_query($koneksi, "SELECT * FROM tb_wali WHERE id_wali = '$id'");
+    $sql_wali = mysqli_query($koneksi, "SELECT * FROM tb_wali WHERE id_user_wali = '$id'");
     $row = mysqli_fetch_array($sql_wali);
 ?>
 
 <div class="card">
         
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="m-0 text-white" style="font-size: 14px;">
@@ -19,7 +19,7 @@
         <div class="card-body">
 
             <form action="proses/proses.php" method="POST">
-                <input type="hidden" name="id_wali" value="<?= $id ?>">
+                <input type="hidden" name="id_wali" value="<?= $row["id_wali"] ?>">
                 <div class="row">
                     
                     <div class="col-md-6">
@@ -81,7 +81,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="penghasilan_wali">Penghasilan</label>
-                            <input class="form-control" type="text" name="penghasilan_wali" value="<?= $row['penghasilan_wali'] ?>">
+                            <input class="form-control" type="number" name="penghasilan_wali" value="<?= $row['penghasilan_wali'] ?>">
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="hp_kantor_wali">Telp Kantor</label>
-                            <input class="form-control" type="text" name="hp_kantor_wali" value="<?= $row['hp_kantor_wali'] ?>">
+                            <input class="form-control" type="number" name="hp_kantor_wali" value="<?= $row['hp_kantor_wali'] ?>">
                         </div>
                     </div>
 

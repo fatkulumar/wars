@@ -3,13 +3,25 @@
     include "../../koneksi.php";
     if(isset($_POST["edit_profil"])){
         $id_profil = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
-        echo $nama_user_profil = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
+        $nama_user_profil = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
 
         $temp_user = $_FILES['foto_user']['tmp_name'];
-        echo $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
+        $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
         $size_user = $_FILES['foto_user']['size'];
         $type_user = $_FILES['foto_user']['type'];
         $folder_user = "../../gambar/";
+
+        if($temp_user != null){
+            $sql_berkas_profil = mysqli_query($koneksi, "SELECT `id_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id_profil'");
+
+            $row_berkas_profil = mysqli_fetch_array($sql_berkas_profil);
+
+            $foto_user_profil = $row_berkas_profil["foto_user"];
+            
+            unlink("../../gambar/$foto_user_profil");
+        }else{
+            $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
+        }
         
         // die();
         $sql_user = mysqli_query($koneksi, "SELECT foto_user FROM tb_user WHERE `id_user` = '$id_profil'");

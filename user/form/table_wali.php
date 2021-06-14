@@ -1,17 +1,17 @@
 <?php
     $id_user = $_SESSION["id"];
-    $sql_wali = mysqli_query($koneksi, "SELECT `id_wali`, `id_user_wali`, `nama_wali`, `tempat_lahir_wali`, `tgl_lahir_wali`, `pendidikan_wali`, `agama_wali`, `negara_wali`, `bangsa_wali`, `pekerjaan_wali`, `penghasilan_wali`, `alamat_kantor_wali`, `hp_kantor_wali`, `golongan_darah_wali`, `alamat_rumah_wali` FROM `tb_wali` WHERE `id_user_wali`='$id_user'");
+    $sql_wali = mysqli_query($koneksi, "SELECT * FROM tb_wali w RIGHT JOIN tb_user u ON w.id_user_wali = u.id_user WHERE w.id_user_wali = '$id_user'");
     $row = mysqli_fetch_array($sql_wali);
 ?>
 
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div style="position: absolute;">  
                 <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Data Ayah</strong>
                 </h3>
             </div>
             <div style="position: relative;">
-                <a class="btn btn-danger float-right btn-sm" href="index.php?edit_wali=<?= $row["id_wali"] ?>"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-danger float-right btn-sm" href="index.php?edit_wali=<?= $row["id_user_wali"] ?>"><i class="fa fa-edit"></i></a>
             </div>
         </div>
 

@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-
+$link_prev = $_SERVER["HTTP_REFERER"];
 if(isset($_SESSION["id"])){
-  header("Location: admin");
+  header("Location: $link_prev");
 }
 
 ?>
@@ -33,6 +33,10 @@ if(isset($_SESSION["id"])){
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Kartika Pradana</p>
+      <?php if(isset($_SESSION["sudah_ada"])): ?>
+        <center><i><p style="color: red;">*password/username sudah ada</p></i></center>
+      <?php endif; ?>
+      <?php unset($_SESSION["sudah_ada"]); ?>
 
       <form action="proses_log.php" method="POST">
         

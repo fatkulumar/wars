@@ -1,18 +1,18 @@
 <?php
     $id_user = $_SESSION["id"];
-    $sql_user = mysqli_query($koneksi, "SELECT id_user, nama_user, foto_user, nama_wali, nama_anak, id_anak FROM tb_user u JOIN tb_wali w ON u.id_user = w.id_user_wali JOIn tb_anak a ON a.id_wali_anak = w.id_wali");
+    $sql_user = mysqli_query($koneksi, "SELECT id_user, nama_user, foto_user, nama_wali, nama_anak, id_anak FROM tb_user u LEFT JOIN tb_wali w ON u.id_user = w.id_user_wali LEFT JOIN tb_anak a ON a.id_wali_anak = w.id_wali WHERE u.id_user = '$id_user'");
     $row = mysqli_fetch_array($sql_user);
     $row["id_user"];
 ?>
 
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div style="position: absolute;">  
                 <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Profil</strong>
                 </h3>
             </div>
             <div style="position: relative;">
-                <a class="btn btn-danger float-right btn-sm fa fa-pencil" href="index.php?edit_profil=<?= $row["id_user"] ?>">Edit</a>
+                <a class="btn btn-danger float-right btn-sm fa fa-pencil" href="index.php?edit_profil=<?= $row["id_user"] ?>"><i class="fa fa-edit"></i></a>
             </div>
         </div>
 

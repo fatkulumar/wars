@@ -523,13 +523,25 @@
         }
     }elseif(isset($_POST["edit_profil"])){
         $id_profil = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
-        echo $nama_user_profil = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
+        $nama_user_profil = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
 
         $temp_user = $_FILES['foto_user']['tmp_name'];
-        echo $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
+        $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
         $size_user = $_FILES['foto_user']['size'];
         $type_user = $_FILES['foto_user']['type'];
         $folder_user = "../../gambar/";
+
+        if($temp_user != null){
+            $sql_berkas_profil = mysqli_query($koneksi, "SELECT `id_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id_profil'");
+
+            $row_berkas_profil = mysqli_fetch_array($sql_berkas_profil);
+
+            $foto_user_profil = $row_berkas_profil["foto_user"];
+            
+            unlink("../../gambar/$foto_user_profil");
+        }else{
+            $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
+        }
         
         // die();
         $sql_user = mysqli_query($koneksi, "SELECT foto_user FROM tb_user WHERE `id_user` = '$id_profil'");
@@ -555,6 +567,113 @@
             header("Location: ../index.php?profil");
         }else{
             echo "<b>Gagal Upload File</b>";
+        }
+    }elseif(isset($_POST["edit_berkas"])){
+        $id_user_unggah_edit_berkas = mysqli_real_escape_string($koneksi, $_POST["id_berkas"]);
+        $temp_kartu_keluarga_edit_berkas = $_FILES['kartu_keluarga']['tmp_name'];
+        $name_foto_kartu_keluarga_edit_berkas = rand(0,9999).$_FILES['kartu_keluarga']['name'];
+        $size_kartu_keluarga_edit_berkas = $_FILES['kartu_keluarga']['size'];
+        $type_kartu_keluarga_edit_berkas = $_FILES['kartu_keluarga']['type'];
+
+        $temp_kartu_tanda_penduduk_edit_berkas = $_FILES['kartu_tanda_penduduk']['tmp_name'];
+        $name_foto_kartu_tanda_penduduk_edit_berkas = rand(0,9999).$_FILES['kartu_tanda_penduduk']['name'];
+        $size_kartu_tanda_penduduk_edit_berkas = $_FILES['kartu_tanda_penduduk']['size'];
+        $type_kartu_tanda_penduduk_edit_berkas = $_FILES['kartu_tanda_penduduk']['type'];
+
+        $temp_akte_edit_berkas = $_FILES['akte']['tmp_name'];
+        $name_foto_akte_edit_berkas = rand(0,9999).$_FILES['akte']['name'];
+        $size_akte_edit_berkas = $_FILES['akte']['size'];
+        $type_akte_edit_berkas = $_FILES['akte']['type'];
+        $folder_unggah_edit_berkas = "../../gambar/";
+
+        $sql_edit_berkas = mysqli_query($koneksi, "SELECT `id_unggah_berkas`, `id_user_unggah_berkas`, `nama_kartu_keluarga`, `nama_kartu_tanda_penduduk`, `nama_akte` FROM `tb_unggah_berkas` WHERE `id_unggah_berkas` = '$id_user_unggah_edit_berkas'");
+
+        $row_edit_berkas = mysqli_fetch_array($sql_edit_berkas);
+        $kk_edit = $row_edit_berkas["nama_kartu_keluarga"];
+        $ktp_edit = $row_edit_berkas["nama_kartu_tanda_penduduk"];
+        $akte_edit = $row_edit_berkas["nama_akte"]; 
+
+        if ($size_kartu_keluarga_edit_berkas < 2048000 and $size_kartu_tanda_penduduk_edit_berkas < 2048000 and $size_akte_edit_berkas < 2048000 and ($type_kartu_keluarga_edit_berkas =='image/jpeg' or $type_kartu_keluarga_edit_berkas == 'image/png') and ($type_kartu_tanda_penduduk_edit_berkas =='image/jpeg' or $type_kartu_tanda_penduduk_edit_berkas == 'image/png') and ($type_akte_edit_berkas =='image/jpeg' or $type_akte_edit_berkas == 'image/png')  ) {
+            // echo "yes"; die();
+            move_uploaded_file($temp_kartu_keluarga_edit_berkas, $folder_unggah_edit_berkas . $name_foto_kartu_keluarga_edit_berkas);
+
+            move_uploaded_file($temp_kartu_tanda_penduduk_edit_berkas, $folder_unggah_edit_berkas . $name_foto_kartu_tanda_penduduk_edit_berkas);
+
+            move_uploaded_file($temp_akte_edit_berkas, $folder_unggah_edit_berkas . $name_foto_akte_edit_berkas);
+
+            $sql_edit_berkas = mysqli_query($koneksi, "UPDATE `tb_unggah_berkas` SET `nama_kartu_keluarga`='$name_foto_kartu_keluarga_edit_berkas',`nama_kartu_tanda_penduduk`='$name_foto_kartu_tanda_penduduk_edit_berkas',`nama_akte`='$name_foto_akte_edit_berkas' WHERE `id_unggah_berkas` = '$id_user_unggah_edit_berkas'");
+
+            unlink("../../gambar/$kk_edit");
+            unlink("../../gambar/$ktp_edit");
+            unlink("../../gambar/$akte_edit");
+            
+            if($sql_edit_berkas){
+                $_SESSION["alert_edit"] = "";
+                header("Location: ../index.php?table_berkas");
+            }else{
+                echo "gagal unggah berkas edit";
+            }
+        }else{
+            echo "<b>Gagal Upload File Edit Berkas</b>";
+        }
+    }elseif(isset($_POST["unggah_berkas"])){
+        $id_user_unggah_unggah_berkas = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
+        $temp_kartu_keluarga_unggah_berkas = $_FILES['kartu_keluarga']['tmp_name'];
+        $name_foto_kartu_keluarga_unggah_berkas = rand(0,9999).$_FILES['kartu_keluarga']['name'];
+        $size_kartu_keluarga_unggah_berkas = $_FILES['kartu_keluarga']['size'];
+        $type_kartu_keluarga_unggah_berkas = $_FILES['kartu_keluarga']['type'];
+
+        $temp_kartu_tanda_penduduk_unggah_berkas = $_FILES['kartu_tanda_penduduk']['tmp_name'];
+        $name_foto_kartu_tanda_penduduk_unggah_berkas = rand(0,9999).$_FILES['kartu_tanda_penduduk']['name'];
+        $size_kartu_tanda_penduduk_unggah_berkas = $_FILES['kartu_tanda_penduduk']['size'];
+        $type_kartu_tanda_penduduk_unggah_berkas = $_FILES['kartu_tanda_penduduk']['type'];
+
+        $temp_akte_unggah_berkas = $_FILES['akte']['tmp_name'];
+        $name_foto_akte_unggah_berkas = rand(0,9999).$_FILES['akte']['name'];
+        $size_akte_unggah_berkas = $_FILES['akte']['size'];
+        $type_akte_unggah_berkas = $_FILES['akte']['type'];
+        $folder_unggah_unggah_berkas = "../../gambar/";
+
+        if ($size_kartu_keluarga_unggah_berkas < 2048000 and $size_kartu_tanda_penduduk_unggah_berkas < 2048000 and $size_akte_unggah_berkas < 2048000 and ($type_kartu_keluarga_unggah_berkas =='image/jpeg' or $type_kartu_keluarga_unggah_berkas == 'image/png') and ($type_kartu_tanda_penduduk_unggah_berkas =='image/jpeg' or $type_kartu_tanda_penduduk_unggah_berkas == 'image/png') and ($type_akte_unggah_berkas =='image/jpeg' or $type_akte_unggah_berkas == 'image/png')  ) {
+            // echo "yes"; die();
+            move_uploaded_file($temp_kartu_keluarga_unggah_berkas, $folder_unggah_unggah_berkas . $name_foto_kartu_keluarga_unggah_berkas);
+
+            move_uploaded_file($temp_kartu_tanda_penduduk_unggah_berkas, $folder_unggah_unggah_berkas . $name_foto_kartu_tanda_penduduk_unggah_berkas);
+
+            move_uploaded_file($temp_akte_unggah_berkas, $folder_unggah_unggah_berkas . $name_foto_akte_unggah_berkas);
+
+            $sql_unggah_berkas = mysqli_query($koneksi, "INSERT INTO `tb_unggah_berkas`(`id_user_unggah_berkas`, `nama_kartu_keluarga`, `nama_kartu_tanda_penduduk`, `nama_akte`) VALUES ('$id_user_unggah_unggah_berkas','$name_foto_kartu_keluarga_unggah_berkas','$name_foto_kartu_tanda_penduduk_unggah_berkas','$name_foto_akte_unggah_berkas')");
+            
+            if($sql_unggah_berkas){
+                $_SESSION["alert_tambah"] = "";
+                header("Location: ../index.php?table_berkas");
+            }else{
+                echo "gagal unggah berkas tambah";
+            }
+        }else{
+            echo "<b>Gagal Upload File tambah Berkas</b>";
+        }
+    }elseif(isset($_GET["hapus_berkas"])){
+        $id_berkas_hapus = mysqli_real_escape_string($koneksi, $_GET["hapus_berkas"]); 
+
+        $sql_hapus_berkas_select = mysqli_query($koneksi, "SELECT `id_unggah_berkas`, `id_user_unggah_berkas`, `nama_kartu_keluarga`, `nama_kartu_tanda_penduduk`, `nama_akte` FROM `tb_unggah_berkas` WHERE `id_unggah_berkas` = '$id_berkas_hapus'");
+
+        $row_hapus_berkas = mysqli_fetch_array($sql_hapus_berkas_select);
+        $kk_hapus = $row_hapus_berkas["nama_kartu_keluarga"];
+        $ktp_hapus = $row_hapus_berkas["nama_kartu_tanda_penduduk"];
+        $akte_hapus = $row_hapus_berkas["nama_akte"]; 
+
+        unlink("../../gambar/$kk_hapus");
+        unlink("../../gambar/$ktp_hapus");
+        unlink("../../gambar/$akte_hapus");
+
+        $sql_hapus_berkas = mysqli_query($koneksi, "DELETE FROM `tb_unggah_berkas` WHERE `id_unggah_berkas` = '$id_berkas_hapus'");
+
+        if($sql_hapus_berkas) {
+            $_SESSION["alert_hapus"] = "";
+            header("Location: ../index.php?table_berkas");
+        }else{
+            echo "gagal hapus berkas";
         }
     }
 

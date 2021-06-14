@@ -1,12 +1,18 @@
 <?php 
   session_start();
 
-  if(!isset($_SESSION["id"])){
-    header("Location: ../index.php");
+  if(!isset($_SESSION["email"])){
+    echo "tidak ada id";
+    header("Location: index.php");
+    die();
   }
   
   include "../koneksi.php";
-  $id = $_SESSION["id"];
+  $ses_email = $_SESSION["email"];
+  $sql_user = mysqli_query($koneksi, "SELECT id_user FROM tb_user WHERE email_user = '$ses_email'");
+  $row = mysqli_fetch_array($sql_user);
+
+  $id = $row["id_user"];
   $sql_select_user = mysqli_query($koneksi, "SELECT `nama_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id'");
   $row_user = mysqli_fetch_array($sql_select_user);
   
@@ -213,8 +219,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
 
+          <?php
+            $sql_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = '$id'");
+            $sql_pembayaran_tpa = mysqli_query($koneksi, "SELECT bukti_pembayaran_tpa FROM tb_pembayaran_tpa WHERE id_user_pembayaran_tpa = '$id'");
+            $row_pemb = mysqli_fetch_array($sql_pembayaran);
+            $row_pemb_tpa = mysqli_fetch_array($sql_pembayaran_tpa);
+          ?>
+
           <li class="nav-item menu-close">
-            <a href="index.php?table_jalur_masuk" class="nav-link active">
+            <a href="<?php if($row_pemb != null && $row_pemb_tpa != null ){echo 'javascript:void(0)';}else{echo 'index.php?table_jalur_masuk';}?>" class="nav-link active">
               <i class="nav-icon fas fa-road"></i>
               <p>
                 Pilih Jalur Masuk
@@ -224,12 +237,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
           </li>
 
-          <?php
-            $sql_pembayaran = mysqli_query($koneksi, "SELECT nama_pembayaran FROM tb_pembayaran WHERE id_user_pembayaran = '$id'");
-            $sql_pembayaran_tpa = mysqli_query($koneksi, "SELECT bukti_pembayaran_tpa FROM tb_pembayaran_tpa WHERE id_user_pembayaran_tpa = '$id'");
-            $row_pemb = mysqli_fetch_array($sql_pembayaran);
-            $row_pemb_tpa = mysqli_fetch_array($sql_pembayaran_tpa);
-          ?>
           <li class="nav-item menu-close">
             <a href="<?php if($row_pemb != null && $row_pemb_tpa != null ){echo 'javascript:void(0)';}else{echo 'index.php?table_pembayaran';}?>" class="nav-link active">
               <i class="nav-icon fas fa-dollar-sign"></i>

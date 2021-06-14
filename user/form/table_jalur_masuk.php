@@ -176,7 +176,7 @@
 
             $('#p_paket').on('change', function() {
                 var id_biaya_tpa = $('#p_paket').val()
-                alert(id_biaya_tpa)
+                // alert(id_biaya_tpa)
                 $.ajax({
                     url: "proses/ajax_paket_tpa.php",
                     data: {"id_biaya_tpa" : id_biaya_tpa},

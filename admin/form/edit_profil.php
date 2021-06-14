@@ -6,10 +6,10 @@
 
 <div class="card">
         
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="m-0 text-white">
+                    <h1 class="m-0 text-white" style="font-size: 14px;">
                         <strong>Edit Profil</strong>
                     </h1>
                 </div>

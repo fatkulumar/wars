@@ -10,7 +10,7 @@
     $row_pemb = mysqli_fetch_array($sql_pemb);
         if($row_pemb == null){
             echo "<div class='alert alert-warning' role='alert'>
-                    <i>Segera Lunasi Pembayaran Anda</i>
+                    <i>Segera Lunasi Pembayaran Anda</i><i style='font-size: 10px; color:red'>*Pilih Jalur Masuk</i>
                 </div>";
         }
     

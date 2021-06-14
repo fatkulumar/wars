@@ -2,9 +2,10 @@
 
 session_start();
 
-if(isset($_SESSION["id"])){
-  header("Location: admin");
-}
+  // if(isset($_SESSION["id"])){
+  //   header("Location: index.php");
+  //   // echo $_SESSION["id"];
+  // }
 
 ?>
 
@@ -33,6 +34,10 @@ if(isset($_SESSION["id"])){
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Kartika Pradana</p>
+      <?php if(isset($_SESSION["null_user"])): ?>
+        <center><i><p style="color: red;">*password/username tidak ada</p></i></center>
+      <?php endif; ?>
+      <?php unset($_SESSION["null_user"]); ?>
 
       <form action="proses_log.php" method="post">
         <div class="input-group mb-3">

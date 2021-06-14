@@ -30,7 +30,7 @@
                                 <option value="">Pilih NIK</option>
                                 <?php
                                     include "../koneksi.php";
-                                    $sql_user = mysqli_query($koneksi, "SELECT nik, id_user FROM tb_user");
+                                    $sql_user = mysqli_query($koneksi, "SELECT nik, id_user FROM tb_user WHERE id_user NOT IN (SELECT id_user_pembayaran_tpa FROM tb_pembayaran_tpa)");
                                     while($row_user = mysqli_fetch_array($sql_user)):
                                 ?>
                                     <option value="<?= $row_user["id_user"] ?>" <?php if($row_user["id_user"] == $row["id_user"]){echo "selected";} ?>><?= $row_user["nik"] ?></option>

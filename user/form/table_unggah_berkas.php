@@ -5,9 +5,14 @@
 
     $sql_berkas = mysqli_query($koneksi, "SELECT `id_unggah_berkas`, `id_user_unggah_berkas`, `nama_kartu_keluarga`, `nama_kartu_tanda_penduduk`, `nama_akte` FROM `tb_unggah_berkas` WHERE `id_user_unggah_berkas` = '$id_user'");
     $row_berkas = mysqli_fetch_array($sql_berkas);
-    $kk = $row_berkas["nama_kartu_keluarga"];
-    $ktp = $row_berkas["nama_kartu_tanda_penduduk"];
-    $akte = $row_berkas["nama_akte"];
+    if($row_berkas != null) {
+        $kk = $row_berkas["nama_kartu_keluarga"];
+        $ktp = $row_berkas["nama_kartu_tanda_penduduk"];
+        $akte = $row_berkas["nama_akte"];
+    }
+    // $kk = $row_berkas["nama_kartu_keluarga"];
+    // $ktp = $row_berkas["nama_kartu_tanda_penduduk"];
+    // $akte = $row_berkas["nama_akte"];
 ?>
 
 <div class="card">
@@ -16,12 +21,12 @@
         <div class="col-md-6">
             <h1 class="m-0 mt-2 text-white" style="font-size: 14px;">
                 <strong>Data Unggah Berkas</strong>
-                <i><small style="color: white;"><?php if($kk == null || $ktp == null || $akte == null) {echo "*lengkapi berkas anda";}else{echo "Menunggu verifikasi";}?></small></i>
+                <i><small style="color: white;"><?php if($row_berkas == null) {echo "*lengkapi berkas anda";}else{echo "Menunggu verifikasi";}?></small></i>
             </h1>
         </div>
         <div class="col-md-6">
             <h1 class="m-0 text-white" style="font-size: 14px; float: right;">
-                <strong><a class="btn btn-sm btn-danger" href="<?php if($kk != null || $ktp != null || $akte != null) {echo "javascript:void(0)";}else{echo "index.php?unggah_berkas";}?>"><i class="fa fa-camera"></i></a></strong>
+                <strong><a class="btn btn-sm btn-danger" href="<?php if($row_berkas != null) {echo "javascript:void(0)";}else{echo "index.php?unggah_berkas";}?>"><i class="fa fa-camera"></i></a></strong>
             </h1>
         </div>
     </div>

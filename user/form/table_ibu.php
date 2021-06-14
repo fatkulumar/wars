@@ -1,10 +1,11 @@
 <?php
     $id_user = $_SESSION["id"];
-    $sql_wali = mysqli_query($koneksi, "SELECT `id_ibu`, `id_wali_ibu`, `id_anak_ibu`, `nama_ibu`, `tempat_lahir_ibu`, `tgl_lahir_ibu`, `pendidikan_ibu`, `agama_ibu`, `negara_ibu`, `bangsa_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `alamat_kantor_ibu`, `hp_kantor_ibu`, `golongan_darah_ibu`, `alamat_rumah_ibu`, `id_wali`, `id_user`, `id_user_wali`, 'nama_wali' FROM tb_ibu i JOIN tb_wali w ON i.id_wali_ibu = w.id_wali JOIN tb_user u ON u.id_user = w.id_user_wali");
+    $sql_wali = mysqli_query($koneksi, "SELECT * FROM tb_wali w RIGHT JOIN tb_ibu i ON i.id_wali_ibu = w.id_wali LEFT JOIN tb_user u ON u.id_user = w.id_user_wali WHERE u.id_user = '$id_user'");
     $row = mysqli_fetch_array($sql_wali);
+    // echo $row["id_ibu"];
 ?>
 
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div style="position: absolute;">  
                 <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Data Ibu</strong>

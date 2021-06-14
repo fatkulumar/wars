@@ -1,10 +1,12 @@
 <?php
+// echo $_SESSION["id"];
     $id_user = $_SESSION["id"];
-    $sql_anak = mysqli_query($koneksi, "SELECT * FROM tb_ibu i JOIN tb_wali w ON w.id_wali = i.id_wali_ibu JOIN tb_anak a ON a.id_ibu_anak = i.id_ibu JOIN tb_user u ON u.id_user = w.id_user_wali WHERE u.id_user = '$id_user'");
+    $sql_anak = mysqli_query($koneksi, "SELECT * FROM tb_anak a LEFT JOIN tb_wali w ON w.id_wali = a.id_wali_anak LEFT JOIN tb_ibu i ON i.id_wali_ibu = w.id_wali JOIN tb_user u ON u.id_user = w.id_user_wali WHERE u.id_user = '$id_user'");
     $row = mysqli_fetch_array($sql_anak);
+    // echo $row["id_anak"];
 ?>
 
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div style="position: absolute;">  
                 <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Data Anak</strong>

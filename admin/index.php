@@ -1,6 +1,5 @@
 <?php 
   session_start();
-
   if(!isset($_SESSION["id"])){
     header("Location: ../index.php");
   }
@@ -174,6 +173,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Pembayaran TPA</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="index.php?table_berkas" class="nav-link <?php if(isset($_GET["table_berkas"])) {echo "active";} ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Berkas</p>
+                </a>
+              </li>
             </ul>
           </li>
 
@@ -335,6 +340,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           include "form/edit_pembayaran_tpa.php";
         }elseif(isset($_GET["edit_profil"])){
           include "form/edit_profil.php";
+        }elseif(isset($_GET["table_berkas"])){
+          include "form/table_berkas.php";
+        }elseif(isset($_GET["tambah_berkas"])){
+          include "form/tambah_berkas.php";
+        }elseif(isset($_GET["edit_berkas"])){
+          include "form/edit_berkas.php";
         }else{
           include "form/welcome.php";
         }

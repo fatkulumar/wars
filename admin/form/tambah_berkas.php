@@ -1,9 +1,3 @@
-<?php
-    $id_user = $_SESSION["id"];
-    $sql_pembayaran = mysqli_query($koneksi, "SELECT id_pembayaran FROM `tb_pembayaran` WHERE `id_user_pembayaran` = '$id_user'");
-    $row_pembayaran = mysqli_fetch_array($sql_pembayaran);
-?>
-
 <div class="card">
 <div class="card-header bg-success">
     <div class="row">
@@ -16,7 +10,21 @@
 </div>
 
 <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id_user" value="<?= $id_user ?>">
+    <div class="col-md-12">
+        <div class="form-group mt-2">
+            <label for="golongan_darah_anak">Nama</label>
+            <select class="form-control" name="id_user" id="id_user" required>
+                <option value="">Pilih User</option>
+                <?php
+                    $sql_user = mysqli_query($koneksi, "SELECT `id_user`, `nik`, `nama_user`FROM `tb_user` WHERE id_user NOT IN (SELECT id_user_unggah_berkas FROM tb_unggah_berkas)");
+                    while($row_user = mysqli_fetch_array($sql_user)):
+                ?>
+                    <option value="<?= $row_user["id_user"] ?>"><?= $row_user["nama_user"] ?></option>
+                <?php endwhile ?>
+            </select>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-12 col-sm-4 col-md-4">
             <div class="info-box">

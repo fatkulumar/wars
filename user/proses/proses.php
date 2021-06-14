@@ -117,22 +117,22 @@
             echo "Gagal Hapus Pembayaran";
         }
    }elseif(isset($_POST["edit_anak"])){
-        $id_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_anak"]);
-        $id_wali_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
-        $id_ibu_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
-        $nama_anak_edit = mysqli_real_escape_string($koneksi, $_POST["nama_anak"]);
-        $jenis_kelamin_anak_edit = mysqli_real_escape_string($koneksi, $_POST["jenis_kelamin_anak"]);
-        $tempat_lahir_anak_edit = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_anak"]);
-        $tgl_lahir_anak_edit = mysqli_real_escape_string($koneksi, $_POST["tgl_lahir_anak"]);
-        $agama_anak_edit = mysqli_real_escape_string($koneksi, $_POST["agama_anak"]);
-        $anak_ke_edit = mysqli_real_escape_string($koneksi, $_POST["anak_ke"]);
-        $jml_saudara_anak_edit = mysqli_real_escape_string($koneksi, $_POST["jml_saudara_anak"]);
-        $warga_negara_anak_edit = mysqli_real_escape_string($koneksi, $_POST["warga_negara_anak"]);
-        $suku_bangsa_anak_edit = mysqli_real_escape_string($koneksi, $_POST["suku_bangsa_anak"]);
-        $bahasa_anak_edit = mysqli_real_escape_string($koneksi, $_POST["bahasa_anak"]);
-        $golongan_darah_anak_edit = mysqli_real_escape_string($koneksi, $_POST["golongan_darah_anak"]);
-        $riwayat_penyakit_anak_edit = mysqli_real_escape_string($koneksi, $_POST["riwayat_penyakit_anak"]);
-        $alamat_rumah_anak_edit = mysqli_real_escape_string($koneksi, $_POST["alamat_rumah_anak"]);
+        echo $id_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_anak"]);
+        echo $id_wali_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
+        echo $id_ibu_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
+        echo $nama_anak_edit = mysqli_real_escape_string($koneksi, $_POST["nama_anak"]);
+        echo $jenis_kelamin_anak_edit = mysqli_real_escape_string($koneksi, $_POST["jenis_kelamin_anak"]);
+        echo $tempat_lahir_anak_edit = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_anak"]);
+        echo $tgl_lahir_anak_edit = mysqli_real_escape_string($koneksi, $_POST["tgl_lahir_anak"]);
+        echo $agama_anak_edit = mysqli_real_escape_string($koneksi, $_POST["agama_anak"]);
+        echo $anak_ke_edit = mysqli_real_escape_string($koneksi, $_POST["anak_ke"]);
+        echo $jml_saudara_anak_edit = mysqli_real_escape_string($koneksi, $_POST["jml_saudara_anak"]);
+        echo $warga_negara_anak_edit = mysqli_real_escape_string($koneksi, $_POST["warga_negara_anak"]);
+        echo $suku_bangsa_anak_edit = mysqli_real_escape_string($koneksi, $_POST["suku_bangsa_anak"]);
+        echo $bahasa_anak_edit = mysqli_real_escape_string($koneksi, $_POST["bahasa_anak"]);
+        echo $golongan_darah_anak_edit = mysqli_real_escape_string($koneksi, $_POST["golongan_darah_anak"]);
+        echo $riwayat_penyakit_anak_edit = mysqli_real_escape_string($koneksi, $_POST["riwayat_penyakit_anak"]);
+        echo $alamat_rumah_anak_edit = mysqli_real_escape_string($koneksi, $_POST["alamat_rumah_anak"]);
         
         $temp_edit_anak = $_FILES['foto_anak']['tmp_name'];
         $name_foto_edit_anak = rand(0,9999).$_FILES['foto_anak']['name'];
@@ -153,10 +153,12 @@
                 echo "gagal edit anak";
             }
         }else{
-            
             if ($size_edit_anak < 2048000 and ($type_edit_anak =='image/jpeg' or $type_edit_anak == 'image/png')) {
-                $sql_update_anak = mysqli_query($koneksi, "UPDATE `tb_anak` SET `id_wali_anak`='$id_wali_anak_edit',`id_ibu_anak`='$id_ibu_anak_edit',`nama_anak`='$nama_anak_edit',`jenis_kelamin_anak`='$jenis_kelamin_anak_edit',`tempat_lahir_anak`='$tempat_lahir_anak_edit',`tgl_lahir_anak`='$tgl_lahir_anak_edit',`agama_anak`='$agama_anak_edit',`anak_ke`='$anak_ke_edit',`jml_saudara_anak`='$jml_saudara_anak_edit',`warga_negara_anak`='$warga_negara_anak_edit',`suku_bangsa_anak`='$suku_bangsa_anak_edit',`bahasa_anak`='$bahasa_anak_edit',`golongan_darah_anak`='$golongan_darah_anak_edit',`riwayat_penyakit_anak`='$riwayat_penyakit_anak_edit',`alamat_rumah_anak`='$alamat_rumah_anak_edit',`foto_anak`='$name_foto_edit_anak' WHERE `id_anak` = '$id_anak_edit'");
 
+                // $sql_anak_select = mysqli_query($koneksi, "SELECT ");
+
+                 $sql_update_anak = mysqli_query($koneksi, "UPDATE `tb_anak` SET `id_wali_anak`='$id_wali_anak_edit',`id_ibu_anak`='$id_ibu_anak_edit',`nama_anak`='$nama_anak_edit',`jenis_kelamin_anak`='$jenis_kelamin_anak_edit',`tempat_lahir_anak`='$tempat_lahir_anak_edit',`tgl_lahir_anak`='$tgl_lahir_anak_edit',`agama_anak`='$agama_anak_edit',`anak_ke`='$anak_ke_edit',`jml_saudara_anak`='$jml_saudara_anak_edit',`warga_negara_anak`='$warga_negara_anak_edit',`suku_bangsa_anak`='$suku_bangsa_anak_edit',`bahasa_anak`='$bahasa_anak_edit',`golongan_darah_anak`='$golongan_darah_anak_edit',`riwayat_penyakit_anak`='$riwayat_penyakit_anak_edit',`alamat_rumah_anak`='$alamat_rumah_anak_edit',`foto_anak`='$name_foto_edit_anak' WHERE `id_anak` = '$id_anak_edit'");
+                // die();
                 if($sql_update_anak){
                     $_SESSION["alert_edit"] = "";
                     header("Location: ../index.php?table_anak");
@@ -277,15 +279,26 @@
         }
     }elseif(isset($_POST["edit_profil"])){
         $id_profil = mysqli_real_escape_string($koneksi, $_POST["id_user"]);
-        echo $nama_user_profil = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
+        $nama_user_profil = mysqli_real_escape_string($koneksi, $_POST["nama_user"]);
 
         $temp_user = $_FILES['foto_user']['tmp_name'];
-        echo $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
+        $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
         $size_user = $_FILES['foto_user']['size'];
         $type_user = $_FILES['foto_user']['type'];
         $folder_user = "../../gambar/";
+
+        if($temp_user != null){
+            $sql_berkas_profil = mysqli_query($koneksi, "SELECT `id_user`, `foto_user` FROM `tb_user` WHERE `id_user` = '$id_profil'");
+
+            $row_berkas_profil = mysqli_fetch_array($sql_berkas_profil);
+
+            $foto_user_profil = $row_berkas_profil["foto_user"];
+            
+            unlink("../../gambar/$foto_user_profil");
+        }else{
+            $name_foto_user = rand(0,9999).$_FILES['foto_user']['name'];
+        }
         
-        // die();
         $sql_user = mysqli_query($koneksi, "SELECT foto_user FROM tb_user WHERE `id_user` = '$id_profil'");
         $row_profil = mysqli_fetch_array($sql_user);
         $foto_profil = $row_profil["foto_user"];

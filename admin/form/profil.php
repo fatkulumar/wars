@@ -1,18 +1,18 @@
 <?php
     $id_user = $_SESSION["id"];
-    $sql_user = mysqli_query($koneksi, "SELECT id_user, nama_user, foto_user, nama_wali, nama_anak, id_anak FROM tb_user u JOIN tb_wali w ON u.id_user = w.id_user_wali JOIn tb_anak a ON a.id_wali_anak = w.id_wali");
+    $sql_user = mysqli_query($koneksi, "SELECT id_user, nama_user, foto_user FROM tb_user WHERE id_user = '$id_user'");
     $row = mysqli_fetch_array($sql_user);
     $row["id_user"];
 ?>
 
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div style="position: absolute;">  
-                <h3 class="m-0 text-white">
+                <h3 class="mt-2 text-white" style="font-size: 14px;">
                     <strong>Profil</strong>
                 </h3>
             </div>
             <div style="position: relative;">
-                <a class="btn btn-danger float-right btn-sm" href="index.php?edit_profil=<?= $row["id_user"] ?>">Edit</a>
+                <a class="btn btn-danger float-right btn-sm" href="index.php?edit_profil=<?= $row["id_user"] ?>"><i class="fa fa-edit"></i></a>
             </div>
         </div>
 
@@ -34,14 +34,14 @@
                     <td><strong>Nama</strong></td>
                     <td><?= $row["nama_user"]?></td>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td><strong>Nama Suami</strong></td>
                     <td><?= $row["nama_wali"]?></td>
                 </tr>
                 <tr>
                     <td><strong>Nama Anak</strong></td>
                     <td><?= $row["nama_anak"]?></td>
-                </tr>
+                </tr> -->
 
         </table>
     </div>

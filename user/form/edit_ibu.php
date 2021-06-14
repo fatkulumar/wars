@@ -1,12 +1,13 @@
 <?php
     $id = $_GET["edit_ibu"];
-    $sql_ibu = mysqli_query($koneksi, "SELECT * FROM tb_ibu");
+    $sql_ibu = mysqli_query($koneksi, "SELECT * FROM tb_wali w JOIN tb_ibu i ON i.id_wali_ibu = w.id_wali WHERE i.id_ibu = '$id'");
     $row = mysqli_fetch_array($sql_ibu);
+    $row["nama_ibu"];
 ?>
 
 <div class="card">
         
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="m-0 text-white" style="font-size: 14px;">
@@ -31,7 +32,7 @@
                                     $sql_wali = mysqli_query($koneksi, "SELECT id_wali, nama_wali FROM tb_wali");
                                     while($row_wali = mysqli_fetch_array($sql_wali)):
                                 ?>
-                                    <option value="<?= $row_wali["id_wali"] ?>" <?php if($row_wali["id_wali"] == $row["id_wali_ibu"]){echo "selected";}?>><?= $row_wali["id_wali"] ?></option>
+                                    <option value="<?= $row_wali["id_wali"] ?>" <?php if($row_wali["id_wali"] == $row["id_wali_ibu"]){echo "selected";}?>><?= $row_wali["nama_wali"] ?></option>
                                 <?php endwhile ?>
                             </select>
                         </div>

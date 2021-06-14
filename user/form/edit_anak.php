@@ -1,6 +1,6 @@
 <div class="card">
         
-        <div class="card-header bg-primary">
+        <div class="card-header bg-success">
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="m-0 text-white" style="font-size: 14px;">
@@ -12,7 +12,7 @@
 
         <?php
             $id = $_GET["edit_anak"];
-            $sql_anak = mysqli_query($koneksi, "SELECT * FROM tb_anak WHERE id_anak = '$id'");
+            $sql_anak = mysqli_query($koneksi, "SELECT * FROM tb_anak a JOIN tb_wali w ON w.id_wali = a.id_wali_anak JOIN tb_ibu i ON i.id_wali_ibu = w.id_wali WHERE a.id_anak = '$id'");
             $row_anak = mysqli_fetch_array($sql_anak);
         ?>
 
@@ -47,7 +47,7 @@
                                 $sql_ibu = mysqli_query($koneksi, "SELECT id_ibu, nama_ibu FROM tb_ibu");
                                 while($row_ibu = mysqli_fetch_array($sql_ibu)):
                             ?>
-                                <option value="<?= $row_ibu["id_ibu"] ?>" <?php if($row_anak["id_ibu_anak"] == $row_ibu["id_ibu"]){echo "selected";} ?>><?= $row_ibu["nama_ibu"] ?></option>
+                                <option value="<?= $row_ibu["id_ibu"] ?>" <?php if($row_anak["id_ibu"] == $row_ibu["id_ibu"]){echo "selected";} ?>><?= $row_ibu["nama_ibu"] ?></option>
                             <?php
                                 endwhile
                             ?>
