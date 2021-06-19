@@ -227,7 +227,7 @@
 <!-- jadwal -->
 <?php
     $id = $_SESSION["id"];
-    $sql_wawancara = mysqli_query($koneksi, "SELECT * FROM tb_wawancara w RIGHT JOIN tb_jadwal_wawancara j ON w.id_jadwal_wawancara_wawancara = j.id_jadwal_wawancara left JOIN tb_user u ON u.id_user = w.id_user_wawancara");
+    $sql_wawancara = mysqli_query($koneksi, "SELECT * FROM tb_wawancara w LEFT JOIN tb_jadwal_wawancara j ON w.id_jadwal_wawancara_wawancara = j.id_jadwal_wawancara LEFT JOIN tb_user u ON u.id_user = w.id_user_wawancara WHERE w.id_user_wawancara = '$id'");
     $row = mysqli_fetch_array($sql_wawancara);
 ?>
 
@@ -256,7 +256,7 @@
                                 <div class="col-md-6 mt-1">
                                     <strong>
                                         <?php 
-                                            if($row["id_user_wawancara"] == null){
+                                            if($row["jenis_wawancara"] == null){
                                                 // echo "Anda Belum Memilih Jadwal Wawancara";
                                                 echo "jadwal wawancara anda pada: " . "<i><strong><span id='jadwal'>belum memilih jadwal</span></strong></i>";
 

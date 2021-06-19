@@ -33,6 +33,9 @@
         $row_wali = mysqli_fetch_array($sql_wali);
         $id_wali = $row_wali["id_wali"];
 
+        // sql jadwal
+        $insert_jadwal = mysqli_query($koneksi, "INSERT INTO `tb_wawancara`(`id_user_wawancara`) VALUES ('$id_user')");
+
         $insert_ibu = mysqli_query($koneksi, "INSERT INTO `tb_ibu`(`id_wali_ibu`) VALUES ('$id_wali')");
         $insert_anak = mysqli_query($koneksi, "INSERT INTO `tb_anak`(`id_wali_anak`) VALUES ('$id_wali')");
         if($insert_anak && $insert_ibu && $insert_wali){
@@ -50,8 +53,14 @@
         $email_login = mysqli_real_escape_string($koneksi, $_POST["email"]);
         $password_login = mysqli_real_escape_string($koneksi, $_POST["password"]);
 
+        $passd_hash = password_hash($password_login, PASSWORD_DEFAULT);
+
         $sql_login = mysqli_query($koneksi, "SELECT * FROM `tb_user`");
         while($row_login = mysqli_fetch_array($sql_login)) {
+            // echo $row_login["email_user"];
+            // echo "<br>";
+            // echo $email_login;
+            //  die();
             if($row_login["level"] == 0 &&  $email_login == $row_login["email_user"]) {
                 if(password_verify($password_login, $row_login["password_user"])) {
                     $_SESSION["email"] = $row_login["email_user"];
@@ -91,10 +100,10 @@
                     die();
                 }
             }
-            if($email_login != $row_login["email_user"] && $password_login != password_verify($password_login, $row_login["password_user"]) ){
-                $_SESSION["null_user"] = "umar";
+            if($email_login != $row_login["email_user"] && $password_hash != $row_login["password_user"] ){
+                $_SESSION["null_user"] = "";
                 header("Location: login.php");
-                die();
+                // die();
             }
         }
 

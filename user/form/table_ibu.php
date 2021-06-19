@@ -33,8 +33,8 @@
             <div class="col-md-6">
                 <table class="table table-bordered"> 
                     <tr>
-                        <td><strong>Nama Ayah</strong></td>
-                        <td><?= $row["nama_wali"]?></td>
+                        <td><strong>Nama Ibu</strong></td>
+                        <td><?= $row["nama_ibu"]?></td>
                     </tr>
                     <tr>
                         <td><strong>Tempat Lahir</strong></td>

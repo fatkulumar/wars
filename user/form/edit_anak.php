@@ -21,7 +21,7 @@
             <form action="proses/proses.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id_anak" value="<?= $id ?>">
                 <div class="row">
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div class="form-group">
                             <label for="id_wali">Ayah</label>
                             <select class="form-control" name="id_wali" required>
@@ -36,9 +36,9 @@
                             ?>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div class="form-group">
                             <label for="id_ibu">Ibu</label>
                             <select class="form-control" name="id_ibu" required>
@@ -53,7 +53,7 @@
                             ?>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6">
                         <div class="form-group">

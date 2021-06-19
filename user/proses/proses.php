@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $id = $_SESSION["id"];
     include "../../koneksi.php";
     if(isset($_GET["cetak_kartu_wawancara"])){
         echo "cetak kartu";
@@ -118,8 +119,8 @@
         }
    }elseif(isset($_POST["edit_anak"])){
         echo $id_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_anak"]);
-        echo $id_wali_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
-        echo $id_ibu_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
+        // echo $id_wali_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
+        // echo $id_ibu_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
         echo $nama_anak_edit = mysqli_real_escape_string($koneksi, $_POST["nama_anak"]);
         echo $jenis_kelamin_anak_edit = mysqli_real_escape_string($koneksi, $_POST["jenis_kelamin_anak"]);
         echo $tempat_lahir_anak_edit = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_anak"]);
@@ -157,7 +158,7 @@
 
                 // $sql_anak_select = mysqli_query($koneksi, "SELECT ");
 
-                 $sql_update_anak = mysqli_query($koneksi, "UPDATE `tb_anak` SET `id_wali_anak`='$id_wali_anak_edit',`id_ibu_anak`='$id_ibu_anak_edit',`nama_anak`='$nama_anak_edit',`jenis_kelamin_anak`='$jenis_kelamin_anak_edit',`tempat_lahir_anak`='$tempat_lahir_anak_edit',`tgl_lahir_anak`='$tgl_lahir_anak_edit',`agama_anak`='$agama_anak_edit',`anak_ke`='$anak_ke_edit',`jml_saudara_anak`='$jml_saudara_anak_edit',`warga_negara_anak`='$warga_negara_anak_edit',`suku_bangsa_anak`='$suku_bangsa_anak_edit',`bahasa_anak`='$bahasa_anak_edit',`golongan_darah_anak`='$golongan_darah_anak_edit',`riwayat_penyakit_anak`='$riwayat_penyakit_anak_edit',`alamat_rumah_anak`='$alamat_rumah_anak_edit',`foto_anak`='$name_foto_edit_anak' WHERE `id_anak` = '$id_anak_edit'");
+                 $sql_update_anak = mysqli_query($koneksi, "UPDATE `tb_anak` SET `nama_anak`='$nama_anak_edit',`jenis_kelamin_anak`='$jenis_kelamin_anak_edit',`tempat_lahir_anak`='$tempat_lahir_anak_edit',`tgl_lahir_anak`='$tgl_lahir_anak_edit',`agama_anak`='$agama_anak_edit',`anak_ke`='$anak_ke_edit',`jml_saudara_anak`='$jml_saudara_anak_edit',`warga_negara_anak`='$warga_negara_anak_edit',`suku_bangsa_anak`='$suku_bangsa_anak_edit',`bahasa_anak`='$bahasa_anak_edit',`golongan_darah_anak`='$golongan_darah_anak_edit',`riwayat_penyakit_anak`='$riwayat_penyakit_anak_edit',`alamat_rumah_anak`='$alamat_rumah_anak_edit',`foto_anak`='$name_foto_edit_anak' WHERE `id_anak` = '$id_anak_edit'");
                 // die();
                 if($sql_update_anak){
                     $_SESSION["alert_edit"] = "";
@@ -175,8 +176,8 @@
  
     }elseif(isset($_POST["edit_anak"])){
         $id_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_anak"]);
-        $id_wali_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
-        $id_ibu_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
+        // $id_wali_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_wali"]);
+        // $id_ibu_anak_edit = mysqli_real_escape_string($koneksi, $_POST["id_ibu"]);
         $nama_anak_edit = mysqli_real_escape_string($koneksi, $_POST["nama_anak"]);
         $jenis_kelamin_anak_edit = mysqli_real_escape_string($koneksi, $_POST["jenis_kelamin_anak"]);
         $tempat_lahir_anak_edit = mysqli_real_escape_string($koneksi, $_POST["tempat_lahir_anak"]);
@@ -197,11 +198,16 @@
         $type_edit_anak = $_FILES['foto_anak']['type'];
         $folder_edit_anak = "../../gambar/";
 
+        //sql wali
+        $sql_wali = mysqli_query($koneksi, "SELECT id_wali FROM tb_wali WHERE id_user_wali = '$id'");
+        $row_wali = mysqli_fetch_array($sql_wali);
+        $id_wali_anak_edit = $row_wali["id_wali"];
+
         $sql_anak = mysqli_query($koneksi, "SELECT foto_anak FROM tb_anak WHERE id_anak = '$id_anak_edit'");
         $row_anak = mysqli_fetch_array($sql_anak);
         if($temp_edit_anak == null){
             $name_foto_anak_edit = $row_anak["foto_anak"];
-            $sql_update_anak = mysqli_query($koneksi, "UPDATE `tb_anak` SET `id_wali_anak`='$id_wali_anak_edit',`id_ibu_anak`='$id_ibu_anak_edit',`nama_anak`='$nama_anak_edit',`jenis_kelamin_anak`='$jenis_kelamin_anak_edit',`tempat_lahir_anak`='$tempat_lahir_anak_edit',`tgl_lahir_anak`='$tgl_lahir_anak_edit',`agama_anak`='$agama_anak_edit',`anak_ke`='$anak_ke_edit',`jml_saudara_anak`='$jml_saudara_anak_edit',`warga_negara_anak`='$warga_negara_anak_edit',`suku_bangsa_anak`='$suku_bangsa_anak_edit',`bahasa_anak`='$bahasa_anak_edit',`golongan_darah_anak`='$golongan_darah_anak_edit',`riwayat_penyakit_anak`='$riwayat_penyakit_anak_edit',`alamat_rumah_anak`='$alamat_rumah_anak_edit',`foto_anak`='$name_foto_anak_edit' WHERE `id_anak` = '$id_anak_edit'");
+            $sql_update_anak = mysqli_query($koneksi, "UPDATE `tb_anak` SET `nama_anak`='$nama_anak_edit',`jenis_kelamin_anak`='$jenis_kelamin_anak_edit',`tempat_lahir_anak`='$tempat_lahir_anak_edit',`tgl_lahir_anak`='$tgl_lahir_anak_edit',`agama_anak`='$agama_anak_edit',`anak_ke`='$anak_ke_edit',`jml_saudara_anak`='$jml_saudara_anak_edit',`warga_negara_anak`='$warga_negara_anak_edit',`suku_bangsa_anak`='$suku_bangsa_anak_edit',`bahasa_anak`='$bahasa_anak_edit',`golongan_darah_anak`='$golongan_darah_anak_edit',`riwayat_penyakit_anak`='$riwayat_penyakit_anak_edit',`alamat_rumah_anak`='$alamat_rumah_anak_edit',`foto_anak`='$name_foto_anak_edit' WHERE `id_anak` = '$id_anak_edit'");
 
             if($sql_update_anak){
                 $_SESSION["alert_edit"] = "";

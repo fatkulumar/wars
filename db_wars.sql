@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 15, 2021 at 01:58 AM
+-- Generation Time: Jun 19, 2021 at 11:00 AM
 -- Server version: 10.3.29-MariaDB-0ubuntu0.20.04.1
 -- PHP Version: 7.4.18
 
@@ -55,7 +55,10 @@ CREATE TABLE `tb_anak` (
 INSERT INTO `tb_anak` (`id_anak`, `id_wali_anak`, `id_ibu_anak`, `nama_anak`, `jenis_kelamin_anak`, `tempat_lahir_anak`, `tgl_lahir_anak`, `agama_anak`, `anak_ke`, `jml_saudara_anak`, `warga_negara_anak`, `suku_bangsa_anak`, `bahasa_anak`, `golongan_darah_anak`, `riwayat_penyakit_anak`, `alamat_rumah_anak`, `foto_anak`) VALUES
 (19, 18, 3, 'Amir', 'L', 'Ngawi', '2021-05-04', 'Islam', 2, 2, 'Indonesia negra', 'Indonesia bangsa', 'Indonesia bahasa', 'ab', 'sds', 'sd', '9993Screenshot from 2021-02-13 15-41-04.png'),
 (20, 19, 3, 'Amir', 'L', 'Ngawi', '2021-05-04', 'Islam', 2, 2, 'Indonesia negra', 'Indonesia bangsa', 'Indonesia bahasa', 'ab', 'a', 'a', '313Screenshot from 2021-02-13 15-41-04.png'),
-(21, 25, 3, 'Amir', 'L', 'Ngawi', '2021-06-01', 'Islam', 2, 2, 'Indonesia negra', 'Indonesia bangsa', 'Indonesia bahasa', 'ab', 'dsd', 'sasa', '983Screenshot from 2021-02-17 15-43-55.png');
+(21, 25, 3, 'Amir', 'L', 'Ngawi', '2021-06-01', 'Islam', 2, 2, 'Indonesia negra', 'Indonesia bangsa', 'Indonesia bahasa', 'ab', 'dsd', 'sasa', '983Screenshot from 2021-02-17 15-43-55.png'),
+(22, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 29, NULL, 'Amir', 'L', 'Ngawi', '2021-05-31', 'Islam', 2, 2, 'Indonesia negra', 'Indonesia bangsa', 'Indonesia bahasa', 'ab', 'sa', 'sasa', '2846Screenshot from 2021-02-12 21-33-44.png');
 
 -- --------------------------------------------------------
 
@@ -143,7 +146,10 @@ CREATE TABLE `tb_ibu` (
 INSERT INTO `tb_ibu` (`id_ibu`, `id_wali_ibu`, `id_anak_ibu`, `nama_ibu`, `tempat_lahir_ibu`, `tgl_lahir_ibu`, `pendidikan_ibu`, `agama_ibu`, `negara_ibu`, `bangsa_ibu`, `pekerjaan_ibu`, `penghasilan_ibu`, `alamat_kantor_ibu`, `hp_kantor_ibu`, `golongan_darah_ibu`, `alamat_rumah_ibu`) VALUES
 (3, 18, 1, 'Tas', 'ngawi', '2021-05-04', 's1', 'islam', 'ngawi', 'indonesia', 'tani', 's1', 'adsd', '098098098098', 'ab', 'adsd'),
 (4, 19, NULL, 'yuana', 'ngawi', '2021-05-18', 's1', 'islam', 'ngawi', 'indonesia', 'tani', 's1', 'ads', 'sdsd', 'ab', 'ads'),
-(7, 25, 1, 'sri', 'ngawi', '2021-05-31', 's1', 'islam', 'ngawi', 'indonesia', 'tani', '2000', 'al', '098098098098', 'ab', 'rumah');
+(7, 25, 1, 'sri', 'ngawi', '2021-05-31', 's1', 'islam', 'ngawi', 'indonesia', 'tani', '2000', 'al', '098098098098', 'ab', 'rumah'),
+(8, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 29, 1, 'sri', 'ngawi', '2021-05-31', 's1', 'islam', 'ngawi', 'indonesia', 'tani', '2000', 'as', '098098098098', 'ab', 'as');
 
 -- --------------------------------------------------------
 
@@ -305,7 +311,7 @@ INSERT INTO `tb_user` (`id_user`, `nik`, `nama_user`, `email_user`, `password_us
 (24, 1, 'Fatkul U', 'mar@gmail.com', 'sdadsd', NULL, '06-04-2021 21:41:40', '0', 1),
 (25, 0, 'Fatkul Umar', 'fatkulumar@gmail.com', 'sdadsd', NULL, '06-04-2021 21:56:42', '0', 1),
 (26, 5, 'Fatkul Umar', 'fatkulumar@gmail.com', 'sdadsd', NULL, '06-04-2021 21:58:53', '0', 1),
-(69, 123123123123, 'warsidi', 'warsidi@gmail.com', '$2y$10$aftwCFYbgf9lTQNfcefJ9u3XGlQPzWbLbVRoE4kojqeBKdFmMrKnK', '4091Screenshot from 2021-02-17 15-44-19.png', '15-06-2021 00:02:54', NULL, 1);
+(73, 123123123123, 'warsidi', 'warsidi@gmail.com', '$2y$10$yZS4TccZZIaPvOuD6AXrxO51pGSD0onJRNVTaw.9WQS7qqp7IKcMm', NULL, '19-06-2021 10:28:53', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -337,7 +343,10 @@ CREATE TABLE `tb_wali` (
 
 INSERT INTO `tb_wali` (`id_wali`, `id_user_wali`, `nama_wali`, `tempat_lahir_wali`, `tgl_lahir_wali`, `pendidikan_wali`, `agama_wali`, `negara_wali`, `bangsa_wali`, `pekerjaan_wali`, `penghasilan_wali`, `alamat_kantor_wali`, `hp_kantor_wali`, `golongan_darah_wali`, `alamat_rumah_wali`) VALUES
 (18, 15, 'Mari', 'ngawi', 'ngawi', 's1', 'islam', 'indonesia', 'Dayak', 'tani', 's1', 'sd', '0989898989', 'a', 'sd'),
-(25, 69, 'Mariyun', 'ngawi', 'ngawi', '1998', 'islam', 'indonesia', 'indonesia', 'tani', '1998', 'aalamt kantor', '989898988', 's', 'alamat rumah');
+(25, 69, 'Mariyun', 'ngawi', 'ngawi', '1998', 'islam', 'indonesia', 'indonesia', 'tani', '1998', 'aalamt kantor', '989898988', 's', 'alamat rumah'),
+(26, 70, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 71, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 73, 'ayah Mariyun', 'ngawi', 'ngawi', '2000', 'islam', 'indonesia', 'indonesia', 'tani', '2000', 'a', '0989898989', 's', 'dsd');
 
 -- --------------------------------------------------------
 
@@ -348,8 +357,8 @@ INSERT INTO `tb_wali` (`id_wali`, `id_user_wali`, `nama_wali`, `tempat_lahir_wal
 CREATE TABLE `tb_wawancara` (
   `id_wawancara` int(11) NOT NULL,
   `id_user_wawancara` int(11) DEFAULT NULL,
-  `id_jadwal_wawancara_wawancara` int(11) NOT NULL,
-  `jenis_wawancara` varchar(7) NOT NULL
+  `id_jadwal_wawancara_wawancara` int(11) DEFAULT NULL,
+  `jenis_wawancara` varchar(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -357,7 +366,9 @@ CREATE TABLE `tb_wawancara` (
 --
 
 INSERT INTO `tb_wawancara` (`id_wawancara`, `id_user_wawancara`, `id_jadwal_wawancara_wawancara`, `jenis_wawancara`) VALUES
-(4, 15, 6, 'online');
+(4, 15, 6, 'online'),
+(7, 69, NULL, NULL),
+(8, 73, 6, 'online');
 
 --
 -- Indexes for dumped tables
@@ -455,7 +466,7 @@ ALTER TABLE `tb_wawancara`
 -- AUTO_INCREMENT for table `tb_anak`
 --
 ALTER TABLE `tb_anak`
-  MODIFY `id_anak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_anak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tb_daftar_biaya_tk_kb`
@@ -473,7 +484,7 @@ ALTER TABLE `tb_daftar_biaya_tpa`
 -- AUTO_INCREMENT for table `tb_ibu`
 --
 ALTER TABLE `tb_ibu`
-  MODIFY `id_ibu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_ibu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_jadwal`
@@ -515,19 +526,19 @@ ALTER TABLE `tb_unggah_berkas`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `tb_wali`
 --
 ALTER TABLE `tb_wali`
-  MODIFY `id_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tb_wawancara`
 --
 ALTER TABLE `tb_wawancara`
-  MODIFY `id_wawancara` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_wawancara` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

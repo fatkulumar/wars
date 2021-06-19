@@ -21,22 +21,9 @@
 
             <form action="proses/proses.php" method="POST">
                 <input type="hidden" name="id_ibu" value="<?= $id ?>">
+                <input class="form-control" type="hidden" name="id_wali_ibu" value="<?= $row["id_wali_ibu"]; ?>" readonly>
+               
                 <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="id_wali_ibu">Nama Ayah</label>
-                            <select class="form-control" name="id_wali_ibu">
-                                <option value="">Pilih Ayah</option>
-                                <?php
-                                    $sql_wali = mysqli_query($koneksi, "SELECT id_wali, nama_wali FROM tb_wali");
-                                    while($row_wali = mysqli_fetch_array($sql_wali)):
-                                ?>
-                                    <option value="<?= $row_wali["id_wali"] ?>" <?php if($row_wali["id_wali"] == $row["id_wali_ibu"]){echo "selected";}?>><?= $row_wali["nama_wali"] ?></option>
-                                <?php endwhile ?>
-                            </select>
-                        </div>
-                    </div>
                     
                     <div class="col-md-6">
                         <div class="form-group">
